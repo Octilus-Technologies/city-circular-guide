@@ -2,7 +2,7 @@ import InitialRouteQueryForm from "@/Components/forms/InitialRouteQueryForm";
 import { Head } from "@inertiajs/inertia-react";
 import React from "react";
 
-export default function Welcome() {
+export default function Welcome({ mapAccessToken }) {
     return (
         <>
             <Head title="Welcome" />
@@ -40,7 +40,9 @@ export default function Welcome() {
 
                     <div className="card w-full max-w-sm flex-shrink-0 bg-base-100 shadow-2xl">
                         <div className="card-body">
-                            <InitialRouteQueryForm />
+                            <InitialRouteQueryForm
+                                accessToken={mapAccessToken}
+                            />
                         </div>
                     </div>
                 </div>
