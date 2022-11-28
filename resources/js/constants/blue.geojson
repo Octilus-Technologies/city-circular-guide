@@ -1,0 +1,105 @@
+{
+    "type": "FeatureCollection",
+    "features": [
+        {
+            "type": "Feature",
+            "properties": {
+                "name": "East Fort Bus Station"
+            },
+            "geometry": {
+                "coordinates": [76.94755899999865, 8.482998877918433],
+                "type": "Point"
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "name": "Overbridge Traffic Island"
+            },
+            "geometry": {
+                "coordinates": [76.9475819999987, 8.48819065530084],
+                "type": "Point"
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "name": "Thampanoor"
+            },
+            "geometry": {
+                "coordinates": [76.95166124483347, 8.487728409113416],
+                "type": "Point"
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "name": "Ayurveda College JN"
+            },
+            "geometry": {
+                "coordinates": [76.9470410000003, 8.49104687794538],
+                "type": "Point"
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "name": "Uppidamoodu Bridge"
+            },
+            "geometry": {
+                "coordinates": [76.94133527116315, 8.490006489208938],
+                "type": "Point"
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "name": "Vanchiyoor Court"
+            },
+            "geometry": {
+                "coordinates": [76.93874800000071, 8.496360266886313],
+                "type": "Point"
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "name": "Pattoor"
+            },
+            "geometry": {
+                "coordinates": [76.93834700000036, 8.496882266905317],
+                "type": "Point"
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "name": "General Hospital Jn"
+            },
+            "geometry": {
+                "coordinates": [76.94305018650988, 8.4993137679283],
+                "type": "Point"
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "name": "Palayam"
+            },
+            "geometry": {
+                "coordinates": [76.95039864193745, 8.502944175905867],
+                "type": "Point"
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "name": "PMG Bus Stop"
+            },
+            "geometry": {
+                "coordinates": [76.95000369709658, 8.508179501534627],
+                "type": "Point"
+            }
+        }
+    ]
+}
