@@ -1,8 +1,27 @@
 import geoJson from "@/constants/blue.json";
 
 type PointFeatureCollection = typeof geoJson;
+type Geometry<TType extends string> = {
+    coordinates: number[];
+    type: TType;
+};
 
-export function generateLineFromPoints(pointCollection: PointFeatureCollection) {
+export function generateLayerFromGeometry(geometry: Geometry<"LineString">) {
+    return {
+        type: "FeatureCollection",
+        features: [
+            {
+                type: "Feature",
+                properties: {},
+                geometry,
+            },
+        ],
+    };
+}
+
+export function generateLineFromPoints(
+    pointCollection: PointFeatureCollection
+) {
     let lastPoint: typeof pointCollection["features"][number] | null = null;
 
     return {

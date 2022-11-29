@@ -1,5 +1,6 @@
 import geoJson from "@/constants/blue.json";
-import { generateLineFromPoints } from "@/utils/geoJson";
+import { generateLayerFromGeometry } from "@/utils/geoJson";
+import { getMatch } from "@/utils/mapbox-api";
 import "mapbox-gl/dist/mapbox-gl.css";
 import React, { useEffect, useState } from "react";
 import useGeolocation from "react-hook-geolocation";
@@ -61,8 +62,16 @@ function RouteMap({ mapAccessToken }) {
     });
 
     useEffect(() => {
-        const pathLayer = generateLineFromPoints(geoJson);
-        setPath(pathLayer);
+        const generatePathLayer = async () => {
+            const geometry = await getMatch(
+                mapAccessToken,
+                geoJson.features.map((f) => f.geometry.coordinates)
+            );
+            const pathLayer = generateLayerFromGeometry(geometry as any);
+            setPath(pathLayer);
+        };
+
+        generatePathLayer();
     }, [geoJson]);
 
     return (
