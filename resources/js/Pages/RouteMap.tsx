@@ -10,6 +10,7 @@ import Map, {
     Layer,
     LayerProps,
     Marker,
+    MarkerDragEvent,
     NavigationControl,
     Source,
 } from "react-map-gl";
@@ -37,10 +38,13 @@ const pathLayerStyles: LayerProps = {
 function RouteMap({ mapAccessToken }) {
     const geolocation = useGeolocation();
     const [from, setFrom] = useState({
-        lat: 8.482998877918433,
-        lng: 76.94755899999865,
+        lng: 76.9475819999987,
+        lat: 8.48819065530084,
     });
-    const [destination, setDestination] = useState({ lat: null, lng: null });
+    const [destination, setDestination] = useState({
+        lng: 76.95039864193745,
+        lat: 8.502944175905867,
+    });
     const [gotLocation, setGotLocation] = useState(false);
     const [path, setPath] = useState(null);
 
@@ -63,16 +67,20 @@ function RouteMap({ mapAccessToken }) {
 
     useEffect(() => {
         const generatePathLayer = async () => {
-            const geometry = await getMatch(
-                mapAccessToken,
-                geoJson.features.map((f) => f.geometry.coordinates)
+            const coordinates = geoJson.features.map(
+                (f) => f.geometry.coordinates
             );
+            coordinates.unshift([from.lng, from.lat]);
+            coordinates.push([destination.lng, destination.lat]);
+
+            const geometry = await getMatch(mapAccessToken, coordinates);
             const pathLayer = generateLayerFromGeometry(geometry as any);
+
             setPath(pathLayer);
         };
 
         generatePathLayer();
-    }, [geoJson]);
+    }, [geoJson, from, destination]);
 
     return (
         <div className="h-full min-h-screen w-full">
@@ -94,11 +102,22 @@ function RouteMap({ mapAccessToken }) {
                     }
                 />
                 <Marker
+                    key={"from"}
                     longitude={from.lng}
                     latitude={from.lat}
                     anchor="bottom"
                     draggable
-                    onDrag={({ lngLat }) => setFrom(lngLat)}
+                    onDragEnd={({ lngLat }: MarkerDragEvent) => setFrom(lngLat)}
+                />
+                <Marker
+                    key={"destination"}
+                    longitude={destination.lng}
+                    latitude={destination.lat}
+                    anchor="bottom"
+                    draggable
+                    onDragEnd={({ lngLat }: MarkerDragEvent) =>
+                        setDestination(lngLat)
+                    }
                 />
                 <Source
                     id="blue-circular-data"

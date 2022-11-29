@@ -7,11 +7,21 @@ export async function getMatch(
     profile: Profile = "driving"
 ) {
     const coordinatesStr = coordinates.map((c) => c.join(",")).join(";");
-    let url = `https://api.mapbox.com/matching/v5/mapbox/${profile}/${coordinatesStr}?geometries=geojson&steps=true&access_token=${accessToken}`;
+    const params: Record<string, string> = {
+        geometries: "geojson",
+        steps: "true",
+        tidy: "false",
+        waypoints: `0;${coordinates.length - 1}`,
+        access_token: accessToken,
+    };
+
     if (radius) {
-        const radiuses = radius.join(";");
-        url += `&radiuses=${radiuses}`;
+        params["radiuses"] = radius.join(";");
     }
+
+    let url = `https://api.mapbox.com/matching/v5/mapbox/${profile}/${coordinatesStr}?${new URLSearchParams(
+        params
+    ).toString()}`;
     const query = await fetch(url, { method: "GET" });
     const response = await query.json();
 
