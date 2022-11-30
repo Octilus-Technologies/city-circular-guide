@@ -1,5 +1,6 @@
 import geoJson from "@/constants/blue.json";
 import { generateLayerFromGeometry } from "@/utils/geoJson";
+import { findNearestStop, getOptimizedStops } from "@/utils/map-helpers";
 import { getMatch } from "@/utils/mapbox-api";
 import "mapbox-gl/dist/mapbox-gl.css";
 import React, { useEffect, useState } from "react";
@@ -67,13 +68,8 @@ function RouteMap({ mapAccessToken }) {
 
     useEffect(() => {
         const generatePathLayer = async () => {
-            const coordinates = geoJson.features.map(
-                (f) => f.geometry.coordinates
-            );
-            coordinates.unshift([from.lng, from.lat]);
-            coordinates.push([destination.lng, destination.lat]);
-
-            const geometry = await getMatch(mapAccessToken, coordinates);
+            const optimizedStops = getOptimizedStops(from, destination);
+            const geometry = await getMatch(mapAccessToken, optimizedStops);
             const pathLayer = generateLayerFromGeometry(geometry as any);
 
             setPath(pathLayer);
