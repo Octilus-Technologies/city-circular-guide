@@ -1,5 +1,6 @@
+import JourneyControls from "@/Components/JourneyControls";
 import geoJson from "@/constants/blue.json";
-import { generateLayerFromGeometry } from "@/utils/geoJson";
+import { generateLayerFromGeometry, getStopDetails } from "@/utils/geoJson";
 import { findNearestStop, getOptimizedStops } from "@/utils/map-helpers";
 import { getMatch } from "@/utils/mapbox-api";
 import "mapbox-gl/dist/mapbox-gl.css";
@@ -48,6 +49,8 @@ function RouteMap({ mapAccessToken }) {
     });
     const [gotLocation, setGotLocation] = useState(false);
     const [path, setPath] = useState(null);
+    const [stops, setStops] = useState(null);
+    const [journey, setJourney] = useState(null);
 
     useEffect(() => {
         if (gotLocation || !geolocation.accuracy) return;
@@ -69,9 +72,13 @@ function RouteMap({ mapAccessToken }) {
     useEffect(() => {
         const generatePathLayer = async () => {
             const optimizedStops = getOptimizedStops(from, destination);
-            const geometry = await getMatch(mapAccessToken, optimizedStops);
-            const pathLayer = generateLayerFromGeometry(geometry as any);
+            const accurateMap = await getMatch(mapAccessToken, optimizedStops);
+            const pathLayer = generateLayerFromGeometry(
+                accurateMap?.geometry as any
+            );
 
+            setStops(getStopDetails(optimizedStops));
+            setJourney(accurateMap?.journey);
             setPath(pathLayer);
         };
 
@@ -129,6 +136,16 @@ function RouteMap({ mapAccessToken }) {
                     </Source>
                 )}
             </Map>
+
+            <div className="actions fixed bottom-0 left-0 right-0 z-50 m-5 text-center">
+                <div className="alert inline-block w-auto bg-base-100 bg-opacity-80 shadow-lg backdrop-blur-sm">
+                    <JourneyControls
+                        stops={stops}
+                        journey={journey}
+                        onStop={() => console.log("stopped")}
+                    />
+                </div>
+            </div>
         </div>
     );
 }

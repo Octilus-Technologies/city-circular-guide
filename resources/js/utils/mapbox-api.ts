@@ -35,6 +35,6 @@ export async function getMatch(
     console.log(response.matchings);
 
     // Get the coordinates from the response
-    const coords = response.matchings[0].geometry;
-    return coords;
+    const coords = response.matchings?.[0].geometry;
+    return { geometry: coords, journey: response.matchings?.[0].legs?.[0] };
 }

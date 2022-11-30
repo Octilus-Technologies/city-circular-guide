@@ -51,3 +51,17 @@ export function generateLineFromPoints(
             .filter((stop) => !!stop),
     };
 }
+
+export const getStopDetails = (coordinates: number[][], filter = false) => {
+    return coordinates
+        .map((c) => {
+            const stop = geoJson.features.find(
+                (f) => f.geometry.coordinates === c
+            );
+            return {
+                coordinates: stop?.geometry.coordinates,
+                name: stop?.properties.name,
+            };
+        })
+        .filter((f) => (filter ? !!f : true));
+};
