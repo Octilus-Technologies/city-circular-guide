@@ -1,7 +1,7 @@
 import JourneyControls from "@/Components/JourneyControls";
 import geoJson from "@/constants/blue.json";
 import { generateLayerFromGeometry, getStopDetails } from "@/utils/geoJson";
-import { findNearestStop, getOptimizedStops } from "@/utils/map-helpers";
+import { getOptimizedStops } from "@/utils/map-helpers";
 import { getMatch } from "@/utils/mapbox-api";
 import "mapbox-gl/dist/mapbox-gl.css";
 import React, { useEffect, useState } from "react";
@@ -55,11 +55,6 @@ function RouteMap({ mapAccessToken }) {
     useEffect(() => {
         if (gotLocation || !geolocation.accuracy) return;
 
-        // setViewState((oldState) => ({
-        //     ...oldState,
-        //     longitude: geolocation.longitude,
-        //     latitude: geolocation.latitude,
-        // }));
         setGotLocation(true);
     }, [geolocation]);
 
@@ -87,10 +82,6 @@ function RouteMap({ mapAccessToken }) {
 
     return (
         <div className="h-full min-h-screen w-full">
-            {/* <pre>
-                {JSON.stringify(geolocation, null, 2)}
-                {JSON.stringify(viewState, null, 2)}
-            </pre> */}
             <Map
                 {...viewState}
                 onMove={(evt) => setViewState(evt.viewState)}
@@ -138,12 +129,8 @@ function RouteMap({ mapAccessToken }) {
             </Map>
 
             <div className="actions fixed bottom-0 left-0 right-0 z-50 m-5 text-center">
-                <div className="alert inline-block w-auto bg-base-100 bg-opacity-80 shadow-lg backdrop-blur-sm">
-                    <JourneyControls
-                        stops={stops}
-                        journey={journey}
-                        onStop={() => console.log("stopped")}
-                    />
+                <div className="alert inline-block w-auto bg-opacity-80 text-primary-content shadow-lg backdrop-blur-sm">
+                    <JourneyControls stops={stops} journey={journey} />
                 </div>
             </div>
         </div>
