@@ -1,5 +1,6 @@
 import { Inertia } from "@inertiajs/inertia";
 import React from "react";
+import { FaCaretRight } from "react-icons/fa";
 
 type JourneyControlProps = {
     stops: { coordinates: number[]; name: string }[];
@@ -11,8 +12,12 @@ function JourneyControls({ stops, journey }: JourneyControlProps) {
         <div>
             <ul className="flex flex-wrap items-center gap-3">
                 {!!stops && (
-                    <li>
-                        {stops[0].name} ➡️ {stops[stops.length - 1].name}
+                    <li className="flex items-center gap-1">
+                        {stops[0].name}
+                        <span className="text-2xl">
+                            <FaCaretRight />
+                        </span>
+                        {stops[stops.length - 1].name}
                     </li>
                 )}
                 {!!journey && (

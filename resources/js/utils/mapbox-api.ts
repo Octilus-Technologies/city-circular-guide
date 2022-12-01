@@ -38,3 +38,23 @@ export async function getMatch(
     const coords = response.matchings?.[0].geometry;
     return { geometry: coords, journey: response.matchings?.[0].legs?.[0] };
 }
+
+export const geocode = async (accessToken, searchText) => {
+    const response = await fetch(
+        `https://api.mapbox.com/geocoding/v5/${"mapbox.places"}/${searchText}.json?access_token=${accessToken}`
+    );
+    const data = (await response.json()) as { features: any[] };
+
+    return data;
+};
+
+export const reverseGeocode = async (accessToken, geocode) => {
+    const response = await fetch(
+        `https://api.mapbox.com/geocoding/v5/${"mapbox.places"}/${
+            geocode.longitude
+        },${geocode.latitude}.json?access_token=${accessToken}`
+    );
+    const data = (await response.json()) as { features: any[] };
+
+    return data;
+};
