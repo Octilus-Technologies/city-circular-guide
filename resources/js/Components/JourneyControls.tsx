@@ -11,7 +11,7 @@ function JourneyControls({ stops, journey }: JourneyControlProps) {
     return (
         <div>
             <ul className="flex flex-wrap items-center gap-3">
-                {!!stops && (
+                {!!stops && !!stops.length && (
                     <li className="flex items-center gap-1">
                         {stops[0].name}
                         <span className="text-2xl">

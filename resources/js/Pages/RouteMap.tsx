@@ -67,6 +67,9 @@ function RouteMap({ mapAccessToken }) {
     useEffect(() => {
         const generatePathLayer = async () => {
             const optimizedStops = getOptimizedStops(from, destination);
+            if (!optimizedStops || !optimizedStops.length)
+                return console.log("Unable to find a route");
+
             const accurateMap = await getMatch(mapAccessToken, optimizedStops);
             const pathLayer = generateLayerFromGeometry(
                 accurateMap?.geometry as any

@@ -34,22 +34,51 @@ export const findNearestStop = (
     return nearestStop;
 };
 
+const rotateCoordinates = <T>(arr: Array<T>, times: number) => {
+    for (let index = 0; index < times; index++) {
+        arr.push(arr.shift() as any);
+    }
+
+    return arr;
+};
+
+const findShortestPath = (
+    from: Coordinates,
+    destination: Coordinates,
+    coordinates: number[][]
+) => {
+    const firstStop = findNearestStop(from, coordinates);
+    if (!firstStop) return [];
+
+    const adjustedCoordinates = rotateCoordinates(
+        coordinates,
+        firstStop?.index
+    );
+    const lastStop = findNearestStop(destination, adjustedCoordinates);
+    if (!lastStop) return [];
+
+    return adjustedCoordinates.slice(0, lastStop.index + 1);
+};
+
 export const getOptimizedStops = (
     from: Coordinates,
     destination: Coordinates
 ): number[][] => {
     const coordinates = blueRoute.features.map((f) => f.geometry.coordinates);
+    const clockwisePath = findShortestPath(from, destination, coordinates);
+    const counterClockwisePath = findShortestPath(
+        destination,
+        from,
+        coordinates
+    );
 
-    const firstStop = findNearestStop(from, coordinates);
-    const lastStop = findNearestStop(destination, coordinates);
-    if (!firstStop || !lastStop) return [];
+    const isClockwiseShorter =
+        clockwisePath.length < counterClockwisePath.length;
+    const optimizedStops = isClockwiseShorter
+        ? clockwisePath
+        : counterClockwisePath;
 
-    let optimizedStops = coordinates.slice(firstStop.index, lastStop.index + 1);
-
-    const isClockwise = firstStop.index < lastStop.index; // ! probably incomplete logic
-    if (!isClockwise) {
-        optimizedStops = optimizedStops.reverse();
-    }
+    console.table(optimizedStops);
 
     return optimizedStops;
 };

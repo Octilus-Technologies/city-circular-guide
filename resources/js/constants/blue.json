@@ -154,7 +154,7 @@
         {
             "type": "Feature",
             "properties": {
-                "name": "Thampanoor"
+                "name": "Thampanoor (down)"
             },
             "geometry": {
                 "coordinates": [76.95166124483347, 8.487728409113416],
@@ -164,7 +164,7 @@
         {
             "type": "Feature",
             "properties": {
-                "name": "Overbridge Traffic Island"
+                "name": "Overbridge Traffic Island (down)"
             },
             "geometry": {
                 "coordinates": [76.9475819999987, 8.48819065530084],
@@ -174,7 +174,7 @@
         {
             "type": "Feature",
             "properties": {
-                "name": "East Fort Bus Station"
+                "name": "East Fort Bus Station (down)"
             },
             "geometry": {
                 "coordinates": [76.94755899999865, 8.482998877918433],
