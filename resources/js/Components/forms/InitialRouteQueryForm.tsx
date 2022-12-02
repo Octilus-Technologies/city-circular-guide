@@ -1,4 +1,5 @@
 import { geocode, reverseGeocode } from "@/utils/mapbox-api";
+import { Inertia } from "@inertiajs/inertia";
 import React, { useEffect, useState } from "react";
 import useGeolocation from "react-hook-geolocation";
 
@@ -14,7 +15,7 @@ function InitialRouteQueryForm({ accessToken }) {
 
     useEffect(() => {
         const fetchArea = async () => {
-            // console.log(geolocation);
+            console.log(geolocation);
             if (geolocation?.accuracy < 1000) return;
 
             const data = await reverseGeocode(accessToken, geolocation);
@@ -35,13 +36,13 @@ function InitialRouteQueryForm({ accessToken }) {
     }, [geolocation.accuracy]);
 
     useEffect(() => {
-        const updateFromAreaList = async () => {
-            if (
-                !from.search ||
-                (from.search as string).includes("Current location")
-            )
-                return;
+        if (
+            !from.search ||
+            (from.search as string).includes("Current location")
+        )
+            return;
 
+        const updateFromAreaList = async () => {
             const fromAreaList = (
                 await geocode(accessToken, from.search)
             ).features.map((f) => ({
@@ -50,6 +51,10 @@ function InitialRouteQueryForm({ accessToken }) {
                 id: f.id,
             }));
             console.log(fromAreaList);
+
+            if (fromAreaList?.[0]?.name === from.search) {
+                setFrom((from) => ({ ...from, coordinates: from.coordinates }));
+            }
             setAreaList((list) => ({ ...list, from: fromAreaList }));
         };
 
@@ -61,14 +66,10 @@ function InitialRouteQueryForm({ accessToken }) {
     }, [from.search]);
 
     useEffect(() => {
-        const updateDestinationAreaList = async () => {
-            if (
-                !destination.search ||
-                (destination.search as string).includes("Current location")
-            )
-                return;
+        if (!destination.search) return;
 
-            const destinationAreaList = (
+        const updateDestinationAreaList = async () => {
+            let destinationAreaList = (
                 await geocode(accessToken, destination.search)
             ).features.map((f) => ({
                 name: f.place_name,
@@ -76,6 +77,16 @@ function InitialRouteQueryForm({ accessToken }) {
                 id: f.id,
             }));
             console.log(destinationAreaList);
+
+            if (destinationAreaList?.[0]?.name === destination.search) {
+                setDestination({
+                    search: destinationAreaList?.[0]?.name,
+                    coordinates: destinationAreaList?.[0]?.coordinates,
+                });
+
+                destinationAreaList = [];
+            }
+
             setAreaList((list) => ({
                 ...list,
                 destination: destinationAreaList,
@@ -89,9 +100,18 @@ function InitialRouteQueryForm({ accessToken }) {
         return () => clearTimeout(handler);
     }, [destination.search]);
 
+    const handleSubmit = (e) => {
+        e.preventDefault();
+
+        Inertia.post("/journey", {
+            from: from,
+            destination: destination,
+        });
+    };
+
     return (
-        <form action="#">
-            {/* <pre>{JSON.stringify(geolocation, null, 2)}</pre> */}
+        <form onSubmit={handleSubmit}>
+            {/* <pre>{JSON.stringify(destination, null, 2)}</pre> */}
             <div className="form-control">
                 <label className="label">
                     <span className="label-text">From</span>
@@ -106,17 +126,15 @@ function InitialRouteQueryForm({ accessToken }) {
                     value={from?.search ?? ""}
                     list="fromAreaList"
                 />
-                {areaList.from?.[0]?.name !== from.search && (
-                    <datalist id="fromAreaList">
-                        {areaList.from.map((area) => (
-                            <option
-                                coords={area.coordinates}
-                                key={area.id}
-                                value={area.name}
-                            />
-                        ))}
-                    </datalist>
-                )}
+                <datalist id="fromAreaList">
+                    {areaList.from.map((area) => (
+                        <option
+                            coords={area.coordinates}
+                            key={area.id}
+                            value={area.name}
+                        />
+                    ))}
+                </datalist>
             </div>
             <div className="form-control">
                 <label className="label">
@@ -135,20 +153,20 @@ function InitialRouteQueryForm({ accessToken }) {
                     value={destination?.search ?? ""}
                     list="destinationAreaList"
                 />
-                {areaList.destination?.[0]?.name !== destination.search && (
-                    <datalist id="destinationAreaList">
-                        {areaList.destination.map((area) => (
-                            <option
-                                coords={area.coordinates}
-                                key={area.id}
-                                value={area.name}
-                            />
-                        ))}
-                    </datalist>
-                )}
+                <datalist id="destinationAreaList">
+                    {areaList.destination.map((area) => (
+                        <option
+                            coords={area.coordinates}
+                            key={area.id}
+                            value={area.name}
+                        />
+                    ))}
+                </datalist>
             </div>
             <div className="form-control mt-6">
-                <button className="btn-primary btn">Find best route</button>
+                <button type="submit" className="btn-primary btn">
+                    Find best route
+                </button>
             </div>
         </form>
     );

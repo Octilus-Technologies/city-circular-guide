@@ -16,8 +16,9 @@ use App\Http\Controllers\ProfileController;
 |
 */
 
-Route::get('/', [JourneyController::class, 'welcome']);
-Route::get('/journey', [JourneyController::class, 'journey']);
+Route::get('/', [JourneyController::class, 'welcome'])->name('welcome');
+Route::get('/journey', [JourneyController::class, 'journey'])->name('journey');
+Route::post('/journey', [JourneyController::class, 'startJourney'])->name('journey.start');
 
 Route::get('/dashboard', function () {
     return Inertia::render('Dashboard');

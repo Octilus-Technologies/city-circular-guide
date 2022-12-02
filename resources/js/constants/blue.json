@@ -100,6 +100,86 @@
                 "coordinates": [76.95000369709658, 8.508179501534627],
                 "type": "Point"
             }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "name": "Zoo"
+            },
+            "geometry": {
+                "coordinates": [76.96077949781443, 8.510390436776774],
+                "type": "Point"
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "name": "Hospital"
+            },
+            "geometry": {
+                "coordinates": [76.9596406050506, 8.502172327338457],
+                "type": "Point"
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "name": "Jagathy"
+            },
+            "geometry": {
+                "coordinates": [76.96341190517984, 8.49488890909619],
+                "type": "Point"
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "name": "Thycaud"
+            },
+            "geometry": {
+                "coordinates": [76.95851899814676, 8.491259471553391],
+                "type": "Point"
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "name": "Valiasala"
+            },
+            "geometry": {
+                "coordinates": [76.95535548681255, 8.486378459978184],
+                "type": "Point"
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "name": "Thampanoor"
+            },
+            "geometry": {
+                "coordinates": [76.95166124483347, 8.487728409113416],
+                "type": "Point"
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "name": "Overbridge Traffic Island"
+            },
+            "geometry": {
+                "coordinates": [76.9475819999987, 8.48819065530084],
+                "type": "Point"
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "name": "East Fort Bus Station"
+            },
+            "geometry": {
+                "coordinates": [76.94755899999865, 8.482998877918433],
+                "type": "Point"
+            }
         }
     ]
 }

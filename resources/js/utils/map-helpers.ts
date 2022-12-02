@@ -44,10 +44,12 @@ export const getOptimizedStops = (
     const lastStop = findNearestStop(destination, coordinates);
     if (!firstStop || !lastStop) return [];
 
+    let optimizedStops = coordinates.slice(firstStop.index, lastStop.index + 1);
+
     const isClockwise = firstStop.index < lastStop.index; // ! probably incomplete logic
-    const optimizedStops = isClockwise
-        ? coordinates.slice(firstStop.index, lastStop.index + 1)
-        : coordinates.slice(lastStop.index, firstStop.index + 1).reverse();
+    if (!isClockwise) {
+        optimizedStops = optimizedStops.reverse();
+    }
 
     return optimizedStops;
 };

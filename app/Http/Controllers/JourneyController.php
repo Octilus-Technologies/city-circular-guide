@@ -17,6 +17,17 @@ class JourneyController extends Controller
         ]);
     }
 
+    public function startJourney(Request $request)
+    {
+        $from = $request->get('from');
+        $destination = $request->get('destination');
+
+        return response()->redirectTo(route('journey', [
+            'from' => join(',', $from['coordinates']),
+            'destination' => join(',', $destination['coordinates']),
+        ]));
+    }
+
     public function journey(Request $request)
     {
         return Inertia::render('RouteMap', [
