@@ -1,9 +1,15 @@
-import geoJson from "@/constants/blue.json";
+import blueCircular from "@/constants/blue.json";
+import redCircular from "@/constants/red.json";
 
-type PointFeatureCollection = typeof geoJson;
+type PointFeatureCollection = typeof blueCircular;
 type Geometry<TType extends string> = {
     coordinates: number[];
     type: TType;
+};
+
+export const circulars = {
+    blue: blueCircular,
+    red: redCircular,
 };
 
 export function generateLayerFromGeometry(geometry: Geometry<"LineString">) {
@@ -55,7 +61,7 @@ export function generateLineFromPoints(
 export const getStopDetails = (coordinates: number[][], filter = false) => {
     return coordinates
         .map((c) => {
-            const stop = geoJson.features.find(
+            const stop = blueCircular.features.find(
                 (f) => f.geometry.coordinates === c
             );
             return {

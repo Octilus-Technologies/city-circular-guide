@@ -1,6 +1,10 @@
 import JourneyControls from "@/Components/JourneyControls";
-import geoJson from "@/constants/blue.json";
-import { generateLayerFromGeometry, getStopDetails } from "@/utils/geoJson";
+import BusStopsLayer from "@/Components/map/BusStopsLayer";
+import {
+    circulars,
+    generateLayerFromGeometry,
+    getStopDetails,
+} from "@/utils/geoJson";
 import { getOptimizedStops } from "@/utils/map-helpers";
 import { getMatch } from "@/utils/mapbox-api";
 import "mapbox-gl/dist/mapbox-gl.css";
@@ -17,15 +21,6 @@ import Map, {
     Source,
 } from "react-map-gl";
 
-const circularStopLayerStyles: LayerProps = {
-    id: "point",
-    type: "circle",
-    paint: {
-        "circle-radius": 8,
-        "circle-color": "#3519e6",
-    },
-};
-
 const pathLayerStyles: LayerProps = {
     id: "line",
     type: "line",
@@ -35,18 +30,12 @@ const pathLayerStyles: LayerProps = {
     },
 };
 
-// console.log(geoJson);
-
 function RouteMap({ mapAccessToken }) {
     const geolocation = useGeolocation();
-    const [from, setFrom] = useState({
-        lng: 76.9475819999987,
-        lat: 8.48819065530084,
-    });
-    const [destination, setDestination] = useState({
-        lng: 76.95039864193745,
-        lat: 8.502944175905867,
-    });
+    const [from, setFrom] = useState([76.9475819999987, 8.48819065530084]);
+    const [destination, setDestination] = useState([
+        76.95039864193745, 8.502944175905867,
+    ]);
     const [gotLocation, setGotLocation] = useState(false);
     const [path, setPath] = useState(null);
     const [stops, setStops] = useState(null);
@@ -59,29 +48,29 @@ function RouteMap({ mapAccessToken }) {
     }, [geolocation]);
 
     const [viewState, setViewState] = React.useState({
-        longitude: from.lng,
-        latitude: from.lat,
+        longitude: from[0],
+        latitude: from[1],
         zoom: 14,
     });
 
     useEffect(() => {
         const generatePathLayer = async () => {
-            const optimizedStops = getOptimizedStops(from, destination);
-            if (!optimizedStops || !optimizedStops.length)
+            const segments = getOptimizedStops(from, destination);
+            if (!segments || !segments.length)
                 return console.log("Unable to find a route");
 
-            const accurateMap = await getMatch(mapAccessToken, optimizedStops);
+            const accurateMap = await getMatch(mapAccessToken, segments[0]);
             const pathLayer = generateLayerFromGeometry(
                 accurateMap?.geometry as any
             );
 
-            setStops(getStopDetails(optimizedStops));
+            setStops(getStopDetails(segments[0]));
             setJourney(accurateMap?.journey);
             setPath(pathLayer);
         };
 
         generatePathLayer();
-    }, [geoJson, from, destination]);
+    }, [circulars.blue, from, destination]);
 
     return (
         <div className="h-full min-h-screen w-full">
@@ -100,29 +89,49 @@ function RouteMap({ mapAccessToken }) {
                 />
                 <Marker
                     key={"from"}
-                    longitude={from.lng}
-                    latitude={from.lat}
-                    anchor="bottom"
-                    draggable
-                    onDragEnd={({ lngLat }: MarkerDragEvent) => setFrom(lngLat)}
-                />
-                <Marker
-                    key={"destination"}
-                    longitude={destination.lng}
-                    latitude={destination.lat}
+                    longitude={from[0]}
+                    latitude={from[1]}
                     anchor="bottom"
                     draggable
                     onDragEnd={({ lngLat }: MarkerDragEvent) =>
-                        setDestination(lngLat)
+                        setFrom([lngLat.lng, lngLat.lat])
                     }
                 />
-                <Source
+                <Marker
+                    key={"destination"}
+                    longitude={destination[0]}
+                    latitude={destination[1]}
+                    anchor="bottom"
+                    draggable
+                    onDragEnd={({ lngLat }: MarkerDragEvent) =>
+                        setDestination([lngLat.lng, lngLat.lat])
+                    }
+                />
+                <BusStopsLayer
                     id="blue-circular-data"
                     type="geojson"
-                    data={geoJson as any}
-                >
-                    <Layer {...circularStopLayerStyles} />
-                </Source>
+                    data={circulars.blue as any}
+                    layerProps={{
+                        id: "blue-point",
+                        paint: {
+                            "circle-radius": 8,
+                            "circle-color": "#3519e6",
+                        },
+                    }}
+                />
+
+                <BusStopsLayer
+                    id="red-circular-data"
+                    type="geojson"
+                    data={circulars.red as any}
+                    layerProps={{
+                        id: "red-point",
+                        paint: {
+                            "circle-radius": 8,
+                            "circle-color": "#ff0000",
+                        },
+                    }}
+                />
 
                 {!!path && (
                     <Source id="path-data" type="geojson" data={path as any}>

@@ -1,0 +1,125 @@
+{
+    "type": "FeatureCollection",
+    "features": [
+        {
+            "type": "Feature",
+            "properties": {
+                "name": "Zoo"
+            },
+            "geometry": {
+                "coordinates": [76.96077949781443, 8.510390436776774],
+                "type": "Point"
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "name": "Govt palace"
+            },
+            "geometry": {
+                "coordinates": [76.96049803473755, 8.522098107433479],
+                "type": "Point"
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "name": "Kannan"
+            },
+            "geometry": {
+                "coordinates": [76.961830553342, 8.531932726686946],
+                "type": "Point"
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "name": "Thankamma stadium"
+            },
+            "geometry": {
+                "coordinates": [76.96467562267276, 8.535424403075666],
+                "type": "Point"
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "name": "Mannamolla"
+            },
+            "geometry": {
+                "coordinates": [76.97680451950708, 8.530973446241845],
+                "type": "Point"
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "name": "Perrorkada"
+            },
+            "geometry": {
+                "coordinates": [76.98466113669758, 8.53368654742043],
+                "type": "Point"
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "name": "LPS school"
+            },
+            "geometry": {
+                "coordinates": [76.9898680164211, 8.528929922678287],
+                "type": "Point"
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "name": "Juma masjid"
+            },
+            "geometry": {
+                "coordinates": [76.98847333518154, 8.524375189625871],
+                "type": "Point"
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "name": "SFS Church"
+            },
+            "geometry": {
+                "coordinates": [76.98502694558795, 8.523322015053523],
+                "type": "Point"
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "name": "Maruthankuzhy"
+            },
+            "geometry": {
+                "coordinates": [76.9813346335427, 8.522103216283938],
+                "type": "Point"
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "name": "Pipeline Rd"
+            },
+            "geometry": {
+                "coordinates": [76.9790893549042, 8.513734694058613],
+                "type": "Point"
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "name": "Sasthamangalam"
+            },
+            "geometry": {
+                "coordinates": [76.97163949519904, 8.512896309349216],
+                "type": "Point"
+            }
+        }
+    ]
+}
