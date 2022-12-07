@@ -75,3 +75,9 @@ export const getStopDetails = (coordinates: number[][]) => {
         (s): s is NonNullable<typeof stops[number]> => s !== null
     );
 };
+
+export const getCircularCoordinates = (
+    circularName: keyof typeof circulars
+) => {
+    return circulars[circularName].features.map((f) => f.geometry.coordinates);
+};

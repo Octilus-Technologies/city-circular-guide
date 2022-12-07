@@ -22,11 +22,12 @@ import Map, {
 } from "react-map-gl";
 
 const pathLayerStyles: LayerProps = {
-    id: "line",
     type: "line",
     paint: {
         "line-width": 4,
-        "line-color": "#5f45ff",
+        "line-color": "royalblue",
+        "line-opacity": 0.75,
+        // "line-dasharray": [1, 2],
     },
 };
 
@@ -37,7 +38,7 @@ function RouteMap({ mapAccessToken }) {
         76.95039864193745, 8.502944175905867,
     ]);
     const [gotLocation, setGotLocation] = useState(false);
-    const [path, setPath] = useState<any>();
+    const [paths, setPaths] = useState<any>();
     const [stops, setStops] = useState<
         {
             coordinates: number[];
@@ -64,14 +65,18 @@ function RouteMap({ mapAccessToken }) {
             if (!segments || !segments.length)
                 return console.log("Unable to find a route");
 
-            const accurateMap = await getMatch(mapAccessToken, segments[0]);
-            const pathLayer = generateLayerFromGeometry(
-                accurateMap?.geometry as any
+            const segmentPathPromises = segments.map((segment) =>
+                getMatch(mapAccessToken, segment)
+            );
+            const segmentPath = await Promise.all(segmentPathPromises);
+            const pathLayers = segmentPath.map((path) =>
+                generateLayerFromGeometry(path?.geometry as any)
             );
 
             setStops(getStopDetails(segments[0]));
-            setJourney(accurateMap?.journey);
-            setPath(pathLayer);
+            setJourney(segmentPath?.[0]?.journey);
+            setPaths(pathLayers);
+            console.table(pathLayers.map((path) => path.features[0].geometry));
         };
 
         generatePathLayer();
@@ -121,6 +126,7 @@ function RouteMap({ mapAccessToken }) {
                         paint: {
                             "circle-radius": 8,
                             "circle-color": "#3519e6",
+                            "circle-opacity": 0.75,
                         },
                     }}
                 />
@@ -134,15 +140,23 @@ function RouteMap({ mapAccessToken }) {
                         paint: {
                             "circle-radius": 8,
                             "circle-color": "#ff0000",
+                            "circle-opacity": 0.75,
                         },
                     }}
                 />
 
-                {!!path && (
-                    <Source id="path-data" type="geojson" data={path as any}>
-                        <Layer {...pathLayerStyles} />
-                    </Source>
-                )}
+                {paths?.map((path, i) => (
+                    <>
+                        <Source
+                            key={`path-${i}`}
+                            id={`path-data-${i}`}
+                            type="geojson"
+                            data={path as any}
+                        >
+                            <Layer {...pathLayerStyles} id={`path-${i}-line`} />
+                        </Source>
+                    </>
+                ))}
             </Map>
 
             <div className="actions fixed bottom-0 left-0 right-0 z-50 m-5 text-center">

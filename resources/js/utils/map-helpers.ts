@@ -1,5 +1,5 @@
 import { distance, point } from "@turf/turf";
-import { circulars } from "./geoJson";
+import { circulars, getCircularCoordinates } from "./geoJson";
 
 type Coordinates = number[];
 
@@ -34,25 +34,23 @@ export const findNearestStop = (
 };
 
 const findNearbyStops = (coordinates: Coordinates) => {
-    const nearestStopsFromAllCirculars = Object.keys(circulars).map(
-        (circularName) => {
-            const circular = circulars[
-                circularName
-            ] as typeof circulars["blue"];
-            const nearestStop = findNearestStop(
-                coordinates,
-                circular.features.map((f) => f.geometry.coordinates)
-            );
+    const nearestStopsFromAllCirculars = (
+        Object.keys(circulars) as (keyof typeof circulars)[]
+    ).map((circularName) => {
+        const circular = circulars[circularName];
+        const nearestStop = findNearestStop(
+            coordinates,
+            circular.features.map((f) => f.geometry.coordinates)
+        );
 
-            if (!nearestStop) return null;
+        if (!nearestStop) return null;
 
-            return {
-                name: circularName,
-                coordinates: nearestStop?.coordinates,
-                distance: nearestStop?.distance,
-            };
-        }
-    );
+        return {
+            name: circularName,
+            coordinates: nearestStop?.coordinates,
+            distance: nearestStop?.distance,
+        };
+    });
 
     // sort by distances
     const sortedStops = nearestStopsFromAllCirculars
@@ -64,8 +62,9 @@ const findNearbyStops = (coordinates: Coordinates) => {
 };
 
 const rotateCoordinates = <T>(arr: Array<T>, times: number) => {
-    for (let index = 0; index < times; index++) {
-        arr.push(arr.shift() as any);
+    for (let i = 0; i < times; i++) {
+        const tmp = arr.shift();
+        if (tmp) arr.push(tmp);
     }
 
     return arr;
@@ -103,7 +102,7 @@ const getOptimizedSegmentStops = (from, destination, coordinates) => {
         ? clockwisePath
         : counterClockwisePath;
 
-    console.table(optimizedStops);
+    // console.table(optimizedStops);
 
     return optimizedStops;
 };
@@ -120,34 +119,61 @@ export const getOptimizedStops = (
     from: Coordinates,
     destination: Coordinates
 ): number[][][] => {
-    // check if from and destination belongs to different circulars
-    const fromCircular = findNearbyStops(from)[0];
-    const destinationCircular = findNearbyStops(destination)[0];
+    // find nearby stop and circular
+    const fromStop = findNearbyStops(from)[0];
+    const destinationStop = findNearbyStops(destination)[0];
+    if (!fromStop || !destinationStop) return [];
 
-    const requiredCirculars = [fromCircular];
-    if (destinationCircular?.name !== fromCircular?.name) {
-        requiredCirculars.push(destinationCircular);
+    const requiredCirculars = [fromStop];
+
+    if (destinationStop.name !== fromStop.name) {
+        requiredCirculars.push(destinationStop);
     }
 
-    const segments = requiredCirculars.map((circular) => {
-        const coordinates = requiredCirculars
-            .map((c) =>
-                circulars[c?.name ?? ""].features.map(
-                    (f) => f.geometry.coordinates
-                )
-            )
-            .slice(0, 2);
+    const segments: {
+        name: keyof typeof circulars;
+        from: number[];
+        destination: number[];
+    }[] = [];
 
-        return getOptimizedSegmentStops(
-            from,
-            coordinates.length > 1
-                ? findJunctions(coordinates[0], coordinates[1])
-                : destination,
-            circulars[circular?.name ?? ""].features.map(
-                (f) => f.geometry.coordinates
-            )
-        );
+    requiredCirculars.map((circular, i) => {
+        const nextCircular = requiredCirculars[i + 1];
+
+        if (!!nextCircular) {
+            const junctionCoordinates = findJunctions(
+                getCircularCoordinates(circular.name),
+                getCircularCoordinates(nextCircular.name)
+            )[0]; // * Just taking the first junction for testing
+
+            segments.push({
+                name: circular.name,
+                from: circular.coordinates,
+                destination: junctionCoordinates,
+            });
+
+            segments.push({
+                name: nextCircular.name,
+                from: junctionCoordinates,
+                destination: nextCircular.coordinates,
+            });
+        } else {
+            if (circular.coordinates !== destinationStop.coordinates) {
+                // * This gets executed if we are dealing with single circular
+                // * or if it is the last (destination) circular
+                segments.push({
+                    name: circular.name,
+                    from: circular.coordinates,
+                    destination: destinationStop.coordinates,
+                });
+            }
+        }
+    });
+    // console.table(segments);
+
+    const segmentStops = segments.map(({ name, from, destination }) => {
+        const coordinates = getCircularCoordinates(name);
+        return getOptimizedSegmentStops(from, destination, coordinates);
     });
 
-    return segments;
+    return segmentStops;
 };

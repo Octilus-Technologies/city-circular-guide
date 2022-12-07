@@ -32,7 +32,7 @@ export async function getMatch(
         return;
     }
 
-    console.log(response.matchings);
+    // console.log(response.matchings);
 
     // Get the coordinates from the response
     const coords = response.matchings?.[0].geometry;

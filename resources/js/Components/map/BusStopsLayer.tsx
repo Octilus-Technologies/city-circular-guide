@@ -13,6 +13,7 @@ const defaultLayerProps: CircleLayerProps = {
     paint: {
         "circle-radius": 8,
         "circle-color": "black",
+        "circle-opacity": 0.5,
     },
 };
 
