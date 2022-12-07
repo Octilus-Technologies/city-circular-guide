@@ -37,9 +37,14 @@ function RouteMap({ mapAccessToken }) {
         76.95039864193745, 8.502944175905867,
     ]);
     const [gotLocation, setGotLocation] = useState(false);
-    const [path, setPath] = useState(null);
-    const [stops, setStops] = useState(null);
-    const [journey, setJourney] = useState(null);
+    const [path, setPath] = useState<any>();
+    const [stops, setStops] = useState<
+        {
+            coordinates: number[];
+            name: string;
+        }[]
+    >();
+    const [journey, setJourney] = useState();
 
     useEffect(() => {
         if (gotLocation || !geolocation.accuracy) return;

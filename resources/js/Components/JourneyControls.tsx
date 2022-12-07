@@ -3,8 +3,8 @@ import React from "react";
 import { FaCaretRight } from "react-icons/fa";
 
 type JourneyControlProps = {
-    stops: { coordinates: number[]; name: string }[];
-    journey: Record<string, any>;
+    stops?: { coordinates: number[]; name: string }[];
+    journey?: Record<string, any>;
 };
 
 function JourneyControls({ stops, journey }: JourneyControlProps) {

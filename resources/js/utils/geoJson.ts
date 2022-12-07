@@ -58,16 +58,20 @@ export function generateLineFromPoints(
     };
 }
 
-export const getStopDetails = (coordinates: number[][], filter = false) => {
-    return coordinates
-        .map((c) => {
-            const stop = blueCircular.features.find(
-                (f) => f.geometry.coordinates === c
-            );
-            return {
-                coordinates: stop?.geometry.coordinates,
-                name: stop?.properties.name,
-            };
-        })
-        .filter((f) => (filter ? !!f : true));
+export const getStopDetails = (coordinates: number[][]) => {
+    const stops = coordinates.map((c) => {
+        const stop = blueCircular.features.find(
+            (f) => f.geometry.coordinates === c
+        );
+        if (!stop) return;
+
+        return {
+            coordinates: stop.geometry.coordinates,
+            name: stop.properties.name,
+        };
+    });
+
+    return stops.filter(
+        (s): s is NonNullable<typeof stops[number]> => s !== null
+    );
 };

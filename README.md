@@ -16,3 +16,17 @@ This application finds best routes under KSRTC
 ```bash
 composer setup
 ```
+
+## Serve
+
+Serve laravel
+
+```bash
+php artisan serve
+```
+
+Start Vite compilation
+
+```bash
+npm run dev
+```
