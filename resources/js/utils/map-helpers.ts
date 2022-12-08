@@ -1,19 +1,20 @@
 import { distance, point } from "@turf/turf";
-import { circulars, getCircularCoordinates } from "./geoJson";
-
-type Coordinates = number[];
-
-type CircularGeojson = typeof circulars["blue"];
+import {
+    CircularName,
+    circulars,
+    Coordinates,
+    getCircularCoordinates,
+} from "./geoJson";
 
 export const findNearestStop = (
     coordinates: Coordinates,
-    stops: number[][]
+    stops: Coordinates[]
 ) => {
     let from = point(coordinates);
 
     const nearestStop = stops.reduce<{
         index: number;
-        coordinates: number[];
+        coordinates: Coordinates;
         distance: number;
     } | null>((nearestStop, coordinates, i) => {
         const to = point(coordinates);
@@ -35,7 +36,7 @@ export const findNearestStop = (
 
 const findNearbyStops = (coordinates: Coordinates) => {
     const nearestStopsFromAllCirculars = (
-        Object.keys(circulars) as (keyof typeof circulars)[]
+        Object.keys(circulars) as CircularName[]
     ).map((circularName) => {
         const circular = circulars[circularName];
         const nearestStop = findNearestStop(
@@ -73,7 +74,7 @@ const rotateCoordinates = <T>(arr: Array<T>, times: number) => {
 const findShortestPath = (
     from: Coordinates,
     destination: Coordinates,
-    coordinates: number[][]
+    coordinates: Coordinates[]
 ) => {
     const firstStop = findNearestStop(from, coordinates);
     if (!firstStop) return [];
@@ -88,7 +89,11 @@ const findShortestPath = (
     return adjustedCoordinates.slice(0, lastStop.index + 1);
 };
 
-const getOptimizedSegmentStops = (from, destination, coordinates) => {
+const getOptimizedSegmentStops = (
+    from: Coordinates,
+    destination: Coordinates,
+    coordinates: Coordinates[]
+) => {
     const clockwisePath = findShortestPath(from, destination, coordinates);
     const counterClockwisePath = findShortestPath(
         destination,
@@ -118,7 +123,7 @@ const findJunctions = (circular1: Coordinates[], circular2: Coordinates[]) => {
 export const getOptimizedStops = (
     from: Coordinates,
     destination: Coordinates
-): number[][][] => {
+): Coordinates[][] => {
     // find nearby stop and circular
     const fromStop = findNearbyStops(from)[0];
     const destinationStop = findNearbyStops(destination)[0];
@@ -131,9 +136,9 @@ export const getOptimizedStops = (
     }
 
     const segments: {
-        name: keyof typeof circulars;
-        from: number[];
-        destination: number[];
+        name: CircularName;
+        from: Coordinates;
+        destination: Coordinates;
     }[] = [];
 
     requiredCirculars.map((circular, i) => {

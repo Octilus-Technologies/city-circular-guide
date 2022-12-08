@@ -1,12 +1,16 @@
 import blueCircular from "@/constants/blue.json";
 import redCircular from "@/constants/red.json";
 
-type PointFeatureCollection = typeof blueCircular;
-type Geometry<TType extends string> = {
+export type Coordinates = number[];
+export type CircularName = keyof typeof circulars;
+export type CircularGeojson = typeof circulars[CircularName];
+export type PointFeatureCollection = CircularGeojson;
+export type Geometry<TType extends string> = {
     coordinates: number[];
     type: TType;
 };
 
+// Register all circulars here
 export const circulars = {
     blue: blueCircular,
     red: redCircular,
@@ -58,17 +62,29 @@ export function generateLineFromPoints(
     };
 }
 
-export const getStopDetails = (coordinates: number[][]) => {
+const getAllStopDetails = () => {
+    const stops = (Object.keys(circulars) as CircularName[]).map(
+        (circularName) => {
+            const circular = circulars[circularName];
+
+            return circular.features.map((f) => ({
+                coordinates: f.geometry.coordinates,
+                name: f.properties.name,
+            }));
+        }
+    );
+
+    return stops.flat();
+};
+
+export const getStopDetails = (coordinates: Coordinates[]) => {
     const stops = coordinates.map((c) => {
-        const stop = blueCircular.features.find(
-            (f) => f.geometry.coordinates === c
+        const stop = getAllStopDetails().find(
+            (s) => s.coordinates[0] === c[0] && s.coordinates[1] === c[1]
         );
         if (!stop) return;
 
-        return {
-            coordinates: stop.geometry.coordinates,
-            name: stop.properties.name,
-        };
+        return { ...stop };
     });
 
     return stops.filter(

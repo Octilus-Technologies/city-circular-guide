@@ -8,7 +8,7 @@ import {
 import { getOptimizedStops } from "@/utils/map-helpers";
 import { getMatch } from "@/utils/mapbox-api";
 import "mapbox-gl/dist/mapbox-gl.css";
-import React, { useEffect, useState } from "react";
+import React, { Fragment, useEffect, useState } from "react";
 import useGeolocation from "react-hook-geolocation";
 import Map, {
     GeolocateControl,
@@ -43,9 +43,9 @@ function RouteMap({ mapAccessToken }) {
         {
             coordinates: number[];
             name: string;
-        }[]
+        }[][]
     >();
-    const [journey, setJourney] = useState();
+    const [journeyDetails, setJourneyDetails] = useState<any[]>();
 
     useEffect(() => {
         if (gotLocation || !geolocation.accuracy) return;
@@ -73,10 +73,10 @@ function RouteMap({ mapAccessToken }) {
                 generateLayerFromGeometry(path?.geometry as any)
             );
 
-            setStops(getStopDetails(segments[0]));
-            setJourney(segmentPath?.[0]?.journey);
+            setStops(segments.map((segment) => getStopDetails(segment)));
+            setJourneyDetails(segmentPath?.map((p) => p?.journey));
             setPaths(pathLayers);
-            console.table(pathLayers.map((path) => path.features[0].geometry));
+            // console.table(pathLayers.map((path) => path.features[0].geometry));
         };
 
         generatePathLayer();
@@ -146,22 +146,24 @@ function RouteMap({ mapAccessToken }) {
                 />
 
                 {paths?.map((path, i) => (
-                    <>
+                    <Fragment key={`path-${i}`}>
                         <Source
-                            key={`path-${i}`}
                             id={`path-data-${i}`}
                             type="geojson"
                             data={path as any}
                         >
                             <Layer {...pathLayerStyles} id={`path-${i}-line`} />
                         </Source>
-                    </>
+                    </Fragment>
                 ))}
             </Map>
 
             <div className="actions fixed bottom-0 left-0 right-0 z-50 m-5 text-center">
                 <div className="alert inline-block w-auto bg-opacity-80 text-primary-content shadow-lg backdrop-blur-sm">
-                    <JourneyControls stops={stops} journey={journey} />
+                    <JourneyControls
+                        stops={stops}
+                        journeyDetails={journeyDetails}
+                    />
                 </div>
             </div>
         </div>
