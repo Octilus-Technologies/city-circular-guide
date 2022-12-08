@@ -1,5 +1,6 @@
 import JourneyControls from "@/Components/JourneyControls";
 import BusStopsLayer from "@/Components/map/BusStopsLayer";
+import SmallHeader from "@/Components/SmallHeader";
 import {
     circulars,
     generateLayerFromGeometry,
@@ -83,89 +84,97 @@ function RouteMap({ mapAccessToken }) {
     }, [circulars.blue, from, destination]);
 
     return (
-        <div className="h-full min-h-screen w-full">
-            <Map
-                {...viewState}
-                onMove={(evt) => setViewState(evt.viewState)}
-                mapboxAccessToken={mapAccessToken}
-                style={{ width: "100%", height: "100vh" }}
-                mapStyle="mapbox://styles/mapbox/streets-v9"
-            >
-                <NavigationControl />
-                <GeolocateControl
-                    onGeolocate={(evt: GeolocateResultEvent) =>
-                        console.log({ evt })
-                    }
-                />
-                <Marker
-                    key={"from"}
-                    longitude={from[0]}
-                    latitude={from[1]}
-                    anchor="bottom"
-                    draggable
-                    onDragEnd={({ lngLat }: MarkerDragEvent) =>
-                        setFrom([lngLat.lng, lngLat.lat])
-                    }
-                />
-                <Marker
-                    key={"destination"}
-                    longitude={destination[0]}
-                    latitude={destination[1]}
-                    anchor="bottom"
-                    draggable
-                    onDragEnd={({ lngLat }: MarkerDragEvent) =>
-                        setDestination([lngLat.lng, lngLat.lat])
-                    }
-                />
-                <BusStopsLayer
-                    id="blue-circular-data"
-                    type="geojson"
-                    data={circulars.blue as any}
-                    layerProps={{
-                        id: "blue-point",
-                        paint: {
-                            "circle-radius": 8,
-                            "circle-color": "#3519e6",
-                            "circle-opacity": 0.75,
-                        },
-                    }}
-                />
+        <div className="h-full min-h-screen w-full w-full flex-row-reverse">
+            <section className="map-container flex flex-1">
+                <Map
+                    {...viewState}
+                    onMove={(evt) => setViewState(evt.viewState)}
+                    mapboxAccessToken={mapAccessToken}
+                    style={{ width: "100%", height: "100vh" }}
+                    mapStyle="mapbox://styles/mapbox/streets-v9"
+                >
+                    <NavigationControl />
+                    <GeolocateControl
+                        onGeolocate={(evt: GeolocateResultEvent) =>
+                            console.log({ evt })
+                        }
+                    />
+                    <Marker
+                        key={"from"}
+                        longitude={from[0]}
+                        latitude={from[1]}
+                        anchor="bottom"
+                        draggable
+                        onDragEnd={({ lngLat }: MarkerDragEvent) =>
+                            setFrom([lngLat.lng, lngLat.lat])
+                        }
+                    />
+                    <Marker
+                        key={"destination"}
+                        longitude={destination[0]}
+                        latitude={destination[1]}
+                        anchor="bottom"
+                        draggable
+                        onDragEnd={({ lngLat }: MarkerDragEvent) =>
+                            setDestination([lngLat.lng, lngLat.lat])
+                        }
+                    />
+                    <BusStopsLayer
+                        id="blue-circular-data"
+                        type="geojson"
+                        data={circulars.blue as any}
+                        layerProps={{
+                            id: "blue-point",
+                            paint: {
+                                "circle-radius": 8,
+                                "circle-color": "#3519e6",
+                                "circle-opacity": 0.75,
+                            },
+                        }}
+                    />
 
-                <BusStopsLayer
-                    id="red-circular-data"
-                    type="geojson"
-                    data={circulars.red as any}
-                    layerProps={{
-                        id: "red-point",
-                        paint: {
-                            "circle-radius": 8,
-                            "circle-color": "#ff0000",
-                            "circle-opacity": 0.75,
-                        },
-                    }}
-                />
+                    <BusStopsLayer
+                        id="red-circular-data"
+                        type="geojson"
+                        data={circulars.red as any}
+                        layerProps={{
+                            id: "red-point",
+                            paint: {
+                                "circle-radius": 8,
+                                "circle-color": "#ff0000",
+                                "circle-opacity": 0.75,
+                            },
+                        }}
+                    />
 
-                {paths?.map((path, i) => (
-                    <Fragment key={`path-${i}`}>
-                        <Source
-                            id={`path-data-${i}`}
-                            type="geojson"
-                            data={path as any}
-                        >
-                            <Layer {...pathLayerStyles} id={`path-${i}-line`} />
-                        </Source>
-                    </Fragment>
-                ))}
-            </Map>
+                    {paths?.map((path, i) => (
+                        <Fragment key={`path-${i}`}>
+                            <Source
+                                id={`path-data-${i}`}
+                                type="geojson"
+                                data={path as any}
+                            >
+                                <Layer
+                                    {...pathLayerStyles}
+                                    id={`path-${i}-line`}
+                                />
+                            </Source>
+                        </Fragment>
+                    ))}
+                </Map>
+            </section>
 
-            <div className="actions fixed bottom-0 left-0 right-0 z-50 m-5 text-center">
-                <div className="alert inline-block w-auto bg-opacity-80 text-primary-content shadow-lg backdrop-blur-sm">
+            <section className="actions absolute top-0 left-0 z-50 flex h-full flex-col gap-5 bg-primary bg-opacity-90 p-5 text-center backdrop-blur-md">
+                <SmallHeader />
+
+                <div className="alert inline-block w-auto bg-opacity-10 text-primary-content backdrop-blur-sm">
                     <JourneyControls
+                        expanded={true}
                         stops={stops}
                         journeyDetails={journeyDetails}
                     />
                 </div>
-            </div>
+            </section>
         </div>
     );
 }

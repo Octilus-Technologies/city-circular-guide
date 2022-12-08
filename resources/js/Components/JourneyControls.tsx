@@ -4,6 +4,7 @@ import React from "react";
 import { FaCaretRight } from "react-icons/fa";
 
 type JourneyControlProps = {
+    expanded?: boolean;
     stops?: { coordinates: number[]; name: string }[][];
     journeyDetails?: Journey[];
 };
@@ -41,39 +42,56 @@ interface Maneuver {
     exit?: number;
 }
 
-function JourneyControls({ stops, journeyDetails }: JourneyControlProps) {
+function JourneyControls({
+    stops,
+    journeyDetails,
+    expanded = true,
+}: JourneyControlProps) {
     // console.log({ journeyDetails, stops });
-    const currentStop = stops?.[0];
-    const currentJourney = journeyDetails?.[0];
-    console.log({ currentStop, currentJourney });
 
     return (
-        <div>
-            <ul className="flex flex-wrap items-center gap-3">
-                {!!currentStop && !!currentStop.length && (
-                    <li className="flex items-center gap-1">
-                        {currentStop?.[0]?.name}
-                        <span className="text-2xl">
-                            <FaCaretRight />
-                        </span>
-                        {currentStop?.[currentStop.length - 1]?.name}
-                    </li>
-                )}
-                {!!currentJourney && (
-                    <li>
-                        {Math.round(currentJourney?.distance / 1000)} KM |{" "}
-                        {Math.round(currentJourney?.duration / 60) * 1} Minutes
-                    </li>
-                )}
-                <li>
-                    <button
-                        className="btn-outline btn-error btn px-5"
-                        onClick={() => Inertia.visit("/")}
-                    >
-                        Stop
-                    </button>
-                </li>
-            </ul>
+        <div className="flex flex-col items-start gap-3">
+            {Array(journeyDetails?.length)
+                .fill(0)
+                .map((_, i) => {
+                    const segment = stops?.[i];
+                    const currentJourney = journeyDetails?.[i];
+
+                    return (
+                        <ul
+                            key={`segment-${i}`}
+                            className="flex w-full flex-wrap items-center justify-between gap-5"
+                        >
+                            {!!segment && !!segment.length && (
+                                <li className="flex items-center gap-1">
+                                    {segment?.[0]?.name}
+                                    <span className="text-2xl">
+                                        <FaCaretRight />
+                                    </span>
+                                    {segment?.[segment.length - 1]?.name}
+                                </li>
+                            )}
+                            {!!currentJourney && (
+                                <li>
+                                    {Math.round(
+                                        currentJourney?.distance / 1000
+                                    )}{" "}
+                                    KM |{" "}
+                                    {Math.round(currentJourney?.duration / 60) *
+                                        1}{" "}
+                                    Minutes
+                                </li>
+                            )}
+                        </ul>
+                    );
+                })}
+
+            <button
+                className="btn-outline btn-error btn mt-3 w-full px-5"
+                onClick={() => Inertia.visit("/")}
+            >
+                Stop Journey
+            </button>
         </div>
     );
 }

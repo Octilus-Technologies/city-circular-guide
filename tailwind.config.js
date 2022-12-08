@@ -17,6 +17,27 @@ module.exports = {
         },
     },
 
+    daisyui: {
+        themes: [
+            {
+                light: {
+                    ...require("daisyui/src/colors/themes")[
+                        "[data-theme=light]"
+                    ],
+                    primary: "hsl(240, 45%, 50%)",
+                    secondary: "#f88459",
+                },
+                dark: {
+                    ...require("daisyui/src/colors/themes")[
+                        "[data-theme=dark]"
+                    ],
+                    primary: "hsl(240, 45%, 50%)",
+                    secondary: "#f88459",
+                },
+            },
+        ],
+    },
+
     plugins: [
         require("@tailwindcss/forms"),
         require("@tailwindcss/typography"),
