@@ -84,7 +84,7 @@ function RouteMap({ mapAccessToken }) {
     }, [circulars.blue, from, destination]);
 
     return (
-        <div className="h-full min-h-screen w-full w-full flex-row-reverse">
+        <div className="h-full max-h-screen min-h-screen w-full flex-row-reverse">
             <section className="map-container flex flex-1">
                 <Map
                     {...viewState}
@@ -164,7 +164,14 @@ function RouteMap({ mapAccessToken }) {
                 </Map>
             </section>
 
-            <section className="actions absolute top-0 left-0 z-50 flex h-full flex-col gap-5 bg-primary bg-opacity-90 p-5 text-center backdrop-blur-md">
+            <section
+                className="actions absolute bottom-0 left-0 right-0 z-50 flex
+            max-h-[60vh] flex-col gap-2 overflow-auto rounded-t-3xl bg-primary
+            bg-opacity-90 p-5 text-center backdrop-blur-md md:top-0
+            md:right-auto md:max-h-full md:flex-col md:gap-5 md:rounded-none"
+            >
+                <span className="m-auto mb-4 inline-block min-h-[6px] w-[20vw] rounded-xl bg-primary-content opacity-20 md:hidden"></span>
+
                 <SmallHeader />
 
                 <div className="alert inline-block w-auto bg-opacity-10 text-primary-content backdrop-blur-sm">

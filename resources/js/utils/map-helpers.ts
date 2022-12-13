@@ -86,7 +86,9 @@ const findShortestPath = (
     const lastStop = findNearestStop(destination, adjustedCoordinates);
     if (!lastStop) return [];
 
-    return adjustedCoordinates.slice(0, lastStop.index + 1);
+    const stops = adjustedCoordinates.slice(0, lastStop.index + 1);
+
+    return stops[0] !== from ? stops : stops.reverse();
 };
 
 const getOptimizedSegmentStops = (

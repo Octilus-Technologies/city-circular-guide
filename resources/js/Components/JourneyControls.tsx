@@ -2,6 +2,7 @@ import { Inertia } from "@inertiajs/inertia";
 import { GeometryObject } from "@turf/turf";
 import React from "react";
 import { FaCaretRight } from "react-icons/fa";
+import JourneySteps from "./JourneySteps";
 
 type JourneyControlProps = {
     expanded?: boolean;
@@ -9,7 +10,7 @@ type JourneyControlProps = {
     journeyDetails?: Journey[];
 };
 
-interface Journey {
+export interface Journey {
     via_waypoints: any[];
     admins: any[];
     weight: number;
@@ -51,40 +52,30 @@ function JourneyControls({
 
     return (
         <div className="flex flex-col items-start gap-3">
-            {Array(journeyDetails?.length)
-                .fill(0)
-                .map((_, i) => {
-                    const segment = stops?.[i];
-                    const currentJourney = journeyDetails?.[i];
+            <ul className="flex w-full flex-col gap-5">
+                {Array(journeyDetails?.length)
+                    .fill(0)
+                    .map((_, i) => {
+                        const segment = stops?.[i];
+                        const currentJourney = journeyDetails?.[i];
 
-                    return (
-                        <ul
-                            key={`segment-${i}`}
-                            className="flex w-full flex-wrap items-center justify-between gap-5"
-                        >
-                            {!!segment && !!segment.length && (
-                                <li className="flex items-center gap-1">
-                                    {segment?.[0]?.name}
-                                    <span className="text-2xl">
-                                        <FaCaretRight />
-                                    </span>
-                                    {segment?.[segment.length - 1]?.name}
+                        return (
+                            <React.Fragment key={`segment-${i}`}>
+                                <li className="flex w-full flex-col items-start">
+                                    <JourneySteps
+                                        segment={segment}
+                                        journey={currentJourney}
+                                        expanded={i === 0}
+                                    />
                                 </li>
-                            )}
-                            {!!currentJourney && (
-                                <li>
-                                    {Math.round(
-                                        currentJourney?.distance / 1000
-                                    )}{" "}
-                                    KM |{" "}
-                                    {Math.round(currentJourney?.duration / 60) *
-                                        1}{" "}
-                                    Minutes
-                                </li>
-                            )}
-                        </ul>
-                    );
-                })}
+
+                                {!!stops && i !== stops.length - 1 && (
+                                    <span className="h-[3px] bg-primary" />
+                                )}
+                            </React.Fragment>
+                        );
+                    })}
+            </ul>
 
             <button
                 className="btn-outline btn-error btn mt-3 w-full px-5"

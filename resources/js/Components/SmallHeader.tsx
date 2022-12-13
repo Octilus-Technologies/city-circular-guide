@@ -3,7 +3,7 @@ import React from "react";
 
 function SmallHeader() {
     return (
-        <header>
+        <header className="hidden md:block">
             <nav className="mx-1 mb-3">
                 <Link href="/" className="flex items-center gap-2">
                     <div className="icon inline-block h-[36px] w-[36px] rounded-full bg-secondary"></div>
