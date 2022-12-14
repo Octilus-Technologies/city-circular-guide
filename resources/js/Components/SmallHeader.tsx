@@ -36,7 +36,7 @@ const NavLink = ({
 function SmallHeader() {
     return (
         <header className="hidden min-w-[35vw] md:block">
-            <nav className="mx-1 mb-3 flex items-center justify-between gap-6">
+            <nav className="mx-1 mb-2 flex items-center justify-between gap-6">
                 <Link href="/" className="flex items-center gap-2">
                     <AppIcon />
                 </Link>

@@ -65,7 +65,7 @@ function JourneyControls({
                                     <JourneySteps
                                         segment={segment}
                                         journey={currentJourney}
-                                        expanded={i === 0}
+                                        expanded={true}
                                     />
                                 </li>
 

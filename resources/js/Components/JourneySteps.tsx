@@ -1,5 +1,5 @@
 import React from "react";
-import { FaCaretRight } from "react-icons/fa";
+import { FaCaretRight, FaFlag, FaMapMarkerAlt } from "react-icons/fa";
 import { Journey } from "./JourneyControls";
 
 function JourneySteps({
@@ -39,10 +39,11 @@ function JourneySteps({
 
     // Expanded view
     return (
-        <span className="flex flex-col items-start gap-3">
+        <span className="flex flex-col items-start gap-2">
             {!!segment && !!journey && (
-                <span>
-                    Hop on to the bus from{" "}
+                <span className="">
+                    <FaMapMarkerAlt className="mr-1 inline-block text-secondary" />
+                    Hop on the bus from{" "}
                     <span className="font-bold text-secondary">
                         {segment[0].name}
                     </span>{" "}
@@ -51,22 +52,26 @@ function JourneySteps({
             )}
 
             {!!journey && (
-                <span className="-mt-3 opacity-50">
+                <span className="-mt-1 opacity-50">
                     Travel {Math.round(journey?.distance / 1000)} KM |{" "}
                     {Math.round(journey?.duration / 60) * 1} Minutes
                 </span>
             )}
 
             {!!segment && !!segment.length && (
-                <ul className="flex list-inside list-disc flex-col items-start opacity-90">
-                    {segment?.map((stop, i) => (
-                        <li key={`stop-${i}`}>{stop.name}</li>
-                    ))}
-                </ul>
+                <>
+                    <span>Intermediate stops</span>
+                    <ul className="-mt-1 flex list-inside list-disc flex-col items-start opacity-90">
+                        {segment?.map((stop, i) => (
+                            <li key={`stop-${i}`}>{stop.name}</li>
+                        ))}
+                    </ul>
+                </>
             )}
 
             {!!segment && !!journey && (
-                <span>
+                <span className="">
+                    <FaFlag className="mr-2 inline-block text-secondary" />
                     Hop off the bus at{" "}
                     <span className="font-bold text-secondary">
                         {segment[segment.length - 1].name}
