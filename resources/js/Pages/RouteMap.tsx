@@ -1,6 +1,6 @@
 import JourneyControls from "@/Components/JourneyControls";
 import BusStopsLayer from "@/Components/map/BusStopsLayer";
-import SmallHeader from "@/Components/SmallHeader";
+import SideBar from "@/Components/SideBar";
 import {
     circulars,
     generateLayerFromGeometry,
@@ -32,7 +32,7 @@ const pathLayerStyles: LayerProps = {
     },
 };
 
-function RouteMap({ mapAccessToken }) {
+function RouteMap({ mapAccessToken }: { mapAccessToken: string }) {
     const geolocation = useGeolocation();
     const [from, setFrom] = useState([76.9475819999987, 8.48819065530084]);
     const [destination, setDestination] = useState([
@@ -147,12 +147,12 @@ function RouteMap({ mapAccessToken }) {
                         }}
                     />
 
-                    {paths?.map((path, i) => (
+                    {paths?.map((path: any, i: number) => (
                         <Fragment key={`path-${i}`}>
                             <Source
                                 id={`path-data-${i}`}
                                 type="geojson"
-                                data={path as any}
+                                data={path}
                             >
                                 <Layer
                                     {...pathLayerStyles}
@@ -164,16 +164,7 @@ function RouteMap({ mapAccessToken }) {
                 </Map>
             </section>
 
-            <section
-                className="actions absolute bottom-0 left-0 right-0 z-50 flex
-            max-h-[60vh] flex-col gap-2 overflow-auto rounded-t-3xl bg-primary
-            bg-opacity-90 p-5 text-center backdrop-blur-md md:top-0
-            md:right-auto md:max-h-full md:flex-col md:gap-5 md:rounded-none"
-            >
-                <span className="m-auto mb-4 inline-block min-h-[6px] w-[20vw] rounded-xl bg-primary-content opacity-20 md:hidden"></span>
-
-                <SmallHeader />
-
+            <SideBar>
                 <div className="alert inline-block w-auto bg-opacity-10 text-primary-content backdrop-blur-sm">
                     <JourneyControls
                         expanded={true}
@@ -181,7 +172,7 @@ function RouteMap({ mapAccessToken }) {
                         journeyDetails={journeyDetails}
                     />
                 </div>
-            </section>
+            </SideBar>
         </div>
     );
 }

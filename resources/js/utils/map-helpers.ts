@@ -35,9 +35,8 @@ export const findNearestStop = (
 };
 
 const findNearbyStops = (coordinates: Coordinates) => {
-    const nearestStopsFromAllCirculars = (
-        Object.keys(circulars) as CircularName[]
-    ).map((circularName) => {
+    const circularNames = Object.keys(circulars) as CircularName[];
+    const nearestStopsFromAllCirculars = circularNames.map((circularName) => {
         const circular = circulars[circularName];
         const nearestStop = findNearestStop(
             coordinates,
@@ -105,9 +104,18 @@ const getOptimizedSegmentStops = (
 
     const isClockwiseShorter =
         clockwisePath.length < counterClockwisePath.length;
-    const optimizedStops = isClockwiseShorter
+    let optimizedStops = isClockwiseShorter
         ? clockwisePath
         : counterClockwisePath;
+
+    // making sure the the hop on - hop off stops are in the correct order
+    console.log(optimizedStops[0], from);
+    const isWrongDirection =
+        optimizedStops[0] !== from &&
+        optimizedStops[optimizedStops.length - 1] !== destination;
+    optimizedStops = isWrongDirection
+        ? optimizedStops
+        : optimizedStops.reverse();
 
     // console.table(optimizedStops);
 
@@ -158,11 +166,13 @@ export const getOptimizedStops = (
                 destination: junctionCoordinates,
             });
 
-            segments.push({
+            segments.unshift({
                 name: nextCircular.name,
                 from: junctionCoordinates,
                 destination: nextCircular.coordinates,
             });
+
+            console.table(segments);
         } else {
             if (circular.coordinates !== destinationStop.coordinates) {
                 // * This gets executed if we are dealing with single circular
@@ -182,5 +192,6 @@ export const getOptimizedStops = (
         return getOptimizedSegmentStops(from, destination, coordinates);
     });
 
-    return segmentStops;
+    // Filter and return proper segments
+    return segmentStops.filter((stops) => stops.length > 1);
 };

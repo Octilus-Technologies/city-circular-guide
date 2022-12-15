@@ -1,17 +1,32 @@
 import { geocode, reverseGeocode } from "@/utils/mapbox-api";
 import { Inertia } from "@inertiajs/inertia";
-import React, { useEffect, useState } from "react";
+import React, { FormEventHandler, useEffect, useState } from "react";
 import useGeolocation from "react-hook-geolocation";
 
-function InitialRouteQueryForm({ accessToken }) {
+type Area = {
+    name: string;
+    id: string;
+    coordinates: number[];
+};
+
+function InitialRouteQueryForm({ accessToken }: { accessToken: string }) {
     const geolocation = useGeolocation();
     const [currentLocation, setCurrentLocation] = useState({});
-    const [from, setFrom] = useState({});
-    const [areaList, setAreaList] = useState({
+    const [from, setFrom] = useState<{
+        search?: string;
+        coordinates?: number[];
+    }>();
+    const [areaList, setAreaList] = useState<{
+        from?: Area[];
+        destination?: Area[];
+    }>({
         from: [],
         destination: [],
     });
-    const [destination, setDestination] = useState({});
+    const [destination, setDestination] = useState<{
+        search?: string;
+        coordinates?: number[];
+    }>();
 
     useEffect(() => {
         const fetchArea = async () => {
@@ -28,7 +43,7 @@ function InitialRouteQueryForm({ accessToken }) {
             };
 
             setCurrentLocation(location);
-            setFrom((from) => (!from.coordinates ? location : from));
+            setFrom((from) => (!from?.coordinates ? location : from));
             console.log(location);
         };
 
@@ -37,14 +52,14 @@ function InitialRouteQueryForm({ accessToken }) {
 
     useEffect(() => {
         if (
-            !from.search ||
-            (from.search as string).includes("Current location")
+            !from?.search ||
+            (from?.search as string).includes("Current location")
         )
             return;
 
         const updateFromAreaList = async () => {
             const fromAreaList = (
-                await geocode(accessToken, from.search)
+                await geocode(accessToken, from?.search)
             ).features.map((f) => ({
                 name: f.place_name,
                 coordinates: f.center,
@@ -52,10 +67,16 @@ function InitialRouteQueryForm({ accessToken }) {
             }));
             console.log(fromAreaList);
 
-            if (fromAreaList?.[0]?.name === from.search) {
-                setFrom((from) => ({ ...from, coordinates: from.coordinates }));
+            if (fromAreaList?.[0]?.name === from?.search) {
+                setFrom((from) => ({
+                    search: from?.search,
+                    coordinates: from?.coordinates,
+                }));
             }
-            setAreaList((list) => ({ ...list, from: fromAreaList }));
+            setAreaList((list) => ({
+                ...list,
+                from: fromAreaList,
+            }));
         };
 
         const handler = setTimeout(() => {
@@ -63,14 +84,14 @@ function InitialRouteQueryForm({ accessToken }) {
         }, 300);
 
         return () => clearTimeout(handler);
-    }, [from.search]);
+    }, [from?.search]);
 
     useEffect(() => {
-        if (!destination.search) return;
+        if (!destination?.search) return;
 
         const updateDestinationAreaList = async () => {
             let destinationAreaList = (
-                await geocode(accessToken, destination.search)
+                await geocode(accessToken, destination?.search)
             ).features.map((f) => ({
                 name: f.place_name,
                 coordinates: f.center,
@@ -78,7 +99,7 @@ function InitialRouteQueryForm({ accessToken }) {
             }));
             console.log(destinationAreaList);
 
-            if (destinationAreaList?.[0]?.name === destination.search) {
+            if (destinationAreaList?.[0]?.name === destination?.search) {
                 setDestination({
                     search: destinationAreaList?.[0]?.name,
                     coordinates: destinationAreaList?.[0]?.coordinates,
@@ -98,15 +119,17 @@ function InitialRouteQueryForm({ accessToken }) {
         }, 300);
 
         return () => clearTimeout(handler);
-    }, [destination.search]);
+    }, [destination?.search]);
 
-    const handleSubmit = (e) => {
+    const handleSubmit: FormEventHandler<HTMLFormElement> = (e) => {
         e.preventDefault();
+        if (!from) return;
+        if (!destination) return;
 
         Inertia.post("/journey", {
-            from: from,
-            destination: destination,
-        });
+            from,
+            destination,
+        } as any); // TODO: check the type error
     };
 
     return (
@@ -119,7 +142,7 @@ function InitialRouteQueryForm({ accessToken }) {
                 <input
                     type="text"
                     placeholder="From location"
-                    className="input-bordered input"
+                    className="input rounded-none border-0 border-b-2 border-white bg-transparent"
                     onChange={(e) =>
                         setFrom((from) => ({ ...from, search: e.target.value }))
                     }
@@ -127,9 +150,9 @@ function InitialRouteQueryForm({ accessToken }) {
                     list="fromAreaList"
                 />
                 <datalist id="fromAreaList">
-                    {areaList.from.map((area) => (
+                    {areaList?.from?.map((area) => (
                         <option
-                            coords={area.coordinates}
+                            data-coords={area.coordinates.join(",")}
                             key={area.id}
                             value={area.name}
                         />
@@ -143,7 +166,7 @@ function InitialRouteQueryForm({ accessToken }) {
                 <input
                     type="text"
                     placeholder="To location"
-                    className="input-bordered input"
+                    className="input rounded-none border-0 border-b-2 border-white bg-transparent"
                     onChange={(e) =>
                         setDestination((destination) => ({
                             ...destination,
@@ -154,9 +177,9 @@ function InitialRouteQueryForm({ accessToken }) {
                     list="destinationAreaList"
                 />
                 <datalist id="destinationAreaList">
-                    {areaList.destination.map((area) => (
+                    {areaList?.destination?.map((area) => (
                         <option
-                            coords={area.coordinates}
+                            data-coords={area.coordinates.join(",")}
                             key={area.id}
                             value={area.name}
                         />
