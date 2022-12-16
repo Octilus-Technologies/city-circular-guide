@@ -1,7 +1,7 @@
 import { Inertia } from "@inertiajs/inertia";
 import { GeometryObject } from "@turf/turf";
 import React from "react";
-import { FaCaretRight } from "react-icons/fa";
+import { FaCaretRight, FaFlag, FaMapMarkerAlt } from "react-icons/fa";
 import JourneySteps from "./JourneySteps";
 
 type JourneyControlProps = {
@@ -48,10 +48,33 @@ function JourneyControls({
     journeyDetails,
     expanded = true,
 }: JourneyControlProps) {
-    // console.log({ journeyDetails, stops });
+    const from = stops?.[0]?.[0];
+    const destination =
+        stops?.[stops?.length - 1]?.[stops?.[stops?.length - 1].length - 1];
 
     return (
         <div className="flex flex-col items-start gap-3">
+            <div className="align-center relative flex w-full justify-between pt-4 pb-2 text-sm font-bold">
+                <span className="flex w-[25%] items-center justify-center gap-1">
+                    <FaMapMarkerAlt className="mr-1 inline-block text-xl text-secondary" />
+                    {from?.name}
+                </span>
+
+                <div className="relative mx-4 flex flex-1 items-center justify-center">
+                    <span className="absolute top-[50%] left-0 right-0 -z-[1] translate-y-[-50%] border-0 border-t-2 border-dashed opacity-40"></span>
+                    <span className="grid h-[30px] w-[30px] place-content-center rounded-full bg-secondary text-primary shadow-lg">
+                        to
+                    </span>
+                </div>
+
+                <span className="flex w-[25%] items-center justify-center gap-1">
+                    <FaFlag className="mr-1 inline-block text-xl text-secondary" />
+                    {destination?.name}
+                </span>
+            </div>
+
+            <hr className="mb-4 w-full bg-white opacity-50" />
+
             <ul className="flex w-full flex-col gap-5">
                 {Array(journeyDetails?.length)
                     .fill(0)

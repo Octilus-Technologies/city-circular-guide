@@ -114,8 +114,8 @@ const getOptimizedSegmentStops = (
         optimizedStops[0] !== from &&
         optimizedStops[optimizedStops.length - 1] !== destination;
     optimizedStops = isWrongDirection
-        ? optimizedStops
-        : optimizedStops.reverse();
+        ? optimizedStops.reverse()
+        : optimizedStops;
 
     // console.table(optimizedStops);
 
@@ -166,7 +166,7 @@ export const getOptimizedStops = (
                 destination: junctionCoordinates,
             });
 
-            segments.unshift({
+            segments.push({
                 name: nextCircular.name,
                 from: junctionCoordinates,
                 destination: nextCircular.coordinates,
