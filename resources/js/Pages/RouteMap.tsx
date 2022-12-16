@@ -1,36 +1,11 @@
 import JourneyControls from "@/Components/JourneyControls";
-import BusStopsLayer from "@/Components/map/BusStopsLayer";
+import BusRouteMap from "@/Components/map/BusRouteMap";
 import SideBar from "@/Components/SideBar";
-import {
-    circulars,
-    generateLayerFromGeometry,
-    getStopDetails,
-} from "@/utils/geoJson";
-import { getOptimizedStops } from "@/utils/map-helpers";
-import { getMatch } from "@/utils/mapbox-api";
-import "mapbox-gl/dist/mapbox-gl.css";
-import React, { Fragment, useEffect, useState } from "react";
+import { circulars } from "@/utils/geoJson";
+import useJourney from "@/utils/hooks/useJourney";
+import React, { useEffect, useState } from "react";
 import useGeolocation from "react-hook-geolocation";
-import Map, {
-    GeolocateControl,
-    GeolocateResultEvent,
-    Layer,
-    LayerProps,
-    Marker,
-    MarkerDragEvent,
-    NavigationControl,
-    Source,
-} from "react-map-gl";
-
-const pathLayerStyles: LayerProps = {
-    type: "line",
-    paint: {
-        "line-width": 4,
-        "line-color": "royalblue",
-        "line-opacity": 0.75,
-        // "line-dasharray": [1, 2],
-    },
-};
+import { Marker } from "react-map-gl";
 
 function RouteMap({ mapAccessToken }: { mapAccessToken: string }) {
     const geolocation = useGeolocation();
@@ -39,14 +14,6 @@ function RouteMap({ mapAccessToken }: { mapAccessToken: string }) {
         76.95039864193745, 8.502944175905867,
     ]);
     const [gotLocation, setGotLocation] = useState(false);
-    const [paths, setPaths] = useState<any>();
-    const [stops, setStops] = useState<
-        {
-            coordinates: number[];
-            name: string;
-        }[][]
-    >();
-    const [journeyDetails, setJourneyDetails] = useState<any[]>();
 
     useEffect(() => {
         if (gotLocation || !geolocation.accuracy) return;
@@ -60,52 +27,29 @@ function RouteMap({ mapAccessToken }: { mapAccessToken: string }) {
         zoom: 14,
     });
 
-    useEffect(() => {
-        const generatePathLayer = async () => {
-            const segments = getOptimizedStops(from, destination);
-            if (!segments || !segments.length)
-                return console.log("Unable to find a route");
-
-            const segmentPathPromises = segments.map((segment) =>
-                getMatch(mapAccessToken, segment)
-            );
-            const segmentPath = await Promise.all(segmentPathPromises);
-            const pathLayers = segmentPath.map((path) =>
-                generateLayerFromGeometry(path?.geometry as any)
-            );
-
-            setStops(segments.map((segment) => getStopDetails(segment)));
-            setJourneyDetails(segmentPath?.map((p) => p?.journey));
-            setPaths(pathLayers);
-            // console.table(pathLayers.map((path) => path.features[0].geometry));
-        };
-
-        generatePathLayer();
-    }, [circulars.blue, from, destination]);
+    const {
+        paths,
+        stops,
+        meta: journeyDetails,
+    } = useJourney(mapAccessToken, from, destination);
 
     return (
         <div className="h-full max-h-screen min-h-screen w-full flex-row-reverse">
             <section className="map-container flex flex-1">
-                <Map
+                <BusRouteMap
+                    paths={paths}
+                    circulars={circulars}
                     {...viewState}
                     onMove={(evt) => setViewState(evt.viewState)}
                     mapboxAccessToken={mapAccessToken}
-                    style={{ width: "100%", height: "100vh" }}
-                    mapStyle="mapbox://styles/mapbox/streets-v9"
                 >
-                    <NavigationControl />
-                    <GeolocateControl
-                        onGeolocate={(evt: GeolocateResultEvent) =>
-                            console.log({ evt })
-                        }
-                    />
                     <Marker
                         key={"from"}
                         longitude={from[0]}
                         latitude={from[1]}
                         anchor="bottom"
                         draggable
-                        onDragEnd={({ lngLat }: MarkerDragEvent) =>
+                        onDragEnd={({ lngLat }) =>
                             setFrom([lngLat.lng, lngLat.lat])
                         }
                     />
@@ -115,53 +59,11 @@ function RouteMap({ mapAccessToken }: { mapAccessToken: string }) {
                         latitude={destination[1]}
                         anchor="bottom"
                         draggable
-                        onDragEnd={({ lngLat }: MarkerDragEvent) =>
+                        onDragEnd={({ lngLat }) =>
                             setDestination([lngLat.lng, lngLat.lat])
                         }
                     />
-                    <BusStopsLayer
-                        id="blue-circular-data"
-                        type="geojson"
-                        data={circulars.blue as any}
-                        layerProps={{
-                            id: "blue-point",
-                            paint: {
-                                "circle-radius": 8,
-                                "circle-color": "#3519e6",
-                                "circle-opacity": 0.75,
-                            },
-                        }}
-                    />
-
-                    <BusStopsLayer
-                        id="red-circular-data"
-                        type="geojson"
-                        data={circulars.red as any}
-                        layerProps={{
-                            id: "red-point",
-                            paint: {
-                                "circle-radius": 8,
-                                "circle-color": "#ff0000",
-                                "circle-opacity": 0.75,
-                            },
-                        }}
-                    />
-
-                    {paths?.map((path: any, i: number) => (
-                        <Fragment key={`path-${i}`}>
-                            <Source
-                                id={`path-data-${i}`}
-                                type="geojson"
-                                data={path}
-                            >
-                                <Layer
-                                    {...pathLayerStyles}
-                                    id={`path-${i}-line`}
-                                />
-                            </Source>
-                        </Fragment>
-                    ))}
-                </Map>
+                </BusRouteMap>
             </section>
 
             <SideBar>

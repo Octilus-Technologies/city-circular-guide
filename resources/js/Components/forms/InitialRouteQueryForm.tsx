@@ -74,10 +74,10 @@ function InitialRouteQueryForm({
             console.log(fromAreaList);
 
             if (fromAreaList?.[0]?.name === from?.search) {
-                setFrom((from) => ({
-                    search: from?.search,
-                    coordinates: from?.coordinates,
-                }));
+                setFrom({
+                    search: fromAreaList?.[0]?.name,
+                    coordinates: fromAreaList?.[0]?.coordinates,
+                });
             }
 
             setAreaList((list) => ({
@@ -135,6 +135,8 @@ function InitialRouteQueryForm({
         if (!from) return;
         if (!destination) return;
 
+        console.log({ from, destination });
+
         Inertia.post("/journey", {
             from,
             destination,
@@ -162,7 +164,10 @@ function InitialRouteQueryForm({
                     placeholder="From location"
                     className="input rounded-none border-0 border-b-[1px] border-gray-300 bg-transparent"
                     onChange={(e) =>
-                        setFrom((from) => ({ ...from, search: e.target.value }))
+                        setFrom((oldFrom) => ({
+                            ...oldFrom,
+                            search: e.target.value,
+                        }))
                     }
                     value={from?.search ?? ""}
                     list="fromAreaList"
@@ -192,8 +197,8 @@ function InitialRouteQueryForm({
                     placeholder="To location"
                     className="input rounded-none border-0 border-b-[1px] border-gray-300 bg-transparent text-xl placeholder:text-gray-300"
                     onChange={(e) =>
-                        setDestination((destination) => ({
-                            ...destination,
+                        setDestination((oldDestination) => ({
+                            ...oldDestination,
                             search: e.target.value,
                         }))
                     }
