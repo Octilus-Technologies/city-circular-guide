@@ -19,7 +19,7 @@ const NavLink = ({
             className={
                 isActive
                     ? "text-primary-content"
-                    : "transition-all duration-100 hover:brightness-125"
+                    : "opacity-60 transition-all duration-100 hover:opacity-90"
             }
             {...props}
         >
@@ -36,7 +36,7 @@ const NavLink = ({
 function SmallHeader() {
     return (
         <header className="hidden min-w-[35vw] md:block">
-            <nav className="mx-1 mb-2 flex items-center justify-between gap-6">
+            <nav className="mx-1 mb-2 flex items-center justify-between gap-6 text-white">
                 <Link href="/" className="flex items-center gap-2">
                     <AppIcon />
                 </Link>

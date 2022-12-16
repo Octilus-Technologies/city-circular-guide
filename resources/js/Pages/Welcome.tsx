@@ -43,7 +43,10 @@ export default function Welcome({
                 </section>
 
                 <SideBar>
-                    <InitialRouteQueryForm accessToken={mapAccessToken} />
+                    <InitialRouteQueryForm
+                        accessToken={mapAccessToken}
+                        className="mt-5"
+                    />
                 </SideBar>
             </div>
         </>

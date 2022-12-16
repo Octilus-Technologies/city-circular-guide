@@ -1,5 +1,8 @@
 type Profile = "driving-traffic" | "driving" | "walking" | "cycling";
 
+const GEOCODING_API = "https://api.mapbox.com/geocoding/v5";
+const MATCHING_API = "https://api.mapbox.com/matching/v5";
+
 export async function getMatch(
     accessToken: string,
     coordinates: number[][],
@@ -19,42 +22,40 @@ export async function getMatch(
         params["radiuses"] = radius.join(";");
     }
 
-    let url = `https://api.mapbox.com/matching/v5/mapbox/${profile}/${coordinatesStr}?${new URLSearchParams(
+    let url = `${MATCHING_API}/mapbox/${profile}/${coordinatesStr}?${new URLSearchParams(
         params
     ).toString()}`;
     const query = await fetch(url, { method: "GET" });
     const response = await query.json();
 
     if (response.code !== "Ok") {
-        console.log(
-            `${response.code} - ${response.message}.\n\nFor more information: https://docs.mapbox.com/api/navigation/map-matching/#map-matching-api-errors`
-        );
-        return;
+        return console.log(`${response.code} - ${response.message}.`);
     }
-
-    // console.log(response.matchings);
 
     // Get the coordinates from the response
     const coords = response.matchings?.[0].geometry;
     return { geometry: coords, journey: response.matchings?.[0].legs?.[0] };
 }
 
-export const geocode = async (accessToken, searchText) => {
+export const geocode = async (accessToken: string, searchText: string) => {
     const response = await fetch(
-        `https://api.mapbox.com/geocoding/v5/${"mapbox.places"}/${searchText}.json?access_token=${accessToken}`
+        `${GEOCODING_API}/${"mapbox.places"}/${searchText}.json?access_token=${accessToken}`
     );
-    const data = (await response.json()) as { features: any[] };
+    const data = (await response.json()) as { features: Record<string, any>[] };
 
     return data;
 };
 
-export const reverseGeocode = async (accessToken, geocode) => {
+export const reverseGeocode = async (
+    accessToken: string,
+    geocode: { longitude: number; latitude: number }
+) => {
     const response = await fetch(
-        `https://api.mapbox.com/geocoding/v5/${"mapbox.places"}/${
-            geocode.longitude
-        },${geocode.latitude}.json?access_token=${accessToken}`
+        `${GEOCODING_API}/${"mapbox.places"}/${geocode.longitude},${
+            geocode.latitude
+        }.json?access_token=${accessToken}`
     );
-    const data = (await response.json()) as { features: any[] };
+    const data = (await response.json()) as { features: Record<string, any>[] };
 
     return data;
 };

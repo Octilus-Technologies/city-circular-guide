@@ -2,6 +2,7 @@ import { geocode, reverseGeocode } from "@/utils/mapbox-api";
 import { Inertia } from "@inertiajs/inertia";
 import React, { FormEventHandler, useEffect, useState } from "react";
 import useGeolocation from "react-hook-geolocation";
+import { FaFlag, FaMapMarkerAlt } from "react-icons/fa";
 
 type Area = {
     name: string;
@@ -9,9 +10,15 @@ type Area = {
     coordinates: number[];
 };
 
-function InitialRouteQueryForm({ accessToken }: { accessToken: string }) {
+function InitialRouteQueryForm({
+    accessToken,
+    className = "",
+    ...props
+}: {
+    accessToken: string;
+    className?: string;
+}) {
     const geolocation = useGeolocation();
-    const [currentLocation, setCurrentLocation] = useState({});
     const [from, setFrom] = useState<{
         search?: string;
         coordinates?: number[];
@@ -30,21 +37,18 @@ function InitialRouteQueryForm({ accessToken }: { accessToken: string }) {
 
     useEffect(() => {
         const fetchArea = async () => {
-            console.log(geolocation);
             if (geolocation?.accuracy < 1000) return;
 
             const data = await reverseGeocode(accessToken, geolocation);
             const area = data?.features?.[1];
-            console.log(area);
-
             const location = {
                 search: `Current location (${area.text})`,
                 coordinates: area.center,
             };
 
-            setCurrentLocation(location);
-            setFrom((from) => (!from?.coordinates ? location : from));
-            console.log(location);
+            setFrom((prevFrom) =>
+                !prevFrom?.coordinates ? { ...location } : { ...prevFrom }
+            );
         };
 
         fetchArea();
@@ -58,6 +62,8 @@ function InitialRouteQueryForm({ accessToken }: { accessToken: string }) {
             return;
 
         const updateFromAreaList = async () => {
+            if (!from?.search) return;
+
             const fromAreaList = (
                 await geocode(accessToken, from?.search)
             ).features.map((f) => ({
@@ -73,6 +79,7 @@ function InitialRouteQueryForm({ accessToken }: { accessToken: string }) {
                     coordinates: from?.coordinates,
                 }));
             }
+
             setAreaList((list) => ({
                 ...list,
                 from: fromAreaList,
@@ -90,6 +97,8 @@ function InitialRouteQueryForm({ accessToken }: { accessToken: string }) {
         if (!destination?.search) return;
 
         const updateDestinationAreaList = async () => {
+            if (!destination?.search) return;
+
             let destinationAreaList = (
                 await geocode(accessToken, destination?.search)
             ).features.map((f) => ({
@@ -133,16 +142,25 @@ function InitialRouteQueryForm({ accessToken }: { accessToken: string }) {
     };
 
     return (
-        <form onSubmit={handleSubmit}>
+        <form
+            onSubmit={handleSubmit}
+            className={`flex flex-col gap-8 ${className}`}
+            {...props}
+        >
             {/* <pre>{JSON.stringify(destination, null, 2)}</pre> */}
-            <div className="form-control">
-                <label className="label">
-                    <span className="label-text">From</span>
+            <div className="form-control text-white">
+                <label
+                    className="label flex justify-start gap-3"
+                    htmlFor="from"
+                >
+                    <FaMapMarkerAlt className="mr-1 inline-block text-secondary" />
+                    <span className="label-text text-inherit">From?</span>
                 </label>
                 <input
+                    id="from"
                     type="text"
                     placeholder="From location"
-                    className="input rounded-none border-0 border-b-2 border-white bg-transparent"
+                    className="input rounded-none border-0 border-b-[1px] border-gray-300 bg-transparent"
                     onChange={(e) =>
                         setFrom((from) => ({ ...from, search: e.target.value }))
                     }
@@ -159,14 +177,20 @@ function InitialRouteQueryForm({ accessToken }: { accessToken: string }) {
                     ))}
                 </datalist>
             </div>
-            <div className="form-control">
-                <label className="label">
-                    <span className="label-text">To</span>
+
+            <div className="form-control text-white">
+                <label
+                    className="label flex justify-start gap-3"
+                    htmlFor="destination"
+                >
+                    <FaFlag className="mr-2 inline-block text-secondary" />
+                    <span className="label-text text-inherit">Where to?</span>
                 </label>
                 <input
+                    id="destination"
                     type="text"
                     placeholder="To location"
-                    className="input rounded-none border-0 border-b-2 border-white bg-transparent"
+                    className="input rounded-none border-0 border-b-[1px] border-gray-300 bg-transparent text-xl placeholder:text-gray-300"
                     onChange={(e) =>
                         setDestination((destination) => ({
                             ...destination,
@@ -186,7 +210,8 @@ function InitialRouteQueryForm({ accessToken }: { accessToken: string }) {
                     ))}
                 </datalist>
             </div>
-            <div className="form-control mt-6">
+
+            <div className="form-control">
                 <button type="submit" className="btn-primary btn">
                     Find best route
                 </button>
