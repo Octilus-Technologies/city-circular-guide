@@ -1,4 +1,4 @@
-import { CircularGeojson, CircularName } from "@/utils/geoJson";
+import { circularColors, CircularGeojson, CircularName } from "@/utils/geoJson";
 import "mapbox-gl/dist/mapbox-gl.css";
 import React, { Fragment, ReactNode } from "react";
 import Map, {
@@ -30,7 +30,7 @@ function BusRouteMap({
     ...props
 }: {
     circulars: Record<CircularName, CircularGeojson>;
-    paths?: any[];
+    paths?: Object[];
     children: ReactNode;
     onMove: (evt: ViewStateChangeEvent) => void;
 } & Record<string, any>) {
@@ -56,7 +56,7 @@ function BusRouteMap({
                     id: "blue-point",
                     paint: {
                         "circle-radius": 8,
-                        "circle-color": "#3519e6",
+                        "circle-color": circularColors.blue,
                         "circle-opacity": 0.75,
                     },
                 }}
@@ -70,7 +70,7 @@ function BusRouteMap({
                     id: "red-point",
                     paint: {
                         "circle-radius": 8,
-                        "circle-color": "#ff0000",
+                        "circle-color": circularColors.red,
                         "circle-opacity": 0.75,
                     },
                 }}

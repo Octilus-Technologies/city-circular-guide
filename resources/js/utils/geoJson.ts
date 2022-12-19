@@ -16,6 +16,11 @@ export const circulars = {
     red: redCircular,
 };
 
+export const circularColors: Record<CircularName, string> = {
+    blue: "hsl(239, 100%, 70%)",
+    red: "hsl(0, 100%, 70%)",
+} as const;
+
 export function generateLayerFromGeometry(geometry: Geometry<"LineString">) {
     return {
         type: "FeatureCollection",
