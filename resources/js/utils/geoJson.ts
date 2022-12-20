@@ -16,6 +16,8 @@ export const circulars = {
     red: redCircular,
 };
 
+export const circularNames = Object.keys(circulars) as CircularName[];
+
 export const circularColors: Record<CircularName, string> = {
     blue: "hsl(239, 100%, 70%)",
     red: "hsl(0, 100%, 70%)",

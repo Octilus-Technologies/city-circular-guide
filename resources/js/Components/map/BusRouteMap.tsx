@@ -1,4 +1,4 @@
-import { circularColors, CircularGeojson, CircularName } from "@/utils/geoJson";
+import { circularColors, CircularGeojson, CircularName, circularNames } from "@/utils/geoJson";
 import "mapbox-gl/dist/mapbox-gl.css";
 import React, { Fragment, ReactNode } from "react";
 import Map, {
@@ -48,33 +48,22 @@ function BusRouteMap({
                 }
             />
 
-            <BusStopsLayer
-                id="blue-circular-data"
-                type="geojson"
-                data={circulars.blue as any}
-                layerProps={{
-                    id: "blue-point",
-                    paint: {
-                        "circle-radius": 8,
-                        "circle-color": circularColors.blue,
-                        "circle-opacity": 0.75,
-                    },
-                }}
-            />
-
-            <BusStopsLayer
-                id="red-circular-data"
-                type="geojson"
-                data={circulars.red as any}
-                layerProps={{
-                    id: "red-point",
-                    paint: {
-                        "circle-radius": 8,
-                        "circle-color": circularColors.red,
-                        "circle-opacity": 0.75,
-                    },
-                }}
-            />
+            {circularNames.map((circularName) => (
+                <BusStopsLayer
+                    key={`${circularName}-circular-data`}
+                    id={`${circularName}-circular-data`}
+                    type="geojson"
+                    data={circulars[circularName] as any}
+                    layerProps={{
+                        id: `${circularName}-point`,
+                        paint: {
+                            "circle-radius": 8,
+                            "circle-color": circularColors[circularName],
+                            "circle-opacity": 0.75,
+                        },
+                    }}
+                />
+            ))}
 
             {paths?.map((path: any, i: number) => (
                 <Fragment key={`path-${i}`}>
