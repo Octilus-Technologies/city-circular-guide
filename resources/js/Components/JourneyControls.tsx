@@ -1,7 +1,7 @@
 import { Inertia } from "@inertiajs/inertia";
 import { GeometryObject } from "@turf/turf";
 import React from "react";
-import { FaCaretRight, FaFlag, FaMapMarkerAlt } from "react-icons/fa";
+import { FaFlag, FaMapMarkerAlt } from "react-icons/fa";
 import JourneySteps from "./JourneySteps";
 
 type JourneyControlProps = {

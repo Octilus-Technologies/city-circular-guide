@@ -69,7 +69,7 @@ export function generateLineFromPoints(
     };
 }
 
-const getAllStopDetails = () => {
+export const getAllStopDetails = () => {
     const stops = (Object.keys(circulars) as CircularName[]).map(
         (circularName) => {
             const circular = circulars[circularName];
@@ -77,6 +77,7 @@ const getAllStopDetails = () => {
             return circular.features.map((f) => ({
                 coordinates: f.geometry.coordinates,
                 name: f.properties.name,
+                circularName: circularName,
             }));
         }
     );
@@ -91,7 +92,15 @@ export const getStopDetails = (coordinates: Coordinates[]) => {
         );
         if (!stop) return;
 
-        return { ...stop };
+        const circular = {
+            name: stop.circularName,
+            color: circularColors[stop.circularName],
+        };
+
+        const isJunction =
+            getAllStopDetails().filter((s) => s.name === stop.name).length > 1;
+
+        return { ...stop, circular, isJunction };
     });
 
     return stops.filter(

@@ -1,15 +1,25 @@
-import { circularColors, CircularGeojson, CircularName, circularNames } from "@/utils/geoJson";
+import {
+    circularColors,
+    CircularGeojson,
+    CircularName,
+    circularNames,
+    getStopDetails,
+} from "@/utils/geoJson";
+import { findNearestStop } from "@/utils/map-helpers";
 import "mapbox-gl/dist/mapbox-gl.css";
-import React, { Fragment, ReactNode } from "react";
+import React, { Fragment, ReactNode, useState } from "react";
 import Map, {
     GeolocateControl,
     GeolocateResultEvent,
     Layer,
     LayerProps,
+    MapLayerMouseEvent,
     NavigationControl,
+    Popup,
     Source,
     ViewStateChangeEvent,
 } from "react-map-gl";
+import BusStopInfo from "../BusStopInfo";
 import BusStopsLayer from "./BusStopsLayer";
 
 const pathLayerStyles: LayerProps = {
@@ -34,13 +44,58 @@ function BusRouteMap({
     children: ReactNode;
     onMove: (evt: ViewStateChangeEvent) => void;
 } & Record<string, any>) {
+    const [popup, setPopup] = useState<{
+        coordinates?: number[];
+        show: boolean;
+        stop?: ReturnType<typeof getStopDetails>[number];
+    }>({
+        show: false,
+    });
+    console.log(popup);
+
+    const handleClick = (event: MapLayerMouseEvent) => {
+        const nearestStop = findNearestStop([
+            event.lngLat.lng,
+            event.lngLat.lat,
+        ]);
+        if (!nearestStop || nearestStop.distance > 120) return;
+
+        const stop = getStopDetails([nearestStop.coordinates])[0];
+        console.log(stop);
+
+        setPopup((prevPopup) => ({
+            show: false,
+        }));
+
+        setTimeout(() => {
+            setPopup((prevPopup) => ({
+                ...prevPopup,
+                coordinates: stop.coordinates,
+                show: true,
+                stop,
+            }));
+        }, 100);
+    };
+
     return (
         <Map
+            onClick={handleClick}
             {...props}
             onMove={onMove}
             style={{ width: "100%", height: "100vh" }}
             mapStyle="mapbox://styles/mapbox/streets-v9"
         >
+            {!!popup.show && !!popup.stop && !!popup.coordinates && (
+                <Popup
+                    longitude={popup.coordinates[0]}
+                    latitude={popup.coordinates[1]}
+                    anchor="bottom"
+                    onClose={() => setPopup({ ...popup, show: false })}
+                >
+                    <BusStopInfo stop={popup.stop} />
+                </Popup>
+            )}
+
             <NavigationControl />
             <GeolocateControl
                 onGeolocate={(evt: GeolocateResultEvent) =>

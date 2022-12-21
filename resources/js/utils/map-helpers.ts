@@ -3,12 +3,13 @@ import {
     CircularName,
     circulars,
     Coordinates,
+    getAllStopDetails,
     getCircularCoordinates,
 } from "./geoJson";
 
 export const findNearestStop = (
     coordinates: Coordinates,
-    stops: Coordinates[]
+    stops: Coordinates[] = getAllStopDetails().map((s) => s.coordinates)
 ) => {
     let from = point(coordinates);
 

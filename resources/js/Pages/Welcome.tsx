@@ -48,7 +48,7 @@ export default function Welcome({ mapAccessToken }: { mapAccessToken: string }) 
                             <li key={`circular-${i}`}>
                                 <button
                                     onClick={() => toggleCircularPath(i)}
-                                    className={`tab tab-active !px-4 !py-1 text-xs capitalize ${circular.isActive
+                                    className={`tab tab-active !px-4 !py-1 text-xs capitalize transition-all ${circular.isActive
                                         ? "tab-active"
                                         : "opacity-50"
                                         }`}
