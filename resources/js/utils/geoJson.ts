@@ -6,11 +6,12 @@ export type CircularName = keyof typeof circulars;
 export type CircularGeojson = typeof circulars[CircularName];
 export type PointFeatureCollection = CircularGeojson;
 export type Geometry<TType extends string> = {
-    coordinates: number[];
+    coordinates: Coordinates;
     type: TType;
 };
+export type BusStopDetail = ReturnType<typeof getStopDetails>[number];
 
-// Register all circulars here
+// * Register all circulars here
 export const circulars = {
     blue: blueCircular,
     red: redCircular,
@@ -85,6 +86,13 @@ export const getAllStopDetails = () => {
     return stops.flat();
 };
 
+export const getCircularDetails = (circularName: CircularName) => {
+    return {
+        name: circularName,
+        color: circularColors[circularName],
+    };
+};
+
 export const getStopDetails = (coordinates: Coordinates[]) => {
     const stops = coordinates.map((c) => {
         const stop = getAllStopDetails().find(
@@ -92,15 +100,16 @@ export const getStopDetails = (coordinates: Coordinates[]) => {
         );
         if (!stop) return;
 
-        const circular = {
-            name: stop.circularName,
-            color: circularColors[stop.circularName],
+        const inCirculars = getAllStopDetails()
+            .filter((s) => s.name === stop.name)
+            .map((s) => s.circularName);
+
+        const stopDetails = {
+            ...stop,
+            circulars: inCirculars.map(getCircularDetails),
         };
 
-        const isJunction =
-            getAllStopDetails().filter((s) => s.name === stop.name).length > 1;
-
-        return { ...stop, circular, isJunction };
+        return stopDetails;
     });
 
     return stops.filter(
