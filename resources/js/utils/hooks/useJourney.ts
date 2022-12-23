@@ -1,11 +1,7 @@
 import { getOptimizedStops } from "@/utils/map-helpers";
 import { getMatch } from "@/utils/mapbox-api";
 import { useEffect, useState } from "react";
-import {
-    circulars,
-    generateLayerFromGeometry,
-    getStopDetails,
-} from "../geoJson";
+import { generateLayerFromGeometry, getStopDetails } from "../geoJson";
 import { Coordinates } from "./../geoJson";
 
 const useJourney = (
@@ -35,7 +31,7 @@ const useJourney = (
             const segmentPath = await Promise.all(segmentPathPromises);
 
             const paths = segmentPath.map((path) =>
-                generateLayerFromGeometry(path?.geometry as any)
+                generateLayerFromGeometry(path?.geometry)
             );
             const stops = segments.map((segment) => getStopDetails(segment));
             const meta = segmentPath.map((path) => path?.journey);
@@ -46,7 +42,7 @@ const useJourney = (
         };
 
         generatePathLayer();
-    }, [circulars.blue, from, destination]);
+    }, [from, destination]);
 
     return { paths, stops, meta };
 };

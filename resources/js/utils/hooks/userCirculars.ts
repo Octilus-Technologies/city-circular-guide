@@ -10,7 +10,7 @@ import {
     getStopDetails,
 } from "./../geoJson";
 
-type CircularData = {
+export type CircularData = {
     name: CircularName;
     color: string;
     path: {

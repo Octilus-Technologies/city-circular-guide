@@ -19,10 +19,6 @@ function InitialRouteQueryForm({
     className?: string;
 }) {
     const geolocation = useGeolocation();
-    const [from, setFrom] = useState<{
-        search?: string;
-        coordinates?: number[];
-    }>();
     const [areaList, setAreaList] = useState<{
         from?: Area[];
         destination?: Area[];
@@ -30,10 +26,18 @@ function InitialRouteQueryForm({
         from: [],
         destination: [],
     });
+    const [from, setFrom] = useState<{
+        search?: string;
+        coordinates?: number[];
+    }>();
     const [destination, setDestination] = useState<{
         search?: string;
         coordinates?: number[];
     }>();
+
+    const foundExactFromMatch = areaList.from?.[0]?.name === from?.search;
+    const foundExactDestinationMatch =
+        areaList.destination?.[0]?.name === destination?.search;
 
     useEffect(() => {
         const fetchArea = async () => {
@@ -171,15 +175,18 @@ function InitialRouteQueryForm({
                     }
                     value={from?.search ?? ""}
                     list="fromAreaList"
+                    autoComplete="off"
                 />
+
                 <datalist id="fromAreaList">
-                    {areaList?.from?.map((area) => (
-                        <option
-                            data-coords={area.coordinates.join(",")}
-                            key={area.id}
-                            value={area.name}
-                        />
-                    ))}
+                    {!foundExactFromMatch &&
+                        areaList?.from?.map((area) => (
+                            <option
+                                data-coords={area.coordinates.join(",")}
+                                key={area.id}
+                                value={area.name}
+                            />
+                        ))}
                 </datalist>
             </div>
 
@@ -204,15 +211,18 @@ function InitialRouteQueryForm({
                     }
                     value={destination?.search ?? ""}
                     list="destinationAreaList"
+                    autoComplete="off"
                 />
+
                 <datalist id="destinationAreaList">
-                    {areaList?.destination?.map((area) => (
-                        <option
-                            data-coords={area.coordinates.join(",")}
-                            key={area.id}
-                            value={area.name}
-                        />
-                    ))}
+                    {!foundExactDestinationMatch &&
+                        areaList?.destination?.map((area) => (
+                            <option
+                                data-coords={area.coordinates.join(",")}
+                                key={area.id}
+                                value={area.name}
+                            />
+                        ))}
                 </datalist>
             </div>
 

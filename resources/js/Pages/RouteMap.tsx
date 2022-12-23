@@ -1,19 +1,29 @@
 import JourneyControls from "@/Components/JourneyControls";
 import BusRouteMap from "@/Components/map/BusRouteMap";
 import SideBar from "@/Components/SideBar";
-import { circulars } from "@/utils/geoJson";
+import { circulars, Coordinates } from "@/utils/geoJson";
 import useJourney from "@/utils/hooks/useJourney";
+import { Inertia } from "@inertiajs/inertia";
 import React, { useEffect, useState } from "react";
 import useGeolocation from "react-hook-geolocation";
 import { Marker } from "react-map-gl";
 
 function RouteMap({ mapAccessToken }: { mapAccessToken: string }) {
+    const url = new URL(window.location.href);
+
     const geolocation = useGeolocation();
-    const [from, setFrom] = useState([76.9475819999987, 8.48819065530084]);
-    const [destination, setDestination] = useState([
-        76.95039864193745, 8.502944175905867,
-    ]);
+    const [from, setFrom] = useState<Coordinates | undefined>(
+        url.searchParams.get("from")?.split(",").map(parseFloat)
+    );
+    const [destination, setDestination] = useState<Coordinates | undefined>(
+        url.searchParams.get("destination")?.split(",").map(parseFloat)
+    );
     const [gotLocation, setGotLocation] = useState(false);
+
+    // Return to previous page if from or destination is not set
+    if (!from || !destination) {
+        return Inertia.visit("/");
+    }
 
     useEffect(() => {
         if (gotLocation || !geolocation.accuracy) return;
@@ -21,7 +31,7 @@ function RouteMap({ mapAccessToken }: { mapAccessToken: string }) {
         setGotLocation(true);
     }, [geolocation]);
 
-    const [viewState, setViewState] = React.useState({
+    const [viewState, setViewState] = useState({
         longitude: from[0],
         latitude: from[1],
         zoom: 14,

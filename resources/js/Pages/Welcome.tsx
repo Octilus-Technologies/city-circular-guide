@@ -4,9 +4,7 @@ import SideBar from "@/Components/SideBar";
 import useCirculars from "@/utils/hooks/userCirculars";
 import { Head } from "@inertiajs/inertia-react";
 import "mapbox-gl/dist/mapbox-gl.css";
-import React, {
-    Fragment, useState
-} from "react";
+import React, { Fragment, useState } from "react";
 import { Layer, LayerProps, Source } from "react-map-gl";
 
 const pathLayerStyles: LayerProps & Record<string, any> = {
@@ -19,14 +17,23 @@ const pathLayerStyles: LayerProps & Record<string, any> = {
     },
 };
 
-export default function Welcome({ mapAccessToken }: { mapAccessToken: string }) {
+export default function Welcome({
+    mapAccessToken,
+}: {
+    mapAccessToken: string;
+}) {
     const [viewState, setViewState] = useState({
         longitude: 76.93,
         latitude: 8.51,
         zoom: 12.5,
     });
 
-    const { circulars, toggleCircularPath, isAllActive, geoJson: circularsGeojson } = useCirculars(mapAccessToken);
+    const {
+        circulars,
+        toggleCircularPath,
+        isAllActive,
+        geoJson: circularsGeojson,
+    } = useCirculars(mapAccessToken);
 
     return (
         <>
@@ -38,8 +45,9 @@ export default function Welcome({ mapAccessToken }: { mapAccessToken: string }) 
                         <li key={`circular-all`}>
                             <button
                                 onClick={() => toggleCircularPath()}
-                                className={`tab tab-active !px-4 !py-1 text-xs capitalize transition-all ${isAllActive ? "tab-active" : "opacity-50"
-                                    }`}
+                                className={`tab tab-active !px-4 !py-1 text-xs capitalize transition-all ${
+                                    isAllActive ? "tab-active" : "opacity-50"
+                                }`}
                             >
                                 All
                             </button>
@@ -48,10 +56,11 @@ export default function Welcome({ mapAccessToken }: { mapAccessToken: string }) 
                             <li key={`circular-${i}`}>
                                 <button
                                     onClick={() => toggleCircularPath(i)}
-                                    className={`tab tab-active !px-4 !py-1 text-xs capitalize transition-all ${circular.isActive
-                                        ? "tab-active"
-                                        : "opacity-50"
-                                        }`}
+                                    className={`tab tab-active !px-4 !py-1 text-xs capitalize transition-all ${
+                                        circular.isActive
+                                            ? "tab-active"
+                                            : "opacity-50"
+                                    }`}
                                     style={{
                                         backgroundColor: circular.color,
                                     }}
@@ -63,6 +72,9 @@ export default function Welcome({ mapAccessToken }: { mapAccessToken: string }) 
                     </ul>
 
                     <BusRouteMap
+                        activeCirculars={circulars.filter(
+                            (circular) => circular.isActive
+                        )}
                         circulars={circularsGeojson}
                         {...viewState}
                         onMove={(evt) => setViewState(evt.viewState)}

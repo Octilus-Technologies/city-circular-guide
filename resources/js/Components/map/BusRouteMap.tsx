@@ -5,6 +5,7 @@ import {
     circularNames,
     getStopDetails,
 } from "@/utils/geoJson";
+import { CircularData } from "@/utils/hooks/userCirculars";
 import { findNearestStop } from "@/utils/map-helpers";
 import "mapbox-gl/dist/mapbox-gl.css";
 import React, { Fragment, ReactNode, useState } from "react";
@@ -37,13 +38,18 @@ function BusRouteMap({
     paths = [],
     children,
     onMove,
+    activeCirculars,
     ...props
 }: {
     circulars: Record<CircularName, CircularGeojson>;
     paths?: Object[];
     children: ReactNode;
     onMove: (evt: ViewStateChangeEvent) => void;
+    activeCirculars?: CircularData[];
 } & Record<string, any>) {
+    const activeCircularsNames =
+        activeCirculars?.map((c) => c.name) ?? circularNames;
+
     const [popup, setPopup] = useState<{
         coordinates?: number[];
         show: boolean;
@@ -103,7 +109,7 @@ function BusRouteMap({
                 }
             />
 
-            {circularNames.map((circularName) => (
+            {activeCircularsNames.map((circularName) => (
                 <BusStopsLayer
                     key={`${circularName}-circular-data`}
                     id={`${circularName}-circular-data`}
