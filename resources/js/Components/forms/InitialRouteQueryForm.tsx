@@ -10,6 +10,11 @@ type Area = {
     coordinates: number[];
 };
 
+type AreaSearch = {
+    search?: string;
+    coordinates?: number[];
+};
+
 function InitialRouteQueryForm({
     accessToken,
     className = "",
@@ -26,18 +31,15 @@ function InitialRouteQueryForm({
         from: [],
         destination: [],
     });
-    const [from, setFrom] = useState<{
-        search?: string;
-        coordinates?: number[];
-    }>();
-    const [destination, setDestination] = useState<{
-        search?: string;
-        coordinates?: number[];
-    }>();
+    const [from, setFrom] = useState<AreaSearch>();
+    const [destination, setDestination] = useState<AreaSearch>();
 
-    const foundExactFromMatch = areaList.from?.[0]?.name === from?.search;
-    const foundExactDestinationMatch =
-        areaList.destination?.[0]?.name === destination?.search;
+    const foundExactFromMatch = areaList.from?.some(
+        (d) => d.name === from?.search
+    );
+    const foundExactDestinationMatch = areaList.destination?.some(
+        (d) => d.name === destination?.search
+    );
 
     useEffect(() => {
         const fetchArea = async () => {
@@ -58,77 +60,59 @@ function InitialRouteQueryForm({
         fetchArea();
     }, [geolocation.accuracy]);
 
-    useEffect(() => {
-        if (
-            !from?.search ||
-            (from?.search as string).includes("Current location")
-        )
-            return;
+    const updateAreaList = async (
+        type: keyof typeof areaList,
+        search?: string
+    ) => {
+        if (!search) return;
 
-        const updateFromAreaList = async () => {
-            if (!from?.search) return;
-
-            const fromAreaList = (
-                await geocode(accessToken, from?.search)
-            ).features.map((f) => ({
+        let areaList = (await geocode(accessToken, search)).features.map(
+            (f) => ({
                 name: f.place_name,
                 coordinates: f.center,
                 id: f.id,
-            }));
-            console.log(fromAreaList);
+            })
+        );
+        console.log(areaList);
 
-            if (fromAreaList?.[0]?.name === from?.search) {
+        setAreaList((list) => ({
+            ...list,
+            [type]: areaList,
+        }));
+
+        let match = areaList.find((d) => d.name === search);
+        if (!match) return;
+
+        switch (type) {
+            case "from":
                 setFrom({
-                    search: fromAreaList?.[0]?.name,
-                    coordinates: fromAreaList?.[0]?.coordinates,
+                    search: match?.name,
+                    coordinates: match?.coordinates,
                 });
-            }
+                break;
 
-            setAreaList((list) => ({
-                ...list,
-                from: fromAreaList,
-            }));
-        };
+            case "destination":
+                setDestination({
+                    search: match?.name,
+                    coordinates: match?.coordinates,
+                });
+                break;
+        }
+    };
 
+    // Debounce and update area list
+    useEffect(() => {
         const handler = setTimeout(() => {
-            updateFromAreaList();
+            updateAreaList("from", from?.search);
         }, 300);
 
         return () => clearTimeout(handler);
     }, [from?.search]);
 
+    // Debounce and update area list
     useEffect(() => {
-        if (!destination?.search) return;
-
-        const updateDestinationAreaList = async () => {
-            if (!destination?.search) return;
-
-            let destinationAreaList = (
-                await geocode(accessToken, destination?.search)
-            ).features.map((f) => ({
-                name: f.place_name,
-                coordinates: f.center,
-                id: f.id,
-            }));
-            console.log(destinationAreaList);
-
-            if (destinationAreaList?.[0]?.name === destination?.search) {
-                setDestination({
-                    search: destinationAreaList?.[0]?.name,
-                    coordinates: destinationAreaList?.[0]?.coordinates,
-                });
-
-                destinationAreaList = [];
-            }
-
-            setAreaList((list) => ({
-                ...list,
-                destination: destinationAreaList,
-            }));
-        };
-
         const handler = setTimeout(() => {
-            updateDestinationAreaList();
+            updateAreaList("destination", destination?.search);
         }, 300);
 
         return () => clearTimeout(handler);
@@ -231,6 +215,10 @@ function InitialRouteQueryForm({
                     Find best route
                 </button>
             </div>
+
+            {/* <pre className="alert bg-opacity-5 text-left text-white">
+                {JSON.stringify({ from, destination }, null, 2)}
+            </pre> */}
         </form>
     );
 }
