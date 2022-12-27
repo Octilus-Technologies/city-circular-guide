@@ -14,6 +14,7 @@ import Map, {
     GeolocateResultEvent,
     Layer,
     LayerProps,
+    LngLatBoundsLike,
     MapLayerMouseEvent,
     NavigationControl,
     Popup,
@@ -39,6 +40,7 @@ function BusRouteMap({
     children,
     onMove,
     activeCirculars,
+    maxBounds,
     ...props
 }: {
     circulars: Record<CircularName, CircularGeojson>;
@@ -46,6 +48,7 @@ function BusRouteMap({
     children: ReactNode;
     onMove: (evt: ViewStateChangeEvent) => void;
     activeCirculars?: CircularData[];
+    maxBounds?: LngLatBoundsLike;
 } & Record<string, any>) {
     const activeCircularsNames =
         activeCirculars?.map((c) => c.name) ?? circularNames;
@@ -85,6 +88,7 @@ function BusRouteMap({
 
     return (
         <Map
+            maxBounds={maxBounds}
             onClick={handleClick}
             {...props}
             onMove={onMove}

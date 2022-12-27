@@ -73,7 +73,7 @@ function InitialRouteQueryForm({
                 id: f.id,
             })
         );
-        console.log(areaList);
+        // console.log(areaList);
 
         setAreaList((list) => ({
             ...list,
