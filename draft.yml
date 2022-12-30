@@ -1,0 +1,44 @@
+models:
+  Location:
+    name: string
+    lng: double
+    lat: double
+    address: json
+    user_id: id foreign:users nullable
+    timestamps: true
+    softDeletes: true
+
+  Journey:
+    from_id: id foreign:locations
+    destination_id: id foreign:locations
+    timestamps: true
+    softDeletes: true
+
+  Circular:
+    name: string
+    timestamps: true
+    softDeletes: true
+
+  Route:
+    name: string
+    timestamps: true
+    softDeletes: true
+    relationships:
+      belongsTo: Circular
+
+  Stop:
+    name: string
+    previous_id: id foreign:stops nullable
+    next_id: id foreign:stops nullable
+    timestamps: true
+    softDeletes: true
+    relationships:
+      belongsTo: Route
+      hasOne: Location
+
+  Bus:
+    number: string nullable
+    timestamps: true
+    softDeletes: true
+    relationships:
+      belongsTo: Route
