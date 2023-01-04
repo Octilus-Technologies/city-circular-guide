@@ -1,35 +1,67 @@
 models:
   Location:
     name: string
-    lng: double
-    lat: double
-    address: json
+    lng: decimal
+    lat: decimal
+    landmark: string nullable
+    address: json nullable
+    meta: json nullable
     user_id: id foreign:users nullable
     timestamps: true
     softDeletes: true
+    relationships:
+      belongsTo: Stop
 
   Journey:
     from_id: id foreign:locations
     destination_id: id foreign:locations
+    meta: json nullable
+    user_id: id foreign:users nullable
     timestamps: true
     softDeletes: true
+    relationships:
+      belongsTo: User
 
   Circular:
     name: string
+    meta: json nullable
     timestamps: true
     softDeletes: true
+    relationships:
+      hasMany: Bus, Route
 
   Route:
     name: string
+    meta: json nullable
+    is_clockwise: boolean
+    circular_id: id foreign:circulars
     timestamps: true
     softDeletes: true
     relationships:
       belongsTo: Circular
+      hasMany: Segment, Stop
+
+  Segment:
+    from_stop_id: id foreign:stops
+    to_stop_id: id foreign:stops
+    distance: decimal nullable
+    geoJson: json nullable
+    meta: json nullable
+    route_id: id foreign:routes nullable
+    timestamps: true
+    softDeletes: true
+    relationships:
+      belongsTo: Route
+      hasMany: Fare
 
   Stop:
     name: string
-    previous_id: id foreign:stops nullable
-    next_id: id foreign:stops nullable
+    is_interchange: boolean nullable
+    is_terminal: boolean nullable
+    meta: json nullable
+    previous_stop_id: id foreign:stops nullable
+    next_stop_id: id foreign:stops nullable
+    route_id: id foreign:routes nullable
     timestamps: true
     softDeletes: true
     relationships:
@@ -38,7 +70,30 @@ models:
 
   Bus:
     number: string nullable
+    seats: integer nullable
+    meta: json nullable
     timestamps: true
     softDeletes: true
     relationships:
-      belongsTo: Route
+      hasMany: Trip, Fare
+
+  Trip:
+    expected_start_time: datetime nullable
+    expected_end_time: datetime nullable
+    start_time: datetime nullable
+    end_time: datetime nullable
+    bus_id: id foreign:buses
+    route_id: id foreign:routes
+    meta: json nullable
+    timestamps: true
+    softDeletes: true
+    relationships:
+      belongsTo: Bus, Route
+
+  Fare:
+    amount: decimal
+    meta: json nullable
+    timestamps: true
+    softDeletes: true
+    relationships:
+      belongsTo: Segment, Bus
