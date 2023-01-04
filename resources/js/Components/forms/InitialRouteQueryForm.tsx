@@ -3,16 +3,28 @@ import { Inertia } from "@inertiajs/inertia";
 import React, { FormEventHandler, useEffect, useState } from "react";
 import useGeolocation from "react-hook-geolocation";
 import { FaFlag, FaMapMarkerAlt } from "react-icons/fa";
+import AsyncSelect from "react-select/async";
 
 type Area = {
     name: string;
-    id: string;
+    id?: string;
     coordinates: number[];
 };
 
-type AreaSearch = {
-    search?: string;
-    coordinates?: number[];
+type AreaOption = { label: string; value: Area };
+
+const selectClassNames: Parameters<
+    typeof AsyncSelect<AreaOption>
+>[0]["classNames"] = {
+    container: (props) => "max-w-[400px]",
+    control: (props) =>
+        "!bg-transparent !border-0 !border-b-[1px] input !rounded-none !border-gray-300 text-xl placeholder:text-gray-300",
+    input: (props) => "!flex !text-inherit",
+    menu: (props) => "!bg-primary",
+    option: (props) =>
+        "!text-inherit !bg-transparent hover:!bg-primary hover:!saturate-[110%]",
+    singleValue: (props) => "!text-white",
+    placeholder: (props) => "!text-gray-300 text-left",
 };
 
 function InitialRouteQueryForm({
@@ -24,99 +36,58 @@ function InitialRouteQueryForm({
     className?: string;
 }) {
     const geolocation = useGeolocation();
-    const [areaList, setAreaList] = useState<{
-        from?: Area[];
-        destination?: Area[];
-    }>({
-        from: [],
-        destination: [],
-    });
-    const [from, setFrom] = useState<AreaSearch>();
-    const [destination, setDestination] = useState<AreaSearch>();
 
-    const foundExactFromMatch = areaList.from?.some(
-        (d) => d.name === from?.search
-    );
-    const foundExactDestinationMatch = areaList.destination?.some(
-        (d) => d.name === destination?.search
-    );
+    const [from, setFrom] = useState<AreaOption>();
 
+    const [destination, setDestination] = useState<AreaOption>();
+
+    console.log({ from, destination });
+
+    // * Setting initial location
     useEffect(() => {
         const fetchArea = async () => {
             if (geolocation?.accuracy < 1000) return;
 
             const data = await reverseGeocode(accessToken, geolocation);
             const area = data?.features?.[1];
-            const location = {
-                search: `Current location (${area.text})`,
-                coordinates: area.center,
-            };
 
-            setFrom((prevFrom) =>
-                !prevFrom?.coordinates ? { ...location } : { ...prevFrom }
-            );
+            setFrom({
+                label: area.place_name,
+                value: {
+                    name: area.place_name,
+                    coordinates: area.center,
+                    id: area.id,
+                },
+            });
         };
 
         fetchArea();
     }, [geolocation.accuracy]);
 
-    const updateAreaList = async (
-        type: keyof typeof areaList,
-        search?: string
+    const loadOptions = (
+        inputValue: string,
+        callback: (options: AreaOption[]) => void
     ) => {
-        if (!search) return;
-
-        let areaList = (await geocode(accessToken, search)).features.map(
-            (f) => ({
+        // search
+        geocode(accessToken, inputValue).then((areaList) => {
+            const filteredList = areaList.features.map((f) => ({
                 name: f.place_name,
                 coordinates: f.center,
                 id: f.id,
-            })
-        );
-        // console.log(areaList);
+            }));
 
-        setAreaList((list) => ({
-            ...list,
-            [type]: areaList,
-        }));
-
-        let match = areaList.find((d) => d.name === search);
-        if (!match) return;
-
-        switch (type) {
-            case "from":
-                setFrom({
-                    search: match?.name,
-                    coordinates: match?.coordinates,
-                });
-                break;
-
-            case "destination":
-                setDestination({
-                    search: match?.name,
-                    coordinates: match?.coordinates,
-                });
-                break;
-        }
+            callback(
+                filteredList.map((d) => ({
+                    label: d.name,
+                    value: {
+                        name: d.name,
+                        coordinates: d.coordinates,
+                        id: d.id,
+                    },
+                }))
+            );
+        });
     };
-
-    // Debounce and update area list
-    useEffect(() => {
-        const handler = setTimeout(() => {
-            updateAreaList("from", from?.search);
-        }, 300);
-
-        return () => clearTimeout(handler);
-    }, [from?.search]);
-
-    // Debounce and update area list
-    useEffect(() => {
-        const handler = setTimeout(() => {
-            updateAreaList("destination", destination?.search);
-        }, 300);
-
-        return () => clearTimeout(handler);
-    }, [destination?.search]);
 
     const handleSubmit: FormEventHandler<HTMLFormElement> = (e) => {
         e.preventDefault();
@@ -126,8 +97,8 @@ function InitialRouteQueryForm({
         console.log({ from, destination });
 
         Inertia.post("/journey", {
-            from,
-            destination,
+            from: from.value,
+            destination: destination.value,
         } as any); // TODO: check the type error
     };
 
@@ -146,32 +117,14 @@ function InitialRouteQueryForm({
                     <FaMapMarkerAlt className="mr-1 inline-block text-secondary" />
                     <span className="label-text text-inherit">From?</span>
                 </label>
-                <input
-                    id="from"
-                    type="text"
-                    placeholder="From location"
-                    className="input rounded-none border-0 border-b-[1px] border-gray-300 bg-transparent"
-                    onChange={(e) =>
-                        setFrom((oldFrom) => ({
-                            ...oldFrom,
-                            search: e.target.value,
-                        }))
-                    }
-                    value={from?.search ?? ""}
-                    list="fromAreaList"
-                    autoComplete="off"
+                <AsyncSelect
+                    cacheOptions
+                    loadOptions={loadOptions}
+                    defaultOptions={from ? [from] : []}
+                    defaultValue={from}
+                    onChange={setFrom as any}
+                    classNames={selectClassNames}
                 />
-
-                <datalist id="fromAreaList">
-                    {!foundExactFromMatch &&
-                        areaList?.from?.map((area) => (
-                            <option
-                                data-coords={area.coordinates.join(",")}
-                                key={area.id}
-                                value={area.name}
-                            />
-                        ))}
-                </datalist>
             </div>
 
             <div className="form-control text-white">
@@ -182,32 +135,14 @@ function InitialRouteQueryForm({
                     <FaFlag className="mr-2 inline-block text-secondary" />
                     <span className="label-text text-inherit">Where to?</span>
                 </label>
-                <input
-                    id="destination"
-                    type="text"
-                    placeholder="To location"
-                    className="input rounded-none border-0 border-b-[1px] border-gray-300 bg-transparent text-xl placeholder:text-gray-300"
-                    onChange={(e) =>
-                        setDestination((oldDestination) => ({
-                            ...oldDestination,
-                            search: e.target.value,
-                        }))
-                    }
-                    value={destination?.search ?? ""}
-                    list="destinationAreaList"
-                    autoComplete="off"
+                <AsyncSelect
+                    cacheOptions
+                    loadOptions={loadOptions}
+                    defaultOptions
+                    defaultValue={destination}
+                    onChange={setDestination as any}
+                    classNames={selectClassNames}
                 />
-
-                <datalist id="destinationAreaList">
-                    {!foundExactDestinationMatch &&
-                        areaList?.destination?.map((area) => (
-                            <option
-                                data-coords={area.coordinates.join(",")}
-                                key={area.id}
-                                value={area.name}
-                            />
-                        ))}
-                </datalist>
             </div>
 
             <div className="form-control">
