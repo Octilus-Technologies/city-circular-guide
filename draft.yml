@@ -9,18 +9,18 @@ models:
     user_id: id foreign:users nullable
     timestamps: true
     softDeletes: true
-    relationships:
-      belongsTo: Stop
 
   Journey:
     from_id: id foreign:locations
     destination_id: id foreign:locations
+    expected_start_time: datetime nullable
+    expected_end_time: datetime nullable
+    start_time: datetime nullable
+    end_time: datetime nullable
     meta: json nullable
     user_id: id foreign:users nullable
     timestamps: true
     softDeletes: true
-    relationships:
-      belongsTo: User
 
   Circular:
     name: string
@@ -34,24 +34,22 @@ models:
     name: string
     meta: json nullable
     is_clockwise: boolean
-    circular_id: id foreign:circulars
+    circular_id: id foreign:circulars nullable
     timestamps: true
     softDeletes: true
     relationships:
-      belongsTo: Circular
       hasMany: Segment, Stop
 
   Segment:
     from_stop_id: id foreign:stops
     to_stop_id: id foreign:stops
-    distance: decimal nullable
+    distance: decimal unsigned nullable
     geoJson: json nullable
     meta: json nullable
     route_id: id foreign:routes nullable
     timestamps: true
     softDeletes: true
     relationships:
-      belongsTo: Route
       hasMany: Fare
 
   Stop:
@@ -64,13 +62,10 @@ models:
     route_id: id foreign:routes nullable
     timestamps: true
     softDeletes: true
-    relationships:
-      belongsTo: Route
-      hasOne: Location
 
   Bus:
     number: string nullable
-    seats: integer nullable
+    seats: integer unsigned nullable
     meta: json nullable
     timestamps: true
     softDeletes: true
@@ -87,13 +82,11 @@ models:
     meta: json nullable
     timestamps: true
     softDeletes: true
-    relationships:
-      belongsTo: Bus, Route
 
   Fare:
-    amount: decimal
+    amount: decimal unsigned
     meta: json nullable
+    segment_id: id foreign:segments nullable
+    route_id: id foreign:routes nullable
     timestamps: true
     softDeletes: true
-    relationships:
-      belongsTo: Segment, Bus
