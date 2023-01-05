@@ -2,9 +2,9 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Journey extends Model
 {
@@ -42,6 +42,13 @@ class Journey extends Model
         'meta' => 'array',
         'user_id' => 'integer',
     ];
+
+    protected $with = [
+        'from',
+        'destination'
+    ];
+
+    // * Relationships
 
     public function from()
     {

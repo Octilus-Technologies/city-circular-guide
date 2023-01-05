@@ -1,6 +1,6 @@
 import React from "react";
 import { FaCaretRight, FaFlag, FaMapMarkerAlt } from "react-icons/fa";
-import { Journey } from "./JourneyControls";
+import { JourneyDetails } from "./JourneyControls";
 
 function JourneySteps({
     segment,
@@ -11,7 +11,7 @@ function JourneySteps({
         coordinates: number[];
         name: string;
     }[];
-    journey?: Journey;
+    journey?: JourneyDetails;
     expanded?: boolean;
 }) {
     if (!expanded) {

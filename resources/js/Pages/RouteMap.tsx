@@ -5,32 +5,29 @@ import { circulars, Coordinates } from "@/utils/geoJson";
 import useJourney from "@/utils/hooks/useJourney";
 import { Inertia } from "@inertiajs/inertia";
 import React, { useEffect, useState } from "react";
-import useGeolocation from "react-hook-geolocation";
 import { FaFlag, FaMapMarkerAlt } from "react-icons/fa";
 import { Marker } from "react-map-gl";
 
-function RouteMap({ mapAccessToken }: { mapAccessToken: string }) {
-    const url = new URL(window.location.href);
-
-    const geolocation = useGeolocation();
-    const [from, setFrom] = useState<Coordinates | undefined>(
-        url.searchParams.get("from")?.split(",").map(parseFloat)
-    );
-    const [destination, setDestination] = useState<Coordinates | undefined>(
-        url.searchParams.get("destination")?.split(",").map(parseFloat)
-    );
-    const [gotLocation, setGotLocation] = useState(false);
-
-    // Return to previous page if from or destination is not set
-    if (!from || !destination) {
+function RouteMap({
+    mapAccessToken,
+    journey,
+}: {
+    mapAccessToken: string;
+    journey: any;
+}) {
+    // Return to initial page if journey details are not available
+    if (!journey.from || !journey.destination) {
         return Inertia.visit("/");
     }
 
-    useEffect(() => {
-        if (gotLocation || !geolocation.accuracy) return;
-
-        setGotLocation(true);
-    }, [geolocation]);
+    const [from, setFrom] = useState<Coordinates>([
+        journey.from.lng,
+        journey.from.lat,
+    ]);
+    const [destination, setDestination] = useState<Coordinates>([
+        journey.destination.lng,
+        journey.destination.lat,
+    ]);
 
     const {
         paths,
@@ -101,6 +98,7 @@ function RouteMap({ mapAccessToken }: { mapAccessToken: string }) {
                         expanded={true}
                         stops={stops}
                         journeyDetails={journeyDetails}
+                        journey={journey}
                     />
                 </div>
             </SideBar>

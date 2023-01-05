@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -32,12 +33,26 @@ class Location extends Model
      */
     protected $casts = [
         'id' => 'integer',
-        'lng' => 'decimal',
-        'lat' => 'decimal',
         'address' => 'array',
         'meta' => 'array',
         'user_id' => 'integer',
     ];
+
+
+    // * Accessors and Mutators
+
+    protected function coordinates(): Attribute
+    {
+        return Attribute::make(
+            get: fn () => [
+                'lng' => $this->lng,
+                'lat' => $this->lat,
+            ],
+        );
+    }
+
+
+    // * Relationships
 
     public function user()
     {

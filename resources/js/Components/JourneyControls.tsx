@@ -7,10 +7,11 @@ import JourneySteps from "./JourneySteps";
 type JourneyControlProps = {
     expanded?: boolean;
     stops?: { coordinates: number[]; name: string }[][];
-    journeyDetails?: Journey[];
+    journeyDetails?: JourneyDetails[];
+    journey?: any;
 };
 
-export interface Journey {
+export interface JourneyDetails {
     via_waypoints: any[];
     admins: any[];
     weight: number;
@@ -45,6 +46,7 @@ interface Maneuver {
 
 function JourneyControls({
     stops,
+    journey,
     journeyDetails,
     expanded = true,
 }: JourneyControlProps) {
@@ -57,7 +59,7 @@ function JourneyControls({
             <div className="align-center relative flex w-full justify-between pt-4 pb-2 text-sm font-bold">
                 <span className="flex w-[25%] items-center justify-center gap-1">
                     <FaMapMarkerAlt className="mr-1 inline-block text-xl text-secondary" />
-                    {from?.name}
+                    {(journey.from?.name as string).split(",")[0]}
                 </span>
 
                 <div className="relative mx-4 flex flex-1 items-center justify-center">
@@ -69,7 +71,7 @@ function JourneyControls({
 
                 <span className="flex w-[25%] items-center justify-center gap-1">
                     <FaFlag className="mr-1 inline-block text-xl text-secondary" />
-                    {destination?.name}
+                    {(journey.destination?.name as string).split(",")[0]}
                 </span>
             </div>
 

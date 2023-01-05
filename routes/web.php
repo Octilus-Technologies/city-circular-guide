@@ -18,7 +18,7 @@ use App\Http\Controllers\ProfileController;
 */
 
 Route::get('/', [JourneyController::class, 'welcome'])->name('welcome');
-Route::get('journey', [JourneyController::class, 'journey'])->name('journey');
+Route::get('journey/{journey}', [JourneyController::class, 'journey'])->name('journey');
 Route::post('journey', [JourneyController::class, 'startJourney'])->name('journey.start');
 Route::resource('faq', FaqController::class)->only(['index', 'show']);
 Route::get('contact', function () {
