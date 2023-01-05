@@ -4,180 +4,308 @@
         {
             "type": "Feature",
             "properties": {
-                "name": "East Fort Bus Station"
+                "name": "East Fort",
+                "name_ml": "കിഴക്കേകോട്ട"
             },
             "geometry": {
-                "coordinates": [76.94755899999865, 8.482998877918433],
+                "coordinates": [76.94746537, 8.483684558],
                 "type": "Point"
             }
         },
         {
             "type": "Feature",
             "properties": {
-                "name": "Overbridge Traffic Island"
+                "name": "Thampanoor",
+                "name_ml": "തമ്പാനൂർ"
             },
             "geometry": {
-                "coordinates": [76.9475819999987, 8.48819065530084],
+                "coordinates": [76.95048182, 8.487718267],
                 "type": "Point"
             }
         },
         {
             "type": "Feature",
             "properties": {
-                "name": "Thampanoor"
+                "name": "Ayurved College",
+                "name_ml": "ആയുർവേദ കോളേജ്"
             },
             "geometry": {
-                "coordinates": [76.95166124483347, 8.487728409113416],
+                "coordinates": [76.94698756, 8.491415715],
                 "type": "Point"
             }
         },
         {
             "type": "Feature",
             "properties": {
-                "name": "Ayurveda College JN"
+                "name": "Uppidamood Bridge",
+                "name_ml": "ഉപ്പിടാമൂട് പാലം"
             },
             "geometry": {
-                "coordinates": [76.9470410000003, 8.49104687794538],
+                "coordinates": [76.94134947, 8.49001094],
                 "type": "Point"
             }
         },
         {
             "type": "Feature",
             "properties": {
-                "name": "Uppidamoodu Bridge"
+                "name": "Vanchiyoor Court",
+                "name_ml": "വഞ്ചിയൂർ കോടതി"
             },
             "geometry": {
-                "coordinates": [76.94133527116315, 8.490006489208938],
+                "coordinates": [76.94031153, 8.493968531],
                 "type": "Point"
             }
         },
         {
             "type": "Feature",
             "properties": {
-                "name": "Vanchiyoor Court"
+                "name": "pattoor",
+                "name_ml": "പാറ്റൂർ"
             },
             "geometry": {
-                "coordinates": [76.93874800000071, 8.496360266886313],
+                "coordinates": [76.93769969, 8.49780554],
                 "type": "Point"
             }
         },
         {
             "type": "Feature",
             "properties": {
-                "name": "Pattoor"
+                "name": "General Hospital",
+                "name_ml": "ജനറൽ ആശുപത്രി"
             },
             "geometry": {
-                "coordinates": [76.93834700000036, 8.496882266905317],
+                "coordinates": [76.94361793, 8.499443433],
                 "type": "Point"
             }
         },
         {
             "type": "Feature",
             "properties": {
-                "name": "General Hospital Jn"
+                "name": "Kerala University",
+                "name_ml": "കേരളാ യൂണിവേഴ്സിറ്റി"
             },
             "geometry": {
-                "coordinates": [76.94305018650988, 8.4993137679283],
+                "coordinates": [76.94815968, 8.503435873],
                 "type": "Point"
             }
         },
         {
             "type": "Feature",
             "properties": {
-                "name": "Palayam"
+                "name": "Palayam",
+                "name_ml": "പാളയം"
             },
             "geometry": {
-                "coordinates": [76.95039864193745, 8.502944175905867],
+                "coordinates": [76.95100828, 8.504246209],
                 "type": "Point"
             }
         },
         {
             "type": "Feature",
             "properties": {
-                "name": "PMG Bus Stop"
+                "name": "Niyamsabha",
+                "name_ml": "നിയമസഭാ"
             },
             "geometry": {
-                "coordinates": [76.95000369709658, 8.508179501534627],
+                "coordinates": [76.95037312, 8.507008156],
                 "type": "Point"
             }
         },
         {
             "type": "Feature",
             "properties": {
-                "name": "Zoo"
+                "name": "PMG",
+                "name_ml": "പി എം ജി "
             },
             "geometry": {
-                "coordinates": [76.96077949781443, 8.510390436776774],
+                "coordinates": [76.94987656, 8.508395941],
                 "type": "Point"
             }
         },
         {
             "type": "Feature",
             "properties": {
-                "name": "Hospital"
+                "name": "LMS",
+                "name_ml": "എൽ എം എസ്"
             },
             "geometry": {
-                "coordinates": [76.9596406050506, 8.502172327338457],
+                "coordinates": [76.95166256, 8.50890814],
                 "type": "Point"
             }
         },
         {
             "type": "Feature",
             "properties": {
-                "name": "Jagathy"
+                "name": "Museum",
+                "name_ml": "മ്യൂസിയം"
             },
             "geometry": {
-                "coordinates": [76.96341190517984, 8.49488890909619],
+                "coordinates": [76.95404521, 8.508408753],
                 "type": "Point"
             }
         },
         {
             "type": "Feature",
             "properties": {
-                "name": "Thycaud"
+                "name": "Kanakakunnu",
+                "name_ml": "കനകക്കുന്ന്"
             },
             "geometry": {
-                "coordinates": [76.95851899814676, 8.491259471553391],
+                "coordinates": [76.95823712, 8.509689325],
                 "type": "Point"
             }
         },
         {
             "type": "Feature",
             "properties": {
-                "name": "Valiasala"
+                "name": "Vellayambalam",
+                "name_ml": "വെള്ളയമ്പലം"
             },
             "geometry": {
-                "coordinates": [76.95535548681255, 8.486378459978184],
+                "coordinates": [76.96274465, 8.511876836],
                 "type": "Point"
             }
         },
         {
             "type": "Feature",
             "properties": {
-                "name": "Thampanoor (down)"
+                "name": "Sasthamangalam",
+                "name_ml": "ശാസ്തമംഗലം"
             },
             "geometry": {
-                "coordinates": [76.95166124483347, 8.487728409113416],
+                "coordinates": [76.97109179, 8.513054865],
                 "type": "Point"
             }
         },
         {
             "type": "Feature",
             "properties": {
-                "name": "Overbridge Traffic Island (down)"
+                "name": "Sree Ramakrishna Hospital",
+                "name_ml": "ശ്രീ രാമകൃഷ്ണ ആശുപത്രി"
             },
             "geometry": {
-                "coordinates": [76.9475819999987, 8.48819065530084],
+                "coordinates": [76.97365678, 8.513551323],
                 "type": "Point"
             }
         },
         {
             "type": "Feature",
             "properties": {
-                "name": "East Fort Bus Station (down)"
+                "name": "Maruthankuzhy",
+                "name_ml": "മരുതൻകുഴി"
             },
             "geometry": {
-                "coordinates": [76.94755899999865, 8.482998877918433],
+                "coordinates": [76.97856986, 8.513156608],
+                "type": "Point"
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "name": "Edappazhanji",
+                "name_ml": "എടപ്പഴിഞ്ഞി"
+            },
+            "geometry": {
+                "coordinates": [76.97441714, 8.506517404],
+                "type": "Point"
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "name": "Jagathy",
+                "name_ml": "ജഗതി"
+            },
+            "geometry": {
+                "coordinates": [76.96647697, 8.495729241],
+                "type": "Point"
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "name": "Vazhuthacaud",
+                "name_ml": "വഴുതക്കാട്"
+            },
+            "geometry": {
+                "coordinates": [76.96413178, 8.502134302],
+                "type": "Point"
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "name": "Bakery Jn",
+                "name_ml": "ബേക്കറി ജംഗ്ഷൻ"
+            },
+            "geometry": {
+                "coordinates": [76.95440829, 8.500780006],
+                "type": "Point"
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "name": "Jacob's jn",
+                "name_ml": "ജേക്കബ്സ് ജംഗ്ഷൻ"
+            },
+            "geometry": {
+                "coordinates": [76.95049634, 8.500348399],
+                "type": "Point"
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "name": "Contonment Gate",
+                "name_ml": "കന്റോൺമെന്റ് ഗേറ്റ്"
+            },
+            "geometry": {
+                "coordinates": [76.94994545, 8.498426088],
+                "type": "Point"
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "name": "Statue",
+                "name_ml": "സ്റ്റാച്യു "
+            },
+            "geometry": {
+                "coordinates": [76.95049187, 8.495989671],
+                "type": "Point"
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "name": "Ayurved College",
+                "name_ml": "ആയുർവേദ കോളേജ് "
+            },
+            "geometry": {
+                "coordinates": [76.94698756, 8.491415715],
+                "type": "Point"
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "name": "Thampanoor",
+                "name_ml": "തമ്പാനൂർ "
+            },
+            "geometry": {
+                "coordinates": [76.95048182, 8.487718267],
+                "type": "Point"
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "name": "East Fort",
+                "name_ml": "കിഴക്കേക്കോട്ട."
+            },
+            "geometry": {
+                "coordinates": [76.94746537, 8.483684558],
                 "type": "Point"
             }
         }

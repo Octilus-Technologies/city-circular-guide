@@ -4,120 +4,253 @@
         {
             "type": "Feature",
             "properties": {
-                "name": "Zoo"
+                "name": "East Fort",
+                "name_ml": "കിഴക്കേകോട്ട"
             },
             "geometry": {
-                "coordinates": [76.96077949781443, 8.510390436776774],
+                "coordinates": [76.94746537, 8.483684558],
                 "type": "Point"
             }
         },
         {
             "type": "Feature",
             "properties": {
-                "name": "Govt palace"
+                "name": "Thampanoor",
+                "name_ml": "തമ്പാനൂർ"
             },
             "geometry": {
-                "coordinates": [76.96049803473755, 8.522098107433479],
+                "coordinates": [76.95048182, 8.487718267],
                 "type": "Point"
             }
         },
         {
             "type": "Feature",
             "properties": {
-                "name": "Kannan"
+                "name": "Ayurved College",
+                "name_ml": "ആയുർവേദ കോളേജ്"
             },
             "geometry": {
-                "coordinates": [76.961830553342, 8.531932726686946],
+                "coordinates": [76.94698756, 8.491415715],
                 "type": "Point"
             }
         },
         {
             "type": "Feature",
             "properties": {
-                "name": "Thankamma stadium"
+                "name": "Statue",
+                "name_ml": "സ്റ്റാച്യു"
             },
             "geometry": {
-                "coordinates": [76.96467562267276, 8.535424403075666],
+                "coordinates": [76.94819049, 8.496423185],
                 "type": "Point"
             }
         },
         {
             "type": "Feature",
             "properties": {
-                "name": "Mannamolla"
+                "name": "Spencer",
+                "name_ml": "സ്‌പെൻസർ"
             },
             "geometry": {
-                "coordinates": [76.97680451950708, 8.530973446241845],
+                "coordinates": [76.94874557, 8.499696104],
                 "type": "Point"
             }
         },
         {
             "type": "Feature",
             "properties": {
-                "name": "Perrorkada"
+                "name": "VJT",
+                "name_ml": "വി ജെ ടി"
             },
             "geometry": {
-                "coordinates": [76.98466113669758, 8.53368654742043],
+                "coordinates": [76.94935732, 8.502570418],
                 "type": "Point"
             }
         },
         {
             "type": "Feature",
             "properties": {
-                "name": "LPS school"
+                "name": "Kerala University",
+                "name_ml": "കേരളാ യൂണിവേഴ്സിറ്റി"
             },
             "geometry": {
-                "coordinates": [76.9898680164211, 8.528929922678287],
+                "coordinates": [76.94815968, 8.503435873],
                 "type": "Point"
             }
         },
         {
             "type": "Feature",
             "properties": {
-                "name": "Juma masjid"
+                "name": "Palayam",
+                "name_ml": "പാളയം"
             },
             "geometry": {
-                "coordinates": [76.98847333518154, 8.524375189625871],
+                "coordinates": [76.95109061, 8.504616078],
                 "type": "Point"
             }
         },
         {
             "type": "Feature",
             "properties": {
-                "name": "SFS Church"
+                "name": "Niyamasabha",
+                "name_ml": "നിയമസഭ"
             },
             "geometry": {
-                "coordinates": [76.98502694558795, 8.523322015053523],
+                "coordinates": [76.95037312, 8.507008156],
                 "type": "Point"
             }
         },
         {
             "type": "Feature",
             "properties": {
-                "name": "Maruthankuzhy"
+                "name": "PMG",
+                "name_ml": "പി എം ജി"
             },
             "geometry": {
-                "coordinates": [76.9813346335427, 8.522103216283938],
+                "coordinates": [76.94973543, 8.508463822],
                 "type": "Point"
             }
         },
         {
             "type": "Feature",
             "properties": {
-                "name": "Pipeline Rd"
+                "name": "Vikasbhavan Depot",
+                "name_ml": "വികാസ് ഭവൻ ഡിപ്പോ"
             },
             "geometry": {
-                "coordinates": [76.9790893549042, 8.513734694058613],
+                "coordinates": [76.94709358, 8.508581453],
                 "type": "Point"
             }
         },
         {
             "type": "Feature",
             "properties": {
-                "name": "Sasthamangalam"
+                "name": "PMG",
+                "name_ml": "പി എം ജി"
             },
             "geometry": {
-                "coordinates": [76.97163949519904, 8.512896309349216],
+                "coordinates": [76.94954022, 8.508979806],
+                "type": "Point"
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "name": "LMS",
+                "name_ml": "എൽ എം എസ്"
+            },
+            "geometry": {
+                "coordinates": [76.95166256, 8.50890814],
+                "type": "Point"
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "name": "Museum",
+                "name_ml": "മ്യൂസിയം "
+            },
+            "geometry": {
+                "coordinates": [76.95404972, 8.508385257],
+                "type": "Point"
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "name": "Kanakakunnu",
+                "name_ml": "കനകക്കുന്ന്"
+            },
+            "geometry": {
+                "coordinates": [76.95823712, 8.509689325],
+                "type": "Point"
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "name": "Manaveeyam Road",
+                "name_ml": "മാനവീയം റോഡ്"
+            },
+            "geometry": {
+                "coordinates": [76.96191319, 8.508508318],
+                "type": "Point"
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "name": "Police Headquarters",
+                "name_ml": "പോലീസ് ഹെഡ്ക്വാർട്ടേഴ്‌സ്"
+            },
+            "geometry": {
+                "coordinates": [76.96186627, 8.50646446],
+                "type": "Point"
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "name": "Vazhuthacaud",
+                "name_ml": "വഴുതക്കാട്"
+            },
+            "geometry": {
+                "coordinates": [76.95166256, 8.50890814],
+                "type": "Point"
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "name": "Police Training College",
+                "name_ml": "പോലീസ് ട്രെയിനിങ് കോളേജ്"
+            },
+            "geometry": {
+                "coordinates": [76.95799555, 8.496654541],
+                "type": "Point"
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "name": "Mettukada",
+                "name_ml": "മേട്ടുക്കട"
+            },
+            "geometry": {
+                "coordinates": [76.95853246, 8.490345095],
+                "type": "Point"
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "name": "Thycaud Hospital",
+                "name_ml": "തൈക്കാട് ഹോസ്പിറ്റൽ"
+            },
+            "geometry": {
+                "coordinates": [76.95656948, 8.487579231],
+                "type": "Point"
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "name": "Thampanoor",
+                "name_ml": "തമ്പാനൂർ"
+            },
+            "geometry": {
+                "coordinates": [76.95044916, 8.487700891],
+                "type": "Point"
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "name": "East Fort",
+                "name_ml": "കിഴക്കേകോട്ട"
+            },
+            "geometry": {
+                "coordinates": [76.94786547, 8.483352185],
                 "type": "Point"
             }
         }
