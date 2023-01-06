@@ -197,7 +197,14 @@ export const getOptimizedStops = (
     return segmentStops.filter((stops) => stops.length > 1);
 };
 
-const jsonToGeoJson = (data: any[]) => {
+const jsonToGeoJson = (
+    data: {
+        name_en: string;
+        name_ml: string;
+        lat: string;
+        lng: string;
+    }[]
+) => {
     data.map((stop) => ({
         type: "Feature",
         properties: { name: stop.name_en, name_ml: stop.name_ml },

@@ -130,9 +130,13 @@ function BusRouteMap({
                 />
             ))}
 
-            {paths?.map((path: any, i: number) => (
+            {paths?.map((path, i: number) => (
                 <Fragment key={`path-${i}`}>
-                    <Source id={`path-data-${i}`} type="geojson" data={path}>
+                    <Source
+                        id={`path-data-${i}`}
+                        type="geojson"
+                        data={path as any}
+                    >
                         <Layer {...pathLayerStyles} id={`path-${i}-line`} />
                     </Source>
                 </Fragment>

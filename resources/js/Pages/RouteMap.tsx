@@ -13,7 +13,7 @@ function RouteMap({
     journey,
 }: {
     mapAccessToken: string;
-    journey: any;
+    journey: JourneyDTO;
 }) {
     // Return to initial page if journey details are not available
     if (!journey.from || !journey.destination) {

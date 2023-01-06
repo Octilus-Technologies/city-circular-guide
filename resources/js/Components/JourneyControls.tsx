@@ -1,6 +1,6 @@
 import { Inertia } from "@inertiajs/inertia";
 import { GeometryObject } from "@turf/turf";
-import React from "react";
+import React, { Fragment } from "react";
 import { FaFlag, FaMapMarkerAlt } from "react-icons/fa";
 import JourneySteps from "./JourneySteps";
 
@@ -8,12 +8,12 @@ type JourneyControlProps = {
     expanded?: boolean;
     stops?: { coordinates: number[]; name: string }[][];
     journeyDetails?: JourneyDetails[];
-    journey?: any;
+    journey?: JourneyDTO;
 };
 
 export interface JourneyDetails {
-    via_waypoints: any[];
-    admins: any[];
+    via_waypoints: Record<string, any>[];
+    admins: Record<string, any>[];
     weight: number;
     duration: number;
     steps: Step[];
@@ -22,7 +22,7 @@ export interface JourneyDetails {
 }
 
 interface Step {
-    intersections: any[];
+    intersections: Record<string, any>[];
     maneuver: Maneuver;
     name: string;
     duration: number;
@@ -59,7 +59,7 @@ function JourneyControls({
             <div className="align-center relative flex w-full justify-between pt-4 pb-2 text-sm font-bold">
                 <span className="flex w-[25%] items-center justify-center gap-1">
                     <FaMapMarkerAlt className="mr-1 inline-block text-xl text-secondary" />
-                    {(journey.from?.name as string).split(",")[0]}
+                    {(journey?.from?.name as string).split(",")[0]}
                 </span>
 
                 <div className="relative mx-4 flex flex-1 items-center justify-center">
@@ -71,7 +71,7 @@ function JourneyControls({
 
                 <span className="flex w-[25%] items-center justify-center gap-1">
                     <FaFlag className="mr-1 inline-block text-xl text-secondary" />
-                    {(journey.destination?.name as string).split(",")[0]}
+                    {(journey?.destination?.name as string).split(",")[0]}
                 </span>
             </div>
 
@@ -85,7 +85,7 @@ function JourneyControls({
                         const currentJourney = journeyDetails?.[i];
 
                         return (
-                            <React.Fragment key={`segment-${i}`}>
+                            <Fragment key={`segment-${i}`}>
                                 <li className="flex w-full flex-col items-start">
                                     <JourneySteps
                                         segment={segment}
@@ -97,7 +97,7 @@ function JourneyControls({
                                 {!!stops && i !== stops.length - 1 && (
                                     <span className="h-[3px] bg-primary" />
                                 )}
-                            </React.Fragment>
+                            </Fragment>
                         );
                     })}
             </ul>
