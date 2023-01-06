@@ -78,6 +78,7 @@ export const getAllStopDetails = () => {
             return circular.features.map((f) => ({
                 coordinates: f.geometry.coordinates,
                 name: f.properties.name,
+                nameLocale: f.properties.name_ml,
                 circularName: circularName,
             }));
         }

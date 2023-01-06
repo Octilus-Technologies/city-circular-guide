@@ -30,8 +30,7 @@ function BusStopInfo({ stop }: { stop: BusStopDetail }) {
                     {stop.name}
                 </div>
                 <div className="name name-locale rounded-md px-4 text-[1rem] font-bold uppercase text-[var(--circular-info-color)]">
-                    കേശവദാസപുരം
-                    {/* TODO: fetch dynamic data */}
+                    {stop.nameLocale}
                 </div>
 
                 {stop.circulars.length > 1 && (
