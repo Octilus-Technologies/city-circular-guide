@@ -16,7 +16,7 @@ class CreateJourneysTable extends Migration
         Schema::disableForeignKeyConstraints();
 
         Schema::create('journeys', function (Blueprint $table) {
-            $table->id();
+            $table->uuid();
             $table->foreignId('from_id')->constrained('locations');
             $table->foreignId('destination_id')->constrained('locations');
             $table->dateTime('expected_start_time')->nullable();

@@ -32,7 +32,7 @@ class JourneyController extends Controller
 
         $journey = $this->journeyService->storeJourney($from, $destination);
 
-        return response()->redirectTo(route('journey', $journey->id));
+        return response()->redirectTo(route('journey', $journey->getKey()));
     }
 
     public function journey(Journey $journey)

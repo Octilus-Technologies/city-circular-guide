@@ -4,11 +4,16 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Journey extends Model
 {
-    use HasFactory, SoftDeletes;
+    use HasFactory;
+    use SoftDeletes;
+    use HasUuids;
+
+    protected $primaryKey = 'uuid';
 
     /**
      * The attributes that are mass assignable.
@@ -32,7 +37,6 @@ class Journey extends Model
      * @var array
      */
     protected $casts = [
-        'id' => 'integer',
         'from_id' => 'integer',
         'destination_id' => 'integer',
         'expected_start_time' => 'datetime',
@@ -47,6 +51,7 @@ class Journey extends Model
         'from',
         'destination'
     ];
+
 
     // * Relationships
 
