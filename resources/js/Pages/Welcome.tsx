@@ -1,11 +1,13 @@
 import InitialRouteQueryForm from "@/Components/forms/InitialRouteQueryForm";
 import BusRouteMap from "@/Components/map/BusRouteMap";
+import DestinationMarker from "@/Components/map/DestinationMarker";
+import FromMarker from "@/Components/map/FromMarker";
 import SideBar from "@/Components/SideBar";
 import useCirculars from "@/utils/hooks/userCirculars";
 import { Head } from "@inertiajs/inertia-react";
 import "mapbox-gl/dist/mapbox-gl.css";
 import React, { Fragment, useState } from "react";
-import { Layer, LayerProps, Source } from "react-map-gl";
+import { Layer, LayerProps, Marker, Source } from "react-map-gl";
 
 const pathLayerStyles: LayerProps & Record<string, any> = {
     type: "line",
@@ -22,6 +24,9 @@ export default function Welcome({
 }: {
     mapAccessToken: string;
 }) {
+    const [fromCoords, setFromCoords] = useState<number[]>();
+    const [destinationCoords, setDestinationCoords] = useState<number[]>();
+
     const [viewState, setViewState] = useState({
         longitude: 76.93,
         latitude: 8.51,
@@ -80,6 +85,11 @@ export default function Welcome({
                         onMove={(evt) => setViewState(evt.viewState)}
                         mapboxAccessToken={mapAccessToken}
                     >
+                        {!!fromCoords && <FromMarker coords={fromCoords} />}
+                        {!!destinationCoords && (
+                            <DestinationMarker coords={destinationCoords} />
+                        )}
+
                         {circulars
                             .filter((circular) => circular.isActive)
                             .map((circular, i: number) => {
@@ -113,6 +123,8 @@ export default function Welcome({
                     <InitialRouteQueryForm
                         accessToken={mapAccessToken}
                         className="mt-5"
+                        setFromCoords={setFromCoords}
+                        setDestinationCoords={setDestinationCoords}
                     />
                 </SideBar>
             </div>

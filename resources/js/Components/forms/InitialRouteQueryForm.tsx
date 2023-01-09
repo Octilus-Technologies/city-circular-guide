@@ -30,15 +30,18 @@ const selectClassNames: Parameters<
 function InitialRouteQueryForm({
     accessToken,
     className = "",
+    setFromCoords,
+    setDestinationCoords,
     ...props
 }: {
     accessToken: string;
     className?: string;
-}) {
+    setFromCoords: (coordinates?: number[]) => void;
+    setDestinationCoords: (coordinates?: number[]) => void;
+} & React.HTMLAttributes<HTMLFormElement>) {
     const geolocation = useGeolocation();
 
     const [from, setFrom] = useState<AreaOption>();
-
     const [destination, setDestination] = useState<AreaOption>();
 
     console.log({ from, destination });
@@ -122,7 +125,10 @@ function InitialRouteQueryForm({
                     loadOptions={loadOptions}
                     defaultOptions={from ? [from] : []}
                     defaultValue={from}
-                    onChange={setFrom as any}
+                    onChange={(newValue) => {
+                        setFromCoords(newValue?.value.coordinates);
+                        setFrom(newValue as any);
+                    }}
                     classNames={selectClassNames}
                 />
             </div>
@@ -140,7 +146,10 @@ function InitialRouteQueryForm({
                     loadOptions={loadOptions}
                     defaultOptions
                     defaultValue={destination}
-                    onChange={setDestination as any}
+                    onChange={(newValue) => {
+                        setDestinationCoords(newValue?.value.coordinates);
+                        setDestination(newValue as any);
+                    }}
                     classNames={selectClassNames}
                 />
             </div>

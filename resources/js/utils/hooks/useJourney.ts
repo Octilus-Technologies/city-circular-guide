@@ -34,6 +34,21 @@ const useJourney = (
             const segmentPathPromises = segments.map((segment) =>
                 getMatch(mapAccessToken, segment)
             );
+            // Add walking path
+            segmentPathPromises.unshift(
+                getMatch(mapAccessToken, [from, segments[0][0]], "walking")
+            );
+            // console.log([from, segments[0][0]]);
+            segmentPathPromises.push(
+                getMatch(mapAccessToken, [
+                    segments[segments.length - 1][
+                        segments[segments.length - 1].length - 1
+                    ],
+                    destination,
+                ])
+            );
+            // TODO: may have waling path in between bus route segments
+
             const segmentPath = await Promise.all(segmentPathPromises);
 
             const paths = segmentPath.map((path) =>
@@ -42,9 +57,10 @@ const useJourney = (
             const stops = segments.map((segment) => getStopDetails(segment));
             const meta = segmentPath.map((path) => path?.journey);
 
-            const allCoordinates = paths.flatMap(
-                (path) => path?.features[0].geometry?.coordinates
-            );
+            console.log({ paths });
+            const allCoordinates = paths
+                .flatMap((path) => path?.features?.[0].geometry?.coordinates)
+                .filter((c) => !!c);
             const boundingBox = bbox(lineString(allCoordinates as any));
             const mapCenter = center(lineString(allCoordinates as any));
 

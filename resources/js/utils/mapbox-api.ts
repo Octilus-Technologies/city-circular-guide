@@ -6,8 +6,8 @@ const MATCHING_API = "https://api.mapbox.com/matching/v5";
 export async function getMatch(
     accessToken: string,
     coordinates: number[][],
-    radius: number[] | null = null,
-    profile: Profile = "driving"
+    profile: Profile = "driving",
+    radius: number[] | null = null
 ) {
     const coordinatesStr = coordinates.map((c) => c.join(",")).join(";");
     const params: Record<string, string> = {

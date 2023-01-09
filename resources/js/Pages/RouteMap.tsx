@@ -1,12 +1,12 @@
 import JourneyControls from "@/Components/JourneyControls";
 import BusRouteMap from "@/Components/map/BusRouteMap";
+import DestinationMarker from "@/Components/map/DestinationMarker";
+import FromMarker from "@/Components/map/FromMarker";
 import SideBar from "@/Components/SideBar";
 import { circulars, Coordinates } from "@/utils/geoJson";
 import useJourney from "@/utils/hooks/useJourney";
 import { Inertia } from "@inertiajs/inertia";
 import React, { useEffect, useState } from "react";
-import { FaFlag, FaMapMarkerAlt } from "react-icons/fa";
-import { Marker } from "react-map-gl";
 
 function RouteMap({
     mapAccessToken,
@@ -65,30 +65,16 @@ function RouteMap({
                     onMove={(evt) => setViewState(evt.viewState)}
                     mapboxAccessToken={mapAccessToken}
                 >
-                    <Marker
-                        key={"from"}
-                        longitude={from[0]}
-                        latitude={from[1]}
-                        anchor="bottom"
-                        draggable
-                        onDragEnd={({ lngLat }) =>
-                            setFrom([lngLat.lng, lngLat.lat])
-                        }
-                    >
-                        <FaMapMarkerAlt className="inline-block text-3xl text-secondary opacity-90" />
-                    </Marker>
-                    <Marker
-                        key={"destination"}
-                        longitude={destination[0]}
-                        latitude={destination[1]}
-                        anchor="bottom"
-                        draggable
-                        onDragEnd={({ lngLat }) =>
-                            setDestination([lngLat.lng, lngLat.lat])
-                        }
-                    >
-                        <FaFlag className="inline-block text-3xl text-secondary opacity-90" />
-                    </Marker>
+                    <FromMarker
+                        coords={from}
+                        setCoords={setFrom}
+                        draggable={true}
+                    />
+                    <DestinationMarker
+                        coords={destination}
+                        setCoords={setDestination}
+                        draggable={true}
+                    />
                 </BusRouteMap>
             </section>
 
