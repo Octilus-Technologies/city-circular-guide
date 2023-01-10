@@ -4,21 +4,21 @@ import { BBox, bbox, center, lineString } from "@turf/turf";
 import { useEffect, useState } from "react";
 import { generateLayerFromGeometry, getStopDetails } from "../geoJson";
 import { Coordinates } from "./../geoJson";
+import { Profile } from "./../mapbox-api";
+
+export type Segment = {
+    layer: ReturnType<typeof generateLayerFromGeometry>;
+    stops: ReturnType<typeof getStopDetails>;
+    path?: Awaited<ReturnType<typeof getMatch>>;
+    profile: Profile;
+};
 
 const useJourney = (
     mapAccessToken: string,
     from: Coordinates,
     destination: Coordinates
 ) => {
-    const [paths, setPaths] =
-        useState<ReturnType<typeof generateLayerFromGeometry>[]>();
-    const [stops, setStops] = useState<
-        {
-            coordinates: Coordinates;
-            name: string;
-        }[][]
-    >();
-    const [meta, setMeta] = useState<any[]>();
+    const [segments, setSegments] = useState<Segment[]>();
     const [mapMeta, setMapMeta] = useState<{
         bbox: BBox;
         center: Coordinates;
@@ -34,39 +34,64 @@ const useJourney = (
             const segmentPathPromises = segments.map((segment) =>
                 getMatch(mapAccessToken, segment)
             );
+            const segmentPath: {
+                path?: Awaited<ReturnType<typeof getMatch>>;
+                profile: Profile;
+            }[] = (await Promise.all(segmentPathPromises)).map((path) => ({
+                path: path,
+                profile: "driving",
+            }));
+
             // Add walking path
-            segmentPathPromises.unshift(
-                getMatch(mapAccessToken, [from, segments[0][0]], "walking")
+            segments.unshift([from, segments[0][0]]);
+            const walk1 = await getMatch(
+                mapAccessToken,
+                segments[0],
+                "walking"
             );
-            // console.log([from, segments[0][0]]);
-            segmentPathPromises.push(
-                getMatch(mapAccessToken, [
-                    segments[segments.length - 1][
-                        segments[segments.length - 1].length - 1
-                    ],
-                    destination,
-                ])
+            segmentPath.unshift({
+                path: walk1,
+                profile: "walking",
+            });
+
+            segments.push([
+                segments[segments.length - 1][
+                    segments[segments.length - 1].length - 1
+                ],
+                destination,
+            ]);
+            const walk2 = await getMatch(
+                mapAccessToken,
+                segments[segments.length - 1],
+                "walking"
             );
+            segmentPath.push({
+                path: walk2,
+                profile: "walking",
+            });
             // TODO: may have waling path in between bus route segments
 
-            const segmentPath = await Promise.all(segmentPathPromises);
+            const segmentLayers = segmentPath.map((segment, i) => ({
+                path: segment.path ?? undefined,
+                profile: segment.profile,
+                layer: generateLayerFromGeometry(segment?.path?.geometry),
+                stops:
+                    segment.profile == "driving" && segments[i]
+                        ? getStopDetails(segments[i])
+                        : [],
+            }));
 
-            const paths = segmentPath.map((path) =>
-                generateLayerFromGeometry(path?.geometry)
-            );
-            const stops = segments.map((segment) => getStopDetails(segment));
-            const meta = segmentPath.map((path) => path?.journey);
-
-            console.log({ paths });
-            const allCoordinates = paths
-                .flatMap((path) => path?.features?.[0].geometry?.coordinates)
+            const allCoordinates = segmentLayers
+                .flatMap(
+                    (segment) =>
+                        segment.layer?.features?.[0].geometry?.coordinates
+                )
                 .filter((c) => !!c);
             const boundingBox = bbox(lineString(allCoordinates as any));
             const mapCenter = center(lineString(allCoordinates as any));
 
-            setPaths(paths);
-            setStops(stops);
-            setMeta(meta);
+            setSegments(segmentLayers);
+            console.log("segmentLayers", segmentLayers);
             setMapMeta({
                 bbox: boundingBox,
                 center: mapCenter.geometry?.coordinates as Coordinates,
@@ -76,7 +101,7 @@ const useJourney = (
         generatePathLayer();
     }, [from, destination]);
 
-    return { paths, stops, meta, mapMeta };
+    return { segments, mapMeta };
 };
 
 export default useJourney;

@@ -1,29 +1,27 @@
+import { Segment } from "@/utils/hooks/useJourney";
 import React from "react";
 import { FaCaretRight, FaFlag, FaMapMarkerAlt } from "react-icons/fa";
-import { JourneyDetails } from "./JourneyControls";
 
 function JourneySteps({
     segment,
-    journey,
     expanded = false,
 }: {
-    segment?: {
-        coordinates: number[];
-        name: string;
-    }[];
-    journey?: JourneyDetails;
+    segment?: Segment;
     expanded?: boolean;
 }) {
+    const stops = segment?.stops;
+    const journey = segment?.path?.journey;
+
     if (!expanded) {
         return (
             <span className="flex w-full items-center justify-between gap-5">
-                {!!segment && !!segment.length && (
+                {!!stops && (
                     <span className="flex items-center gap-1">
-                        {segment?.[0]?.name}
+                        {stops[0].name}
                         <span className="text-2xl">
                             <FaCaretRight />
                         </span>
-                        {segment?.[segment.length - 1]?.name}
+                        {stops[stops.length - 1].name}
                     </span>
                 )}
 
@@ -40,12 +38,12 @@ function JourneySteps({
     // Expanded view
     return (
         <span className="flex flex-col items-start gap-2">
-            {!!segment && !!journey && (
+            {!!stops && (
                 <span className="">
                     <FaMapMarkerAlt className="mr-1 inline-block text-secondary" />
                     Hop on the bus from{" "}
                     <span className="font-bold text-secondary">
-                        {segment[0].name}
+                        {stops[0].name}
                     </span>{" "}
                     stop
                 </span>
@@ -58,23 +56,23 @@ function JourneySteps({
                 </span>
             )}
 
-            {!!segment && !!segment.length && (
+            {!!stops && (
                 <>
                     <span>Intermediate stops</span>
                     <ul className="-mt-1 flex list-inside list-disc flex-col items-start opacity-90">
-                        {segment?.map((stop, i) => (
+                        {stops?.map((stop, i) => (
                             <li key={`stop-${i}`}>{stop.name}</li>
                         ))}
                     </ul>
                 </>
             )}
 
-            {!!segment && !!journey && (
+            {!!stops && (
                 <span className="">
                     <FaFlag className="mr-2 inline-block text-secondary" />
                     Hop off the bus at{" "}
                     <span className="font-bold text-secondary">
-                        {segment[segment.length - 1].name}
+                        {stops?.[stops.length - 1].name}
                     </span>{" "}
                     stop
                 </span>

@@ -29,12 +29,7 @@ function RouteMap({
         journey.destination.lat,
     ]);
 
-    const {
-        paths,
-        stops,
-        meta: journeyDetails,
-        mapMeta,
-    } = useJourney(mapAccessToken, from, destination);
+    const { segments, mapMeta } = useJourney(mapAccessToken, from, destination);
 
     const [viewState, setViewState] = useState({
         longitude: from[0],
@@ -59,7 +54,7 @@ function RouteMap({
         <div className="h-full max-h-screen min-h-screen w-full flex-row-reverse">
             <section className="map-container flex flex-1">
                 <BusRouteMap
-                    paths={paths}
+                    segments={segments}
                     circulars={circulars}
                     {...viewState}
                     onMove={(evt) => setViewState(evt.viewState)}
@@ -80,12 +75,13 @@ function RouteMap({
 
             <SideBar>
                 <div className="alert inline-block w-auto bg-opacity-10 text-primary-content backdrop-blur-sm">
-                    <JourneyControls
-                        expanded={true}
-                        stops={stops}
-                        journeyDetails={journeyDetails}
-                        journey={journey}
-                    />
+                    {!!segments && (
+                        <JourneyControls
+                            expanded={true}
+                            segments={segments}
+                            journey={journey}
+                        />
+                    )}
                 </div>
             </SideBar>
         </div>

@@ -5,8 +5,10 @@ import {
     circularNames,
     getStopDetails,
 } from "@/utils/geoJson";
+import { Segment } from "@/utils/hooks/useJourney";
 import { CircularData } from "@/utils/hooks/userCirculars";
 import { findNearestStop } from "@/utils/map-helpers";
+import { PropsOf } from "@headlessui/react/dist/types";
 import "mapbox-gl/dist/mapbox-gl.css";
 import React, { Fragment, ReactNode, useState } from "react";
 import Map, {
@@ -36,7 +38,7 @@ const pathLayerStyles: LayerProps = {
 
 function BusRouteMap({
     circulars,
-    paths = [],
+    segments,
     children,
     onMove,
     activeCirculars,
@@ -44,12 +46,12 @@ function BusRouteMap({
     ...props
 }: {
     circulars: Record<CircularName, CircularGeojson>;
-    paths?: Object[];
+    segments?: Segment[];
     children: ReactNode;
     onMove: (evt: ViewStateChangeEvent) => void;
     activeCirculars?: CircularData[];
     maxBounds?: LngLatBoundsLike;
-} & Record<string, any>) {
+} & Partial<PropsOf<typeof Map>>) {
     const activeCircularsNames =
         activeCirculars?.map((c) => c.name) ?? circularNames;
 
@@ -130,17 +132,32 @@ function BusRouteMap({
                 />
             ))}
 
-            {paths?.map((path, i: number) => (
-                <Fragment key={`path-${i}`}>
-                    <Source
-                        id={`path-data-${i}`}
-                        type="geojson"
-                        data={path as any}
-                    >
-                        <Layer {...pathLayerStyles} id={`path-${i}-line`} />
-                    </Source>
-                </Fragment>
-            ))}
+            {segments
+                ?.filter((segment) => !!segment.path?.geometry)
+                ?.map((segment, i: number) => {
+                    const layerStyles = { ...pathLayerStyles };
+                    if (
+                        layerStyles.type == "line" &&
+                        segment.profile === "walking"
+                    ) {
+                        layerStyles.paint = {
+                            ...layerStyles.paint,
+                            "line-dasharray": [1, 0.5],
+                        };
+                    }
+
+                    return (
+                        <Fragment key={`path-${i}`}>
+                            <Source
+                                id={`path-data-${i}`}
+                                type="geojson"
+                                data={segment.path?.geometry as any}
+                            >
+                                <Layer {...layerStyles} id={`path-${i}-line`} />
+                            </Source>
+                        </Fragment>
+                    );
+                })}
 
             {children}
         </Map>

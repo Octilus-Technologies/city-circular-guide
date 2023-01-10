@@ -1,3 +1,4 @@
+import { Segment } from "@/utils/hooks/useJourney";
 import { Inertia } from "@inertiajs/inertia";
 import { GeometryObject } from "@turf/turf";
 import React, { Fragment } from "react";
@@ -6,8 +7,7 @@ import JourneySteps from "./JourneySteps";
 
 type JourneyControlProps = {
     expanded?: boolean;
-    stops?: { coordinates: number[]; name: string }[][];
-    journeyDetails?: JourneyDetails[];
+    segments: Segment[];
     journey?: JourneyDTO;
 };
 
@@ -45,21 +45,23 @@ interface Maneuver {
 }
 
 function JourneyControls({
-    stops,
+    segments,
     journey,
-    journeyDetails,
     expanded = true,
 }: JourneyControlProps) {
-    const from = stops?.[0]?.[0];
-    const destination =
-        stops?.[stops?.length - 1]?.[stops?.[stops?.length - 1].length - 1];
+    const from = journey?.from;
+    const destination = journey?.destination;
+
+    const busSegments = segments.filter(
+        (segment) => segment.profile === "driving"
+    );
 
     return (
         <div className="flex flex-col items-start gap-3">
             <div className="align-center relative flex w-full justify-between pt-4 pb-2 text-sm font-bold">
                 <span className="flex w-[25%] items-center justify-center gap-1">
                     <FaMapMarkerAlt className="mr-1 inline-block text-xl text-secondary" />
-                    {(journey?.from?.name as string).split(",")[0]}
+                    {(from?.name as string).split(",")[0]}
                 </span>
 
                 <div className="relative mx-4 flex flex-1 items-center justify-center">
@@ -71,35 +73,56 @@ function JourneyControls({
 
                 <span className="flex w-[25%] items-center justify-center gap-1">
                     <FaFlag className="mr-1 inline-block text-xl text-secondary" />
-                    {(journey?.destination?.name as string).split(",")[0]}
+                    {(destination?.name as string).split(",")[0]}
                 </span>
             </div>
 
             <hr className="mb-4 w-full bg-white opacity-50" />
 
             <ul className="flex w-full flex-col gap-5">
-                {Array(journeyDetails?.length)
-                    .fill(0)
-                    .map((_, i) => {
-                        const segment = stops?.[i];
-                        const currentJourney = journeyDetails?.[i];
+                {segments.map((segment, i) => {
+                    const isLastSegment = i === segments.length - 1;
 
-                        return (
-                            <Fragment key={`segment-${i}`}>
-                                <li className="flex w-full flex-col items-start">
+                    return (
+                        <Fragment key={`segment-${i}`}>
+                            <li className="flex w-full flex-col items-start">
+                                {segment.profile === "driving" && (
                                     <JourneySteps
                                         segment={segment}
-                                        journey={currentJourney}
                                         expanded={true}
                                     />
-                                </li>
-
-                                {!!stops && i !== stops.length - 1 && (
-                                    <span className="h-[3px] bg-primary" />
                                 )}
-                            </Fragment>
-                        );
-                    })}
+                                
+                                {/* modify data so that each segment have a from and destination */}
+                                {segment.profile === "walking" && (
+                                    <div className="flex w-full items-center justify-between">
+                                        <span className="flex items-center gap-2">
+                                            <FaMapMarkerAlt className="text-xl text-secondary" />
+                                            <span className="text-sm">
+                                                Walk from <span className="text-secondary">
+                                                {
+                                                    i == 0
+                                                    ? from.name.split(',')[0]
+                                                    : `${segments[i - 1].stops[0]
+                                                        .name.split(',')} stop`
+                                                }</span> to{" "}
+                                                <span className="text-secondary">{i + 1 < segments.length
+                                                    ? `${segments[i + 1].stops[0]
+                                                          .name} stop`
+                                                    : destination?.name.split(',')[0]}
+                                                    </span>
+                                            </span>
+                                        </span>
+                                    </div>
+                                )}
+                            </li>
+
+                            {!isLastSegment && (
+                                <span className="h-[3px] bg-primary" />
+                            )}
+                        </Fragment>
+                    );
+                })}
             </ul>
 
             <button

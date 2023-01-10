@@ -1,4 +1,4 @@
-type Profile = "driving-traffic" | "driving" | "walking" | "cycling";
+export type Profile = "driving-traffic" | "driving" | "walking" | "cycling";
 
 const GEOCODING_API = "https://api.mapbox.com/geocoding/v5";
 const MATCHING_API = "https://api.mapbox.com/matching/v5";
@@ -29,12 +29,15 @@ export async function getMatch(
     const response = await query.json();
 
     if (response.code !== "Ok") {
-        return console.log(`${response.code} - ${response.message}.`);
+        console.log(`${response.code} - ${response.message}.`);
+        return;
     }
 
     // Get the coordinates from the response
-    const coords = response.matchings?.[0].geometry;
-    return { geometry: coords, journey: response.matchings?.[0].legs?.[0] };
+    const geometry = response.matchings?.[0].geometry;
+    const journey = response.matchings?.[0].legs?.[0];
+
+    return { geometry, journey };
 }
 
 export const geocode = async (accessToken: string, searchText: string) => {

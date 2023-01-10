@@ -25,6 +25,7 @@ export const circularColors: Record<CircularName, string> = {
 } as const;
 
 export function generateLayerFromGeometry(geometry: Geometry<"LineString">) {
+    // console.log({ geometry });
     return {
         type: "FeatureCollection",
         features: [
