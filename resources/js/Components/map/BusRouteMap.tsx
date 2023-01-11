@@ -62,7 +62,6 @@ function BusRouteMap({
     }>({
         show: false,
     });
-    console.log(popup);
 
     const handleClick = (event: MapLayerMouseEvent) => {
         const nearestStop = findNearestStop([
@@ -138,7 +137,7 @@ function BusRouteMap({
                     const layerStyles = { ...pathLayerStyles };
                     if (
                         layerStyles.type == "line" &&
-                        segment.profile === "walking"
+                        segment.path?.profile === "walking"
                     ) {
                         layerStyles.paint = {
                             ...layerStyles.paint,

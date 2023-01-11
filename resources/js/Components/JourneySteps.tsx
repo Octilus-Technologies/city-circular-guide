@@ -61,7 +61,7 @@ function JourneySteps({
                     <span>Intermediate stops</span>
                     <ul className="-mt-1 flex list-inside list-disc flex-col items-start opacity-90">
                         {stops?.map((stop, i) => (
-                            <li key={`stop-${i}`}>{stop.name}</li>
+                            <li key={`stop-${i}`}>{stop?.name}</li>
                         ))}
                     </ul>
                 </>
@@ -72,7 +72,7 @@ function JourneySteps({
                     <FaFlag className="mr-2 inline-block text-secondary" />
                     Hop off the bus at{" "}
                     <span className="font-bold text-secondary">
-                        {stops?.[stops.length - 1].name}
+                        {stops?.[stops.length - 1]?.name}
                     </span>{" "}
                     stop
                 </span>

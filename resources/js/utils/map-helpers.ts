@@ -110,7 +110,7 @@ const getOptimizedSegmentStops = (
         : counterClockwisePath;
 
     // making sure the the hop on - hop off stops are in the correct order
-    console.log(optimizedStops[0], from);
+    // console.log(optimizedStops[0], from);
     const isWrongDirection =
         optimizedStops[0] !== from &&
         optimizedStops[optimizedStops.length - 1] !== destination;

@@ -52,15 +52,11 @@ function JourneyControls({
     const from = journey?.from;
     const destination = journey?.destination;
 
-    const busSegments = segments.filter(
-        (segment) => segment.profile === "driving"
-    );
-
     return (
         <div className="flex flex-col items-start gap-3">
             <div className="align-center relative flex w-full justify-between pt-4 pb-2 text-sm font-bold">
                 <span className="flex w-[25%] items-center justify-center gap-1">
-                    <FaMapMarkerAlt className="mr-1 inline-block text-xl text-secondary" />
+                    <FaMapMarkerAlt className="mr-1 inline-block flex-shrink-0 text-xl text-secondary" />
                     {(from?.name as string).split(",")[0]}
                 </span>
 
@@ -72,7 +68,7 @@ function JourneyControls({
                 </div>
 
                 <span className="flex w-[25%] items-center justify-center gap-1">
-                    <FaFlag className="mr-1 inline-block text-xl text-secondary" />
+                    <FaFlag className="mr-1 inline-block flex-shrink-0 text-xl text-secondary" />
                     {(destination?.name as string).split(",")[0]}
                 </span>
             </div>
@@ -86,38 +82,34 @@ function JourneyControls({
                     return (
                         <Fragment key={`segment-${i}`}>
                             <li className="flex w-full flex-col items-start">
-                                {segment.profile === "driving" && (
+                                {segment.path?.profile === "driving" && (
                                     <JourneySteps
                                         segment={segment}
                                         expanded={true}
                                     />
                                 )}
-                                
+
                                 {/* modify data so that each segment have a from and destination */}
-                                {segment.profile === "walking" && (
+                                {segment.path?.profile === "walking" && (
                                     <div className="flex w-full items-center justify-between">
                                         <span className="flex items-center gap-2">
                                             <FaMapMarkerAlt className="text-xl text-secondary" />
                                             <span className="text-sm">
-                                                Walk from <span className="text-secondary">
-                                                {
-                                                    i == 0
-                                                    ? from.name.split(',')[0]
-                                                    : `${segments[i - 1].stops[0]
-                                                        .name.split(',')} stop`
-                                                }</span> to{" "}
-                                                <span className="text-secondary">{i + 1 < segments.length
-                                                    ? `${segments[i + 1].stops[0]
-                                                          .name} stop`
-                                                    : destination?.name.split(',')[0]}
-                                                    </span>
+                                                Walk from{" "}
+                                                <span className="text-secondary">
+                                                    {segment.from}
+                                                </span>{" "}
+                                                to{" "}
+                                                <span className="text-secondary">
+                                                    {segment.destination}
+                                                </span>
                                             </span>
                                         </span>
                                     </div>
                                 )}
                             </li>
 
-                            {!isLastSegment && (
+                            {!isLastSegment && !!segment.path && (
                                 <span className="h-[3px] bg-primary" />
                             )}
                         </Fragment>

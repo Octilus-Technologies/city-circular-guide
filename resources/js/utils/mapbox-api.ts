@@ -22,7 +22,8 @@ export async function getMatch(
         params["radiuses"] = radius.join(";");
     }
 
-    let url = `${MATCHING_API}/mapbox/${profile}/${coordinatesStr}?${new URLSearchParams(
+    // API is not giving walking directions (sticking to driving)
+    let url = `${MATCHING_API}/mapbox/${"driving"}/${coordinatesStr}?${new URLSearchParams(
         params
     ).toString()}`;
     const query = await fetch(url, { method: "GET" });
@@ -37,7 +38,7 @@ export async function getMatch(
     const geometry = response.matchings?.[0].geometry;
     const journey = response.matchings?.[0].legs?.[0];
 
-    return { geometry, journey };
+    return { geometry, journey, profile };
 }
 
 export const geocode = async (accessToken: string, searchText: string) => {

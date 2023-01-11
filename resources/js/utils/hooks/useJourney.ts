@@ -6,17 +6,23 @@ import { generateLayerFromGeometry, getStopDetails } from "../geoJson";
 import { Coordinates } from "./../geoJson";
 import { Profile } from "./../mapbox-api";
 
+type Path = Awaited<ReturnType<typeof getMatch>>;
+type LocationSummary = {
+    name: string;
+    coords: Coordinates;
+};
 export type Segment = {
     layer: ReturnType<typeof generateLayerFromGeometry>;
     stops: ReturnType<typeof getStopDetails>;
-    path?: Awaited<ReturnType<typeof getMatch>>;
-    profile: Profile;
+    path?: Path;
+    from: string;
+    destination: string;
 };
 
 const useJourney = (
     mapAccessToken: string,
-    from: Coordinates,
-    destination: Coordinates
+    from: LocationSummary,
+    destination: LocationSummary
 ) => {
     const [segments, setSegments] = useState<Segment[]>();
     const [mapMeta, setMapMeta] = useState<{
@@ -26,60 +32,59 @@ const useJourney = (
 
     useEffect(() => {
         const generatePathLayer = async () => {
-            const segments = getOptimizedStops(from, destination);
+            console.log("useJourney", from, destination);
+            const segments: {
+                stops: Coordinates[];
+                profile: Profile;
+            }[] = getOptimizedStops(from.coords, destination.coords).map(
+                (stops) => ({
+                    stops,
+                    profile: "driving",
+                })
+            );
             if (!segments || !segments.length) {
                 return console.log("Unable to find a route");
             }
 
+            segments.unshift({
+                stops: [from.coords, segments[0].stops[0]],
+                profile: "walking",
+            });
+            const lastSegment = segments[segments.length - 1];
+            segments.push({
+                stops: [
+                    lastSegment.stops[lastSegment.stops.length - 1],
+                    destination.coords,
+                ],
+                profile: "walking",
+            });
+            console.log("segments", segments);
+
             const segmentPathPromises = segments.map((segment) =>
-                getMatch(mapAccessToken, segment)
+                getMatch(mapAccessToken, segment.stops, segment.profile)
             );
             const segmentPath: {
-                path?: Awaited<ReturnType<typeof getMatch>>;
-                profile: Profile;
+                path?: Path;
             }[] = (await Promise.all(segmentPathPromises)).map((path) => ({
                 path: path,
-                profile: "driving",
             }));
 
-            // Add walking path
-            segments.unshift([from, segments[0][0]]);
-            const walk1 = await getMatch(
-                mapAccessToken,
-                segments[0],
-                "walking"
-            );
-            segmentPath.unshift({
-                path: walk1,
-                profile: "walking",
-            });
+            const segmentLayers: Segment[] = segmentPath.map((segment, i) => {
+                const stops =
+                    segment.path?.profile == "driving"
+                        ? getStopDetails(segments[i].stops)
+                        : [];
 
-            segments.push([
-                segments[segments.length - 1][
-                    segments[segments.length - 1].length - 1
-                ],
-                destination,
-            ]);
-            const walk2 = await getMatch(
-                mapAccessToken,
-                segments[segments.length - 1],
-                "walking"
-            );
-            segmentPath.push({
-                path: walk2,
-                profile: "walking",
+                return {
+                    path: segment.path ?? undefined,
+                    layer: generateLayerFromGeometry(segment?.path?.geometry),
+                    stops: stops,
+                    from: stops[0]?.name ?? from.name?.split(",")?.[0],
+                    destination:
+                        stops[stops.length - 1]?.name ??
+                        destination.name?.split(",")?.[0],
+                };
             });
-            // TODO: may have waling path in between bus route segments
-
-            const segmentLayers = segmentPath.map((segment, i) => ({
-                path: segment.path ?? undefined,
-                profile: segment.profile,
-                layer: generateLayerFromGeometry(segment?.path?.geometry),
-                stops:
-                    segment.profile == "driving" && segments[i]
-                        ? getStopDetails(segments[i])
-                        : [],
-            }));
 
             const allCoordinates = segmentLayers
                 .flatMap(

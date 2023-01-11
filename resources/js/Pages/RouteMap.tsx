@@ -6,7 +6,10 @@ import SideBar from "@/Components/SideBar";
 import { circulars, Coordinates } from "@/utils/geoJson";
 import useJourney from "@/utils/hooks/useJourney";
 import { Inertia } from "@inertiajs/inertia";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
+
+const isProduction = process.env.NODE_ENV === "production";
+const isTesting = !isProduction;
 
 function RouteMap({
     mapAccessToken,
@@ -29,11 +32,31 @@ function RouteMap({
         journey.destination.lat,
     ]);
 
-    const { segments, mapMeta } = useJourney(mapAccessToken, from, destination);
+    const journeyFrom = useMemo(
+        () => ({
+            name: journey.from.name,
+            coords: from,
+        }),
+        [from, journey.from.name]
+    );
+
+    const journeyTo = useMemo(
+        () => ({
+            name: journey.destination.name,
+            coords: destination,
+        }),
+        [destination, journey.destination.name]
+    );
+
+    const { segments, mapMeta } = useJourney(
+        mapAccessToken,
+        journeyFrom,
+        journeyTo
+    );
 
     const [viewState, setViewState] = useState({
-        longitude: from[0],
-        latitude: from[1],
+        longitude: journeyFrom.coords[0],
+        latitude: journeyFrom.coords[1],
         zoom: 13.5,
     });
 
@@ -63,12 +86,12 @@ function RouteMap({
                     <FromMarker
                         coords={from}
                         setCoords={setFrom}
-                        draggable={true}
+                        draggable={isTesting}
                     />
                     <DestinationMarker
                         coords={destination}
                         setCoords={setDestination}
-                        draggable={true}
+                        draggable={isTesting}
                     />
                 </BusRouteMap>
             </section>

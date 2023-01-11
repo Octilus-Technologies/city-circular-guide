@@ -33,6 +33,8 @@ class Location extends Model
      */
     protected $casts = [
         'id' => 'integer',
+        'lng' => 'decimal:8',
+        'lat' => 'decimal:8',
         'address' => 'array',
         'meta' => 'array',
         'user_id' => 'integer',
