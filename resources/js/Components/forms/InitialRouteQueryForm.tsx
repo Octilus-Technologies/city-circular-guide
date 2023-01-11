@@ -16,13 +16,13 @@ type AreaOption = { label: string; value: Area };
 const selectClassNames: Parameters<
     typeof AsyncSelect<AreaOption>
 >[0]["classNames"] = {
-    container: (props) => "max-w-[400px]",
+    container: (props) => "",
     control: (props) =>
         "!bg-transparent !border-0 !border-b-[1px] input !rounded-none !border-gray-300 text-xl placeholder:text-gray-300",
     input: (props) => "!flex !text-inherit",
     menu: (props) => "!bg-primary",
     option: (props) =>
-        "!text-inherit !bg-transparent hover:!bg-primary hover:!saturate-[110%]",
+        "!text-inherit !bg-transparent hover:!bg-primary hover:!saturate-[110%] text-left",
     singleValue: (props) => "!text-white",
     placeholder: (props) => "!text-gray-300 text-left",
 };
@@ -73,11 +73,15 @@ function InitialRouteQueryForm({
     ) => {
         // search
         geocode(accessToken, inputValue).then((areaList) => {
-            const filteredList = areaList.features.map((f) => ({
-                name: f.place_name,
-                coordinates: f.center,
-                id: f.id,
-            }));
+            const filteredList = areaList.features
+                .map((f) => ({
+                    name: f.place_name,
+                    coordinates: f.center,
+                    id: f.id,
+                }))
+                .filter((d) =>
+                    (d.name as string).includes("Thiruvananthapuram")
+                );
 
             callback(
                 filteredList.map((d) => ({

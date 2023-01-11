@@ -4,6 +4,7 @@ import { GeometryObject } from "@turf/turf";
 import React, { Fragment } from "react";
 import { FaFlag, FaMapMarkerAlt } from "react-icons/fa";
 import JourneySteps from "./JourneySteps";
+import WalkSteps from "./WalkSteps";
 
 type JourneyControlProps = {
     expanded?: boolean;
@@ -91,21 +92,10 @@ function JourneyControls({
 
                                 {/* modify data so that each segment have a from and destination */}
                                 {segment.path?.profile === "walking" && (
-                                    <div className="flex w-full items-center justify-between">
-                                        <span className="flex items-center gap-2">
-                                            <FaMapMarkerAlt className="text-xl text-secondary" />
-                                            <span className="text-sm">
-                                                Walk from{" "}
-                                                <span className="text-secondary">
-                                                    {segment.from}
-                                                </span>{" "}
-                                                to{" "}
-                                                <span className="text-secondary">
-                                                    {segment.destination}
-                                                </span>
-                                            </span>
-                                        </span>
-                                    </div>
+                                    <WalkSteps
+                                        segment={segment}
+                                        expanded={true}
+                                    />
                                 )}
                             </li>
 
