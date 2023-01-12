@@ -29,8 +29,8 @@ function WalkSteps({
 
             {!!journey && (
                 <span className="opacity-50">
-                    {Math.round(journey?.distance / 1000)} KM |{" "}
-                    {Math.round(journey?.duration / 60) * 1} Minutes
+                    {Math.round(journey?.distance)} M |{" "}
+                    {Math.round(journey?.duration / 60) * 3} Minutes
                 </span>
             )}
         </div>

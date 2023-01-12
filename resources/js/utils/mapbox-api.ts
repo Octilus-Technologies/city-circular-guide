@@ -22,7 +22,7 @@ export async function getMatch(
         params["radiuses"] = radius.join(";");
     }
 
-    // API is not giving walking directions (sticking to driving)
+    // ! API is not giving walking directions (sticking to driving)
     let url = `${MATCHING_API}/mapbox/${"driving"}/${coordinatesStr}?${new URLSearchParams(
         params
     ).toString()}`;

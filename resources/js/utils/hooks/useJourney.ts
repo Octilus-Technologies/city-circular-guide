@@ -79,11 +79,21 @@ const useJourney = (
                     path: segment.path ?? undefined,
                     layer: generateLayerFromGeometry(segment?.path?.geometry),
                     stops: stops,
-                    from: stops[0]?.name ?? from.name?.split(",")?.[0],
-                    destination:
-                        stops[stops.length - 1]?.name ??
-                        destination.name?.split(",")?.[0],
+                    from: stops[0]?.name ?? "",
+                    destination: stops[stops.length - 1]?.name ?? "",
                 };
+            });
+
+            // Hydrate walking segments
+            segmentLayers.forEach((segment, i) => {
+                if (segment.path?.profile == "walking") {
+                    segment.from =
+                        segmentLayers[i - 1]?.destination ??
+                        from.name.split(",")[0];
+                    segment.destination =
+                        segmentLayers[i + 1]?.from ??
+                        destination.name.split(",")[0];
+                }
             });
 
             const allCoordinates = segmentLayers
