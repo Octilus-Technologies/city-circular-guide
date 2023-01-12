@@ -1,6 +1,6 @@
 import { Segment } from "@/utils/hooks/useJourney";
 import React from "react";
-import { FaMapMarkerAlt } from "react-icons/fa";
+import { FaFlag, FaMapMarkerAlt } from "react-icons/fa";
 
 function WalkSteps({
     segment,
@@ -14,7 +14,7 @@ function WalkSteps({
     return (
         <div className="flex w-full flex-col items-start justify-between gap-2">
             <span className="flex items-center gap-2">
-                <FaMapMarkerAlt className="text-xl text-secondary" />
+                <FaMapMarkerAlt className="text-secondary" />
                 <span className="text-sm">
                     Walk from{" "}
                     <span className="font-bold text-secondary">
@@ -25,6 +25,7 @@ function WalkSteps({
                         {segment.destination}
                     </span>
                 </span>
+                <FaFlag className="mr-2 inline-block text-secondary" />
             </span>
 
             {!!journey && (

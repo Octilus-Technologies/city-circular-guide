@@ -87,12 +87,12 @@ const useJourney = (
             // Hydrate walking segments
             segmentLayers.forEach((segment, i) => {
                 if (segment.path?.profile == "walking") {
-                    segment.from =
-                        segmentLayers[i - 1]?.destination ??
-                        from.name.split(",")[0];
-                    segment.destination =
-                        segmentLayers[i + 1]?.from ??
-                        destination.name.split(",")[0];
+                    segment.from = segmentLayers[i - 1]
+                        ? segmentLayers[i - 1].destination + " stop"
+                        : from.name.split(",")[0];
+                    segment.destination = segmentLayers[i + 1]
+                        ? segmentLayers[i + 1].from + " stop"
+                        : destination.name.split(",")[0];
                 }
             });
 
