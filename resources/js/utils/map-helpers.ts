@@ -47,7 +47,7 @@ const findNearbyStops = (coordinates: Coordinates) => {
         if (!nearestStop) return null;
 
         return {
-            name: circularName,
+            circularName: circularName,
             coordinates: nearestStop?.coordinates,
             distance: nearestStop?.distance,
         };
@@ -131,6 +131,35 @@ const findJunctions = (circular1: Coordinates[], circular2: Coordinates[]) => {
     return junctions;
 };
 
+const finNearestJunction = (
+    circular1: Coordinates[],
+    circular2: Coordinates[],
+    from: Coordinates
+) => {
+    const junctions = findJunctions(circular1, circular2);
+
+    const nearest = junctions.reduce(
+        (acc, curr) => {
+            const dist = distance(point(from), point(curr));
+
+            if (dist < acc.dist) {
+                return {
+                    dist,
+                    coordinates: curr,
+                };
+            }
+
+            return acc;
+        },
+        {
+            dist: Infinity,
+            coordinates: junctions[0],
+        }
+    );
+
+    return nearest.coordinates;
+};
+
 export const getOptimizedStops = (
     from: Coordinates,
     destination: Coordinates
@@ -142,7 +171,7 @@ export const getOptimizedStops = (
 
     const requiredCirculars = [fromStop];
 
-    if (destinationStop.name !== fromStop.name) {
+    if (destinationStop.circularName !== fromStop.circularName) {
         requiredCirculars.push(destinationStop);
     }
 
@@ -152,35 +181,36 @@ export const getOptimizedStops = (
         destination: Coordinates;
     }[] = [];
 
-    requiredCirculars.map((circular, i) => {
-        const nextCircular = requiredCirculars[i + 1];
+    requiredCirculars.map((stop, i) => {
+        const nextStop = requiredCirculars[i + 1];
 
-        if (!!nextCircular) {
-            const junctionCoordinates = findJunctions(
-                getCircularCoordinates(circular.name),
-                getCircularCoordinates(nextCircular.name)
-            )[0]; // * Just taking the first junction for testing
+        if (!!nextStop) {
+            const junctionCoordinates = finNearestJunction(
+                getCircularCoordinates(stop.circularName),
+                getCircularCoordinates(nextStop.circularName),
+                nextStop.coordinates
+            );
 
             segments.push({
-                name: circular.name,
-                from: circular.coordinates,
+                name: stop.circularName,
+                from: stop.coordinates,
                 destination: junctionCoordinates,
             });
 
             segments.push({
-                name: nextCircular.name,
+                name: nextStop.circularName,
                 from: junctionCoordinates,
-                destination: nextCircular.coordinates,
+                destination: nextStop.coordinates,
             });
 
             console.table(segments);
         } else {
-            if (circular.coordinates !== destinationStop.coordinates) {
+            if (stop.coordinates !== destinationStop.coordinates) {
                 // * This gets executed if we are dealing with single circular
                 // * or if it is the last (destination) circular
                 segments.push({
-                    name: circular.name,
-                    from: circular.coordinates,
+                    name: stop.circularName,
+                    from: stop.coordinates,
                     destination: destinationStop.coordinates,
                 });
             }

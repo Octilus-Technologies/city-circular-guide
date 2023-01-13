@@ -10,7 +10,7 @@ import { CircularData } from "@/utils/hooks/userCirculars";
 import { findNearestStop } from "@/utils/map-helpers";
 import { PropsOf } from "@headlessui/react/dist/types";
 import "mapbox-gl/dist/mapbox-gl.css";
-import React, { Fragment, ReactNode, useState } from "react";
+import React, { Fragment, ReactNode, useCallback, useState } from "react";
 import Map, {
     GeolocateControl,
     GeolocateResultEvent,
@@ -63,29 +63,35 @@ function BusRouteMap({
         show: false,
     });
 
-    const handleClick = (event: MapLayerMouseEvent) => {
-        const nearestStop = findNearestStop([
-            event.lngLat.lng,
-            event.lngLat.lat,
-        ]);
-        if (!nearestStop || nearestStop.distance > 120) return;
+    const handleClick = useCallback(
+        (event: MapLayerMouseEvent) => {
+            const nearestStop = findNearestStop([
+                event.lngLat.lng,
+                event.lngLat.lat,
+            ]);
+            if (!nearestStop || nearestStop.distance > 120) return;
 
-        const stop = getStopDetails([nearestStop.coordinates])[0];
-        console.log(stop);
+            const stop = getStopDetails([nearestStop.coordinates])[0];
+            console.log("stop", stop);
 
-        setPopup((prevPopup) => ({
-            show: false,
-        }));
-
-        setTimeout(() => {
+            // Make sure the popup is hidden before showing it again
             setPopup((prevPopup) => ({
-                ...prevPopup,
-                coordinates: stop.coordinates,
-                show: true,
-                stop,
+                show: false,
             }));
-        }, 100);
-    };
+
+            setTimeout(() => {
+                if (!stop) return;
+
+                setPopup((prevPopup) => ({
+                    ...prevPopup,
+                    coordinates: stop.coordinates,
+                    show: true,
+                    stop,
+                }));
+            }, 100);
+        },
+        [findNearestStop, getStopDetails]
+    );
 
     return (
         <Map

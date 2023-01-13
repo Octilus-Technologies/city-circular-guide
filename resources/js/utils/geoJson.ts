@@ -71,7 +71,7 @@ export function generateLineFromPoints(
     };
 }
 
-export const getAllStopDetails = () => {
+export const getAllStopDetails = (unique = false) => {
     const stops = (Object.keys(circulars) as CircularName[]).map(
         (circularName) => {
             const circular = circulars[circularName];
@@ -85,7 +85,24 @@ export const getAllStopDetails = () => {
         }
     );
 
-    return stops.flat();
+    const allStops = stops.flat();
+
+    if (!unique) return allStops;
+
+    return allStops.reduce((acc, stop) => {
+        if (
+            acc.find(
+                (s) =>
+                    s.name === stop.name &&
+                    s.circularName === stop.circularName &&
+                    s.coordinates[0] === stop.coordinates[0] &&
+                    s.coordinates[1] === stop.coordinates[1]
+            )
+        )
+            return acc;
+
+        return [...acc, stop];
+    }, [] as typeof allStops);
 };
 
 export const getCircularDetails = (circularName: CircularName) => {
@@ -96,13 +113,14 @@ export const getCircularDetails = (circularName: CircularName) => {
 };
 
 export const getStopDetails = (coordinates: Coordinates[]) => {
+    const allStops = getAllStopDetails(true);
     const stops = coordinates.map((c) => {
-        const stop = getAllStopDetails().find(
+        const stop = allStops.find(
             (s) => s.coordinates[0] === c[0] && s.coordinates[1] === c[1]
         );
         if (!stop) return;
 
-        const inCirculars = getAllStopDetails()
+        const inCirculars = allStops
             .filter((s) => s.name === stop.name)
             .map((s) => s.circularName);
 
@@ -119,8 +137,6 @@ export const getStopDetails = (coordinates: Coordinates[]) => {
     );
 };
 
-export const getCircularCoordinates = (
-    circularName: keyof typeof circulars
-) => {
+export const getCircularCoordinates = (circularName: CircularName) => {
     return circulars[circularName].features.map((f) => f.geometry.coordinates);
 };
