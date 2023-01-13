@@ -32,7 +32,7 @@ const useJourney = (
 
     useEffect(() => {
         const generatePathLayer = async () => {
-            console.log("useJourney", from, destination);
+            // console.log("useJourney", from, destination);
             const segments: {
                 stops: Coordinates[];
                 profile: Profile;
@@ -58,7 +58,7 @@ const useJourney = (
                 ],
                 profile: "walking",
             });
-            console.log("segments", segments);
+            // console.log("segments", segments);
 
             const segmentPathPromises = segments.map((segment) =>
                 getMatch(mapAccessToken, segment.stops, segment.profile)

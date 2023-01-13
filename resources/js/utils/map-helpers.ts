@@ -5,6 +5,7 @@ import {
     Coordinates,
     getAllStopDetails,
     getCircularCoordinates,
+    getStopDetails,
 } from "./geoJson";
 
 export const findNearestStop = (
@@ -83,6 +84,8 @@ const findShortestPath = (
         coordinates,
         firstStop?.index
     );
+    // TODO: improve rotation logic
+    console.log(adjustedCoordinates.map((c) => getStopDetails([c])[0].name));
     const lastStop = findNearestStop(destination, adjustedCoordinates);
     if (!lastStop) return [];
 
@@ -96,6 +99,10 @@ const getOptimizedSegmentStops = (
     destination: Coordinates,
     coordinates: Coordinates[]
 ) => {
+    // console.log({
+    //     from: getStopDetails([from])[0],
+    //     destination: getStopDetails([destination])[0],
+    // });
     const clockwisePath = findShortestPath(from, destination, coordinates);
     const counterClockwisePath = findShortestPath(
         destination,
@@ -131,7 +138,7 @@ const findJunctions = (circular1: Coordinates[], circular2: Coordinates[]) => {
     return junctions;
 };
 
-const finNearestJunction = (
+const findNearestJunction = (
     circular1: Coordinates[],
     circular2: Coordinates[],
     from: Coordinates
@@ -176,7 +183,7 @@ export const getOptimizedStops = (
     }
 
     const segments: {
-        name: CircularName;
+        circularName: CircularName;
         from: Coordinates;
         destination: Coordinates;
     }[] = [];
@@ -185,20 +192,20 @@ export const getOptimizedStops = (
         const nextStop = requiredCirculars[i + 1];
 
         if (!!nextStop) {
-            const junctionCoordinates = finNearestJunction(
+            const junctionCoordinates = findNearestJunction(
                 getCircularCoordinates(stop.circularName),
                 getCircularCoordinates(nextStop.circularName),
                 nextStop.coordinates
             );
 
             segments.push({
-                name: stop.circularName,
+                circularName: stop.circularName,
                 from: stop.coordinates,
                 destination: junctionCoordinates,
             });
 
             segments.push({
-                name: nextStop.circularName,
+                circularName: nextStop.circularName,
                 from: junctionCoordinates,
                 destination: nextStop.coordinates,
             });
@@ -209,7 +216,7 @@ export const getOptimizedStops = (
                 // * This gets executed if we are dealing with single circular
                 // * or if it is the last (destination) circular
                 segments.push({
-                    name: stop.circularName,
+                    circularName: stop.circularName,
                     from: stop.coordinates,
                     destination: destinationStop.coordinates,
                 });
@@ -218,8 +225,8 @@ export const getOptimizedStops = (
     });
     // console.table(segments);
 
-    const segmentStops = segments.map(({ name, from, destination }) => {
-        const coordinates = getCircularCoordinates(name);
+    const segmentStops = segments.map(({ circularName, from, destination }) => {
+        const coordinates = getCircularCoordinates(circularName);
         return getOptimizedSegmentStops(from, destination, coordinates);
     });
 

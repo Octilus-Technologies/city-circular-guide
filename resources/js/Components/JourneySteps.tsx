@@ -45,9 +45,13 @@ function JourneySteps({
                     <span className="font-bold text-secondary">
                         {stops[0].name}
                     </span>{" "}
-                    stop
+                    stop ({stops[0].circularName} circular)
                 </span>
             )}
+            <pre className="text-left">
+                {/* {JSON.stringify(stops?.[0], null, 2)} */}
+                {/* FIXME: Getting wrong circular info */}
+            </pre>
 
             {!!journey && (
                 <span className="-mt-1 opacity-50">
