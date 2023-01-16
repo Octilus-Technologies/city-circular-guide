@@ -4,7 +4,7 @@ import { MdDirectionsBus } from "react-icons/md";
 
 function BusStopInfo({ stop }: { stop: BusStopDetail }) {
     const infoColor =
-        stop?.circulars.length == 1 ? stop.circulars[0].color : null;
+        stop?.circulars.length == 1 ? stop.circulars?.[0]?.color : null;
     const rootStyles = {
         "--circular-info-color": infoColor ?? "hsl(var(--pf))",
     } as CSSProperties;
@@ -15,10 +15,8 @@ function BusStopInfo({ stop }: { stop: BusStopDetail }) {
                 <div className="icon border-base bordered grid place-content-center border-r-[1px] bg-[var(--circular-info-color)] px-2">
                     <MdDirectionsBus className="inline-block text-6xl" />
                 </div>
-                <div className="align-center flex flex-1 flex-col items-center bg-[var(--circular-info-color)] p-2 text-2xl font-bold">
-                    <span>112</span>
-                    <span>C</span>
-                    {/* TODO: fetch dynamic data */}
+                <div className="align-center flex flex-1 flex-col items-center justify-center bg-[var(--circular-info-color)] p-2 text-2xl font-bold">
+                    <span>{stop?.circulars?.[0]?.id}</span>
                 </div>
             </div>
 
@@ -41,11 +39,11 @@ function BusStopInfo({ stop }: { stop: BusStopDetail }) {
                         <div className="interchange-icons -space-x-[0.4rem] pt-2 saturate-150">
                             {stop.circulars.map((circular) => (
                                 <span
-                                    key={circular.name}
-                                    title={`${circular.name} circular`}
+                                    key={circular?.name}
+                                    title={`${circular?.name} circular`}
                                     className="bordered inline-block aspect-square w-[1rem] rounded-full border-[3px] opacity-80"
                                     style={{
-                                        borderColor: circular.color,
+                                        borderColor: circular?.color,
                                     }}
                                 />
                             ))}

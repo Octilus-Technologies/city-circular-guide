@@ -4,6 +4,7 @@ import { BBox, bbox, center, lineString } from "@turf/turf";
 import { useEffect, useState } from "react";
 import { generateLayerFromGeometry, getStopDetails } from "../geoJson";
 import { Coordinates } from "./../geoJson";
+import { getCircularDetails } from "./../map-helpers";
 import { Profile } from "./../mapbox-api";
 
 type Path = Awaited<ReturnType<typeof getMatch>>;
@@ -17,6 +18,7 @@ export type Segment = {
     path?: Path;
     from: string;
     destination: string;
+    circular: ReturnType<typeof getCircularDetails>;
 };
 
 const useJourney = (
@@ -74,6 +76,9 @@ const useJourney = (
                     segment.path?.profile == "driving"
                         ? getStopDetails(segments[i].stops)
                         : [];
+                // TODO: Improve circular detection
+                const circularName =
+                    findMode(stops.map((s) => s.circularName)) ?? "";
 
                 return {
                     path: segment.path ?? undefined,
@@ -81,6 +86,7 @@ const useJourney = (
                     stops: stops,
                     from: stops[0]?.name ?? "",
                     destination: stops[stops.length - 1]?.name ?? "",
+                    circular: getCircularDetails(circularName),
                 };
             });
 
@@ -115,6 +121,18 @@ const useJourney = (
 
         generatePathLayer();
     }, [from, destination]);
+
+    const findMode = <T>(originalArray: Array<T>) => {
+        const arr = [...originalArray];
+
+        return arr
+            .sort(
+                (a, b) =>
+                    arr.filter((v) => v === a).length -
+                    arr.filter((v) => v === b).length
+            )
+            .pop();
+    };
 
     return { segments, mapMeta };
 };

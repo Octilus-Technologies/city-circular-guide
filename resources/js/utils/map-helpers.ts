@@ -1,11 +1,10 @@
 import { distance, point } from "@turf/turf";
+import circularMeta from "../constants/circulars";
+import type { CircularName, Coordinates } from "./geoJson";
 import {
-    CircularName,
     circulars,
-    Coordinates,
     getAllStopDetails,
     getCircularCoordinates,
-    getStopDetails,
 } from "./geoJson";
 
 export const findNearestStop = (
@@ -64,12 +63,13 @@ const findNearbyStops = (coordinates: Coordinates) => {
 };
 
 const rotateCoordinates = <T>(arr: Array<T>, times: number) => {
+    const tmpArr = [...arr]; // clone array to avoid mutation of original array
     for (let i = 0; i < times; i++) {
-        const tmp = arr.shift();
-        if (tmp) arr.push(tmp);
+        const tmp = tmpArr.shift();
+        if (tmp) tmpArr.push(tmp);
     }
 
-    return arr;
+    return tmpArr;
 };
 
 const findShortestPath = (
@@ -80,12 +80,8 @@ const findShortestPath = (
     const firstStop = findNearestStop(from, coordinates);
     if (!firstStop) return [];
 
-    const adjustedCoordinates = rotateCoordinates(
-        coordinates,
-        firstStop?.index
-    );
-    // TODO: improve rotation logic
-    console.log(adjustedCoordinates.map((c) => getStopDetails([c])[0].name));
+    let adjustedCoordinates = rotateCoordinates(coordinates, firstStop?.index);
+
     const lastStop = findNearestStop(destination, adjustedCoordinates);
     if (!lastStop) return [];
 
@@ -250,4 +246,13 @@ const jsonToGeoJson = (
             type: "Point",
         },
     }));
+};
+
+export const getCircularDetails = (name: string, isClockwise = true) => {
+    return circularMeta.meta.find((circular) => {
+        return (
+            circular.name.toLowerCase() == name &&
+            circular.isClockwise == isClockwise
+        );
+    });
 };

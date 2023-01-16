@@ -38,6 +38,13 @@ function JourneySteps({
     // Expanded view
     return (
         <span className="flex flex-col items-start gap-2">
+            {!!segment?.circular && (
+                <span>
+                    <strong>{segment.circular.id}</strong> :{" "}
+                    {segment.circular.name} circular
+                </span>
+            )}
+
             {!!stops && (
                 <span className="">
                     <FaMapMarkerAlt className="mr-1 inline-block text-secondary" />
@@ -45,13 +52,9 @@ function JourneySteps({
                     <span className="font-bold text-secondary">
                         {stops[0].name}
                     </span>{" "}
-                    stop ({stops[0].circularName} circular)
+                    stop
                 </span>
             )}
-            <pre className="text-left">
-                {/* {JSON.stringify(stops?.[0], null, 2)} */}
-                {/* FIXME: Getting wrong circular info */}
-            </pre>
 
             {!!journey && (
                 <span className="-mt-1 opacity-50">
@@ -65,7 +68,10 @@ function JourneySteps({
                     <span>Intermediate stops</span>
                     <ul className="-mt-1 flex list-inside list-disc flex-col items-start opacity-90">
                         {stops?.map((stop, i) => (
-                            <li key={`stop-${i}`}>{stop?.name}</li>
+                            <li key={`stop-${i}`}>
+                                {stop?.name}{" "}
+                                {/* ({stop.coordinates.join(", ")}) */}
+                            </li>
                         ))}
                     </ul>
                 </>

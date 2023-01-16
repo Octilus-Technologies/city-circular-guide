@@ -1,5 +1,6 @@
 import blueCircular from "@/constants/blue.json";
 import redCircular from "@/constants/red.json";
+import { getCircularDetails } from "./map-helpers";
 
 export type Coordinates = number[];
 export type CircularName = keyof typeof circulars;
@@ -19,6 +20,7 @@ export const circulars = {
 
 export const circularNames = Object.keys(circulars) as CircularName[];
 
+// TODO: Remove all reference to these colors
 export const circularColors: Record<CircularName, string> = {
     blue: "hsl(239, 100%, 70%)",
     red: "hsl(0, 100%, 70%)",
@@ -105,13 +107,6 @@ export const getAllStopDetails = (unique = false) => {
     }, [] as typeof allStops);
 };
 
-export const getCircularDetails = (circularName: CircularName) => {
-    return {
-        name: circularName,
-        color: circularColors[circularName],
-    };
-};
-
 export const getStopDetails = (coordinates: Coordinates[]) => {
     const allStops = getAllStopDetails(true);
     const stops = coordinates.map((c) => {
@@ -123,10 +118,13 @@ export const getStopDetails = (coordinates: Coordinates[]) => {
         const inCirculars = allStops
             .filter((s) => s.name === stop.name)
             .map((s) => s.circularName);
+        const isClockwise = true; // FIXME: Improve this
 
         const stopDetails = {
             ...stop,
-            circulars: inCirculars.map(getCircularDetails),
+            circulars: inCirculars.map((name) =>
+                getCircularDetails(name, isClockwise)
+            ),
         };
 
         return stopDetails;
