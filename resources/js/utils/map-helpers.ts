@@ -1,6 +1,6 @@
 import { distance, point } from "@turf/turf";
 import circularMeta from "../constants/circulars";
-import type { CircularName, Coordinates } from "./geoJson";
+import { CircularName, Coordinates, getStopDetails } from "./geoJson";
 import {
     circulars,
     getAllStopDetails,
@@ -11,6 +11,7 @@ export const findNearestStop = (
     coordinates: Coordinates,
     stops: Coordinates[] = getAllStopDetails().map((s) => s.coordinates)
 ) => {
+    // console.log("findNearestStop", coordinates);
     let from = point(coordinates);
 
     const nearestStop = stops.reduce<{
@@ -77,6 +78,7 @@ const findShortestPath = (
     destination: Coordinates,
     coordinates: Coordinates[]
 ) => {
+    // console.log("findShortestPath", from, destination);
     const firstStop = findNearestStop(from, coordinates);
     if (!firstStop) return [];
 
@@ -95,9 +97,9 @@ const getOptimizedSegmentStops = (
     destination: Coordinates,
     coordinates: Coordinates[]
 ) => {
-    // console.log({
-    //     from: getStopDetails([from])[0],
-    //     destination: getStopDetails([destination])[0],
+    // console.log("getOptimizedSegmentStops", {
+    //     from: from,
+    //     destination: destination,
     // });
     const clockwisePath = findShortestPath(from, destination, coordinates);
     const counterClockwisePath = findShortestPath(
@@ -127,9 +129,9 @@ const getOptimizedSegmentStops = (
 };
 
 const findJunctions = (circular1: Coordinates[], circular2: Coordinates[]) => {
-    const junctions = circular1.filter((c1) =>
-        circular2.some((c2) => c1[0] === c2[0] && c1[1] === c2[1])
-    );
+    const junctions = circular1.filter((c1) => {
+        return circular2.some((c2) => distance(point(c1), point(c2)) <= 0.1);
+    });
 
     return junctions;
 };
@@ -141,6 +143,7 @@ const findNearestJunction = (
 ) => {
     const junctions = findJunctions(circular1, circular2);
 
+    // FIXME: Should find the junction that leads to shortest route (not necessarily nearest)
     const nearest = junctions.reduce(
         (acc, curr) => {
             const dist = distance(point(from), point(curr));
@@ -194,6 +197,12 @@ export const getOptimizedStops = (
                 nextStop.coordinates
             );
 
+            // console.log({
+            //     from: stop.circularName,
+            //     to: nextStop.circularName,
+            //     junctionCoordinates,
+            // });
+
             segments.push({
                 circularName: stop.circularName,
                 from: stop.coordinates,
@@ -219,7 +228,7 @@ export const getOptimizedStops = (
             }
         }
     });
-    // console.table(segments);
+    console.table(segments);
 
     const segmentStops = segments.map(({ circularName, from, destination }) => {
         const coordinates = getCircularCoordinates(circularName);
@@ -238,7 +247,7 @@ const jsonToGeoJson = (
         lng: string;
     }[]
 ) => {
-    data.map((stop) => ({
+    return data.map((stop) => ({
         type: "Feature",
         properties: { name: stop.name_en, name_ml: stop.name_ml },
         geometry: {

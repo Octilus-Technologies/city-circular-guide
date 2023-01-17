@@ -12,7 +12,7 @@ import { Layer, LayerProps, Marker, Source } from "react-map-gl";
 const pathLayerStyles: LayerProps & Record<string, any> = {
     type: "line",
     paint: {
-        "line-width": 4,
+        "line-width": 3,
         "line-color": "royalblue",
         "line-opacity": 0.5,
         // "line-dasharray": [1, 2],

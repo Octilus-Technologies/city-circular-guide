@@ -1,0 +1,390 @@
+{
+    "type": "FeatureCollection",
+    "features": [
+        {
+            "type": "Feature",
+            "properties": {
+                "name": "East Fort",
+                "name_ml": "കിഴക്കേകോട്ട"
+            },
+            "geometry": {
+                "coordinates": [76.9473685, 8.481476552],
+                "type": "Point"
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "name": "East Fort - Govt. Central High School",
+                "name_ml": "കിഴക്കേകോട്ട - ഗവ.സെൻട്രൽ ഹൈസ്‌കൂൾ "
+            },
+            "geometry": {
+                "coordinates": [76.94755224, 8.48166044],
+                "type": "Point"
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "name": "Transport Bhavan",
+                "name_ml": "ട്രാൻസ്‌പോർട് ഭവൻ"
+            },
+            "geometry": {
+                "coordinates": [76.9455523, 8.480576759],
+                "type": "Point"
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "name": "Vazhapalli",
+                "name_ml": "വാഴപ്പള്ളി"
+            },
+            "geometry": {
+                "coordinates": [76.9419878, 8.480679291],
+                "type": "Point"
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "name": "Padinjare Nada",
+                "name_ml": "പടിഞ്ഞാറേ നട"
+            },
+            "geometry": {
+                "coordinates": [76.94179642, 8.48362904],
+                "type": "Point"
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "name": "Fort Hospital",
+                "name_ml": "ഫോർട്ട് ആശുപത്രി"
+            },
+            "geometry": {
+                "coordinates": [76.94182009, 8.48495643],
+                "type": "Point"
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "name": "Sree kandeswaram Temple",
+                "name_ml": "ശ്രീകണ്ഠേശ്വരം മഹാദേവക്ഷേത്രം"
+            },
+            "geometry": {
+                "coordinates": [76.94250206, 8.487184934],
+                "type": "Point"
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "name": "Uppidamoodu Bridge",
+                "name_ml": "ഉപ്പിടാമൂട് പാലം"
+            },
+            "geometry": {
+                "coordinates": [76.9402946, 8.490580549],
+                "type": "Point"
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "name": "Ambalathumukku",
+                "name_ml": "അമ്പലത്തുമുക്ക് "
+            },
+            "geometry": {
+                "coordinates": [76.93643628, 8.493467798],
+                "type": "Point"
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "name": "Pettah - Pallimukku",
+                "name_ml": "പേട്ട പള്ളിമുക്ക്"
+            },
+            "geometry": {
+                "coordinates": [76.93251181, 8.496758232],
+                "type": "Point"
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "name": "Kannammoola - Bridge",
+                "name_ml": "കണ്ണമ്മൂല പാലം "
+            },
+            "geometry": {
+                "coordinates": [76.93131042, 8.501062481],
+                "type": "Point"
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "name": "Kannammoola ",
+                "name_ml": "കണ്ണമ്മൂല"
+            },
+            "geometry": {
+                "coordinates": [76.93181226, 8.502889403],
+                "type": "Point"
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "name": "John Cox College",
+                "name_ml": "ജോൺ കോക്സ് കോളേജ് "
+            },
+            "geometry": {
+                "coordinates": [76.93109389, 8.506536529],
+                "type": "Point"
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "name": "Koyikkal Lane",
+                "name_ml": "കോയിക്കൽ ലെയിൻ "
+            },
+            "geometry": {
+                "coordinates": [76.92971242, 8.508522916],
+                "type": "Point"
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "name": "Burma Road",
+                "name_ml": "ബർമ റോഡ് "
+            },
+            "geometry": {
+                "coordinates": [76.92847325, 8.510739241],
+                "type": "Point"
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "name": "kumarapuram",
+                "name_ml": "കുമാരപുരം"
+            },
+            "geometry": {
+                "coordinates": [76.92749681, 8.512943612],
+                "type": "Point"
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "name": "Kumarapuram Signal",
+                "name_ml": "കുമാരപുരം സിഗ്നൽ "
+            },
+            "geometry": {
+                "coordinates": [76.92737276, 8.514220864],
+                "type": "Point"
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "name": "Govt.Medical College HSS",
+                "name_ml": "മെഡിക്കൽ കോളേജ് സ്‌കൂൾ "
+            },
+            "geometry": {
+                "coordinates": [76.92768794, 8.516802087],
+                "type": "Point"
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "name": "Medical College",
+                "name_ml": "മെഡിക്കൽ കോളേജ്"
+            },
+            "geometry": {
+                "coordinates": [76.93012551, 8.522193084],
+                "type": "Point"
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "name": "murinjapalam",
+                "name_ml": "മുറിഞ്ഞപാലം"
+            },
+            "geometry": {
+                "coordinates": [76.93444543, 8.515913479],
+                "type": "Point"
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "name": "pottakuzhi ",
+                "name_ml": "പൊട്ടക്കുഴി"
+            },
+            "geometry": {
+                "coordinates": [76.93812953, 8.514008135],
+                "type": "Point"
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "name": "Anadiyil hospital",
+                "name_ml": "ആനടിയിൽ ഹോസ്പിറ്റൽ"
+            },
+            "geometry": {
+                "coordinates": [76.94246753, 8.510030226],
+                "type": "Point"
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "name": "Law College jn",
+                "name_ml": "ലോ കോളേജ് ജംഗ്ഷൻ"
+            },
+            "geometry": {
+                "coordinates": [76.94515326, 8.508803091],
+                "type": "Point"
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "name": "vikas bhavan Depot",
+                "name_ml": "വികാസ് ഭവൻ ഡിപ്പോ"
+            },
+            "geometry": {
+                "coordinates": [76.9466588, 8.50869899],
+                "type": "Point"
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "name": "PMG",
+                "name_ml": "പി. എം. ജി."
+            },
+            "geometry": {
+                "coordinates": [76.94939508, 8.509049412],
+                "type": "Point"
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "name": "LMS",
+                "name_ml": "എൽ എം എസ്"
+            },
+            "geometry": {
+                "coordinates": [76.95070099, 8.508868731],
+                "type": "Point"
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "name": "Palayam",
+                "name_ml": "പാളയം"
+            },
+            "geometry": {
+                "coordinates": [76.95209487, 8.507423277],
+                "type": "Point"
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "name": "Palayam Fine Arts College",
+                "name_ml": "പാളയം - ഫൈൻ ആർട്സ് കോളേജ് "
+            },
+            "geometry": {
+                "coordinates": [76.95197307, 8.506999455],
+                "type": "Point"
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "name": "Palayam - Saphalyam",
+                "name_ml": "പാളയം - സാഫല്യം "
+            },
+            "geometry": {
+                "coordinates": [76.95030177, 8.502544831],
+                "type": "Point"
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "name": "Statue - secretariat",
+                "name_ml": "സ്റ്റാച്യു"
+            },
+            "geometry": {
+                "coordinates": [76.9485444, 8.497437771],
+                "type": "Point"
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "name": "ayurveda College",
+                "name_ml": "ആയുർവേദ കോളേജ്"
+            },
+            "geometry": {
+                "coordinates": [76.94727334, 8.49149612],
+                "type": "Point"
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "name": "Over Bridge",
+                "name_ml": "ഓവർബ്രിഡ്ജ്"
+            },
+            "geometry": {
+                "coordinates": [76.94754826, 8.489340535],
+                "type": "Point"
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "name": "Thampanoor",
+                "name_ml": "തമ്പാനൂർ"
+            },
+            "geometry": {
+                "coordinates": [76.95157312, 8.487827753],
+                "type": "Point"
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "name": "East Fort - opp north bus stand",
+                "name_ml": "കിഴക്കേകോട്ട - നോർത്ത് ബസ് സ്റ്റാൻഡ്"
+            },
+            "geometry": {
+                "coordinates": [76.94778939, 8.48381874],
+                "type": "Point"
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "name": "East Fort - south bus stand",
+                "name_ml": "കിഴക്കേകോട്ട - സൗത്ത്  ബസ് സ്റ്റാൻഡ്"
+            },
+            "geometry": {
+                "coordinates": [76.94837629, 8.482463751],
+                "type": "Point"
+            }
+        }
+    ]
+}

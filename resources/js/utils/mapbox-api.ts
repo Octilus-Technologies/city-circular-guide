@@ -14,12 +14,14 @@ export async function getMatch(
         geometries: "geojson",
         steps: "true",
         tidy: "false",
-        waypoints: `0;${coordinates.length - 1}`,
+        // waypoints: `0;${coordinates.length - 1}`,
         access_token: accessToken,
     };
 
     if (radius) {
         params["radiuses"] = radius.join(";");
+    } else {
+        params["radiuses"] = coordinates.map(() => "10").join(";");
     }
 
     // ! API is not giving walking directions (sticking to driving)

@@ -1,0 +1,445 @@
+{
+    "type": "FeatureCollection",
+    "features": [
+        {
+            "type": "Feature",
+            "properties": {
+                "name": "Peroorkada Depot",
+                "name_ml": "പേരൂർക്കട ഡിപ്പോ"
+            },
+            "geometry": {
+                "coordinates": [76.96751417, 8.534724431],
+                "type": "Point"
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "name": "Peroorkada Jn",
+                "name_ml": "പേരൂർക്കട ജം."
+            },
+            "geometry": {
+                "coordinates": [76.96577579, 8.537068128],
+                "type": "Point"
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "name": "Peroorkada - Thankama Stadium",
+                "name_ml": "പേരൂർക്കട - തങ്കമ്മ സ്റ്റേഡിയം"
+            },
+            "geometry": {
+                "coordinates": [76.96380455, 8.534210267],
+                "type": "Point"
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "name": "Ambalamukku",
+                "name_ml": "അമ്പലംമുക്ക്"
+            },
+            "geometry": {
+                "coordinates": [76.96133572, 8.53097701],
+                "type": "Point"
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "name": "Narmadha toll.Jn",
+                "name_ml": "നർമ്മദ ടോൾ ജം."
+            },
+            "geometry": {
+                "coordinates": [76.96046324, 8.527008596],
+                "type": "Point"
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "name": "Kowdiar",
+                "name_ml": "കവടിയാർ"
+            },
+            "geometry": {
+                "coordinates": [76.96083799, 8.521699876],
+                "type": "Point"
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "name": "TTC - Rajbhavan",
+                "name_ml": "ടിടിസി-രാജ്ഭവൻ "
+            },
+            "geometry": {
+                "coordinates": [76.96079466, 8.519714702],
+                "type": "Point"
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "name": "Vellayambalam",
+                "name_ml": "വെള്ളയമ്പലം"
+            },
+            "geometry": {
+                "coordinates": [76.96159307, 8.510821576],
+                "type": "Point"
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "name": "Kanakakunnu ",
+                "name_ml": "കനകക്കുന്ന്"
+            },
+            "geometry": {
+                "coordinates": [76.95757512, 8.509293634],
+                "type": "Point"
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "name": "Museum",
+                "name_ml": "മ്യൂസിയം"
+            },
+            "geometry": {
+                "coordinates": [76.95533815, 8.508084008],
+                "type": "Point"
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "name": "LMS",
+                "name_ml": "എൽ എം എസ്"
+            },
+            "geometry": {
+                "coordinates": [76.95210341, 8.50742614],
+                "type": "Point"
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "name": "Palayam",
+                "name_ml": "പാളയം"
+            },
+            "geometry": {
+                "coordinates": [76.95198003, 8.506996403],
+                "type": "Point"
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "name": "Palayam-Saphalyam",
+                "name_ml": "പാളയം - സാഫല്യം "
+            },
+            "geometry": {
+                "coordinates": [76.9502956, 8.502539843],
+                "type": "Point"
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "name": "Statue",
+                "name_ml": "സ്റ്റാച്യു"
+            },
+            "geometry": {
+                "coordinates": [76.94853607, 8.497462485],
+                "type": "Point"
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "name": "Ayurveda College Jn",
+                "name_ml": "ആയുർവേദ കോളേജ് ജം."
+            },
+            "geometry": {
+                "coordinates": [76.94729153, 8.491509635],
+                "type": "Point"
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "name": "Overbridge-SMV",
+                "name_ml": "ഓവർബ്രിഡ്ജ് -എസ്എംവി"
+            },
+            "geometry": {
+                "coordinates": [76.94756511, 8.48935555],
+                "type": "Point"
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "name": "Thampanoor - Main",
+                "name_ml": "തമ്പാനൂർ - മെയിൻ"
+            },
+            "geometry": {
+                "coordinates": [76.95156697, 8.487832828],
+                "type": "Point"
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "name": "Aristo",
+                "name_ml": "അരിസ്റേറാ"
+            },
+            "geometry": {
+                "coordinates": [76.95396137, 8.489319456],
+                "type": "Point"
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "name": "Model school",
+                "name_ml": "മോഡൽ സ്കൂൾ"
+            },
+            "geometry": {
+                "coordinates": [76.95390818, 8.494221725],
+                "type": "Point"
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "name": "Bakery jn",
+                "name_ml": "ബേക്കറി ജം."
+            },
+            "geometry": {
+                "coordinates": [76.9539873, 8.500588162],
+                "type": "Point"
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "name": "Palayam - Stadium",
+                "name_ml": "പാളയം - സ്റ്റേഡിയം"
+            },
+            "geometry": {
+                "coordinates": [76.95111169, 8.504495929],
+                "type": "Point"
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "name": "Niyamasabha",
+                "name_ml": "നിയമസഭ"
+            },
+            "geometry": {
+                "coordinates": [76.95053133, 8.506737448],
+                "type": "Point"
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "name": "PMG - student center",
+                "name_ml": "പിഎംജി - സ്റ്റുഡന്റ് സെന്റർ "
+            },
+            "geometry": {
+                "coordinates": [76.94975562, 8.508451873],
+                "type": "Point"
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "name": "Plamoodu",
+                "name_ml": "പ്ലാമൂട്"
+            },
+            "geometry": {
+                "coordinates": [76.94586862, 8.514039122],
+                "type": "Point"
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "name": "Pattom - PSC",
+                "name_ml": "പട്ടം - പിഎസ്‌സി"
+            },
+            "geometry": {
+                "coordinates": [76.9417435, 8.519746856],
+                "type": "Point"
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "name": "Pattom - LIC",
+                "name_ml": "പട്ടം - എൽഐസി"
+            },
+            "geometry": {
+                "coordinates": [76.9404538, 8.523063041],
+                "type": "Point"
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "name": "Pattom - St.Mary's",
+                "name_ml": "പട്ടം - സെന്റ്.മേരീസ് "
+            },
+            "geometry": {
+                "coordinates": [76.93901618, 8.526125986],
+                "type": "Point"
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "name": "Kesavadasapuram",
+                "name_ml": "കേശവദാസപുരം"
+            },
+            "geometry": {
+                "coordinates": [76.9384984, 8.529532147],
+                "type": "Point"
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "name": "Pattom - St.Mary's",
+                "name_ml": "പട്ടം - സെന്റ്.മേരീസ് "
+            },
+            "geometry": {
+                "coordinates": [76.93911897, 8.526355269],
+                "type": "Point"
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "name": "Pattom - LIC",
+                "name_ml": "പട്ടം - എൽഐസി"
+            },
+            "geometry": {
+                "coordinates": [76.94075611, 8.522967816],
+                "type": "Point"
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "name": "Pattom",
+                "name_ml": "പട്ടം"
+            },
+            "geometry": {
+                "coordinates": [76.94264149, 8.518939156],
+                "type": "Point"
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "name": "Marappalam",
+                "name_ml": "മരപ്പാലം"
+            },
+            "geometry": {
+                "coordinates": [76.94523794, 8.520077694],
+                "type": "Point"
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "name": "Kuravankonam - st. Thomas Church",
+                "name_ml": "കുറവൻകോണം - സെന്റ്.തോമസ് ചർച്ച്"
+            },
+            "geometry": {
+                "coordinates": [76.95029809, 8.522390397],
+                "type": "Point"
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "name": "Kuravankonam",
+                "name_ml": "കുറവൻകോണം"
+            },
+            "geometry": {
+                "coordinates": [76.95233695, 8.523101274],
+                "type": "Point"
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "name": "Kowdiar",
+                "name_ml": "കവടിയാർ"
+            },
+            "geometry": {
+                "coordinates": [76.96045632, 8.522625539],
+                "type": "Point"
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "name": "Narmadha toll.Jn",
+                "name_ml": "നർമ്മദ ടോൾ ജം."
+            },
+            "geometry": {
+                "coordinates": [76.9601214, 8.527461325],
+                "type": "Point"
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "name": "Ambalamukku",
+                "name_ml": "അമ്പലംമുക്ക്"
+            },
+            "geometry": {
+                "coordinates": [76.96222884, 8.532541594],
+                "type": "Point"
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "name": "Peroorkada - Thankama Stadium",
+                "name_ml": "പേരൂർക്കട - തങ്കമ്മ സ്റ്റേഡിയം"
+            },
+            "geometry": {
+                "coordinates": [76.96372162, 8.534304898],
+                "type": "Point"
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "name": "Peroorkada jn",
+                "name_ml": "പേരൂർക്കട ജം."
+            },
+            "geometry": {
+                "coordinates": [76.96671675, 8.536743229],
+                "type": "Point"
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "name": "Proorkada Depot",
+                "name_ml": "പേരൂർക്കട ഡിപ്പോ"
+            },
+            "geometry": {
+                "coordinates": [76.96751417, 8.534724431],
+                "type": "Point"
+            }
+        }
+    ]
+}

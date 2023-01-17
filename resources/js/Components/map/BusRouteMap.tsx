@@ -29,7 +29,7 @@ import BusStopsLayer from "./BusStopsLayer";
 const pathLayerStyles: LayerProps = {
     type: "line",
     paint: {
-        "line-width": 4,
+        "line-width": 3,
         "line-color": "royalblue",
         "line-opacity": 0.75,
         // "line-dasharray": [1, 2],
@@ -129,7 +129,7 @@ function BusRouteMap({
                     layerProps={{
                         id: `${circularName}-point`,
                         paint: {
-                            "circle-radius": 8,
+                            "circle-radius": 5,
                             "circle-color": circularColors[circularName],
                             "circle-opacity": 0.75,
                         },

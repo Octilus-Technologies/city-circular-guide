@@ -1,4 +1,7 @@
 import blueCircular from "@/constants/blue.json";
+import brownCircular from "@/constants/brown.json";
+import greenCircular from "@/constants/green.json";
+import magentaCircular from "@/constants/magenta.json";
 import redCircular from "@/constants/red.json";
 import { getCircularDetails } from "./map-helpers";
 
@@ -16,6 +19,9 @@ export type BusStopDetail = ReturnType<typeof getStopDetails>[number];
 export const circulars = {
     blue: blueCircular,
     red: redCircular,
+    green: greenCircular,
+    magenta: magentaCircular,
+    brown: brownCircular,
 };
 
 export const circularNames = Object.keys(circulars) as CircularName[];
@@ -24,6 +30,9 @@ export const circularNames = Object.keys(circulars) as CircularName[];
 export const circularColors: Record<CircularName, string> = {
     blue: "hsl(239, 100%, 70%)",
     red: "hsl(0, 100%, 70%)",
+    green: "hsl(120, 60%, 50%)",
+    magenta: "hsl(300, 100%, 70%)",
+    brown: "hsl(30, 100%, 70%)",
 } as const;
 
 export function generateLayerFromGeometry(geometry: Geometry<"LineString">) {
