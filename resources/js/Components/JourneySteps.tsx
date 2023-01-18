@@ -11,6 +11,8 @@ function JourneySteps({
 }) {
     const stops = segment?.stops;
     const journey = segment?.path?.journey;
+    const distance = Math.round((journey?.distance / 1000) * 100) / 100;
+    const duration = Math.round(5 + (journey?.duration / 60) * 2);
 
     if (!expanded) {
         return (
@@ -27,8 +29,7 @@ function JourneySteps({
 
                 {!!journey && (
                     <span className="opacity-50">
-                        {Math.round(journey?.distance / 1000)} KM |{" "}
-                        {Math.round(journey?.duration / 60) * 1} Minutes
+                        Travel {distance} KM | {duration} Minutes
                     </span>
                 )}
             </span>
@@ -58,8 +59,7 @@ function JourneySteps({
 
             {!!journey && (
                 <span className="-mt-1 opacity-50">
-                    Travel {Math.round(journey?.distance / 1000)} KM |{" "}
-                    {Math.round(journey?.duration / 60) * 1} Minutes
+                    Travel {distance} KM | {duration} Minutes
                 </span>
             )}
 
@@ -67,7 +67,7 @@ function JourneySteps({
                 <>
                     <span>Intermediate stops</span>
                     <ul className="-mt-1 flex list-inside list-disc flex-col items-start opacity-90">
-                        {stops?.map((stop, i) => (
+                        {stops.slice(1, stops.length - 1)?.map((stop, i) => (
                             <li key={`stop-${i}`}>
                                 {stop?.name}{" "}
                                 {/* ({stop.coordinates.join(", ")}) */}

@@ -2,7 +2,11 @@ import { getOptimizedStops } from "@/utils/map-helpers";
 import { getMatch } from "@/utils/mapbox-api";
 import { BBox, bbox, center, lineString } from "@turf/turf";
 import { useEffect, useState } from "react";
-import { generateLayerFromGeometry, getStopDetails } from "../geoJson";
+import {
+    CircularName,
+    generateLayerFromGeometry,
+    getStopDetails,
+} from "../geoJson";
 import { Coordinates } from "./../geoJson";
 import { getCircularDetails } from "./../map-helpers";
 import { Profile } from "./../mapbox-api";
@@ -38,9 +42,10 @@ const useJourney = (
             const segments: {
                 stops: Coordinates[];
                 profile: Profile;
+                circularName?: CircularName;
             }[] = getOptimizedStops(from.coords, destination.coords).map(
-                (stops) => ({
-                    stops,
+                (segment) => ({
+                    ...segment,
                     profile: "driving",
                 })
             );
@@ -76,9 +81,7 @@ const useJourney = (
                     segment.path?.profile == "driving"
                         ? getStopDetails(segments[i].stops)
                         : [];
-                // TODO: Improve circular detection
-                const circularName =
-                    findMode(stops.map((s) => s.circularName)) ?? "";
+                const circularName = segments[i]?.circularName ?? "";
 
                 return {
                     path: segment.path ?? undefined,
@@ -121,18 +124,6 @@ const useJourney = (
 
         generatePathLayer();
     }, [from, destination]);
-
-    const findMode = <T>(originalArray: Array<T>) => {
-        const arr = [...originalArray];
-
-        return arr
-            .sort(
-                (a, b) =>
-                    arr.filter((v) => v === a).length -
-                    arr.filter((v) => v === b).length
-            )
-            .pop();
-    };
 
     return { segments, mapMeta };
 };

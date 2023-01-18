@@ -151,6 +151,16 @@ function BusRouteMap({
                         };
                     }
 
+                    if (
+                        segment?.circular?.color &&
+                        layerStyles.type == "line"
+                    ) {
+                        layerStyles.paint = {
+                            ...layerStyles.paint,
+                            "line-color": segment.circular.color,
+                        };
+                    }
+
                     return (
                         <Fragment key={`path-${i}`}>
                             <Source

@@ -106,7 +106,7 @@ function InitialRouteQueryForm({
         Inertia.post("/journey", {
             from: from.value,
             destination: destination.value,
-        } as any); // TODO: check the type error
+        } as any); // Inertia type definition bug
     };
 
     return (

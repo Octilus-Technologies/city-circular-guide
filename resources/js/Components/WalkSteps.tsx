@@ -10,6 +10,8 @@ function WalkSteps({
     expanded?: boolean;
 }) {
     const journey = segment?.path?.journey;
+    const distance = Math.round((journey?.distance / 1000) * 100) / 100;
+    const duration = Math.round(journey?.duration / 60) * 3;
 
     return (
         <div className="flex w-full flex-col items-start justify-between gap-2">
@@ -30,8 +32,7 @@ function WalkSteps({
 
             {!!journey && (
                 <span className="opacity-50">
-                    {Math.round(journey?.distance)} M |{" "}
-                    {Math.round(journey?.duration / 60) * 3} Minutes
+                    {distance} KM | {duration} Minutes
                 </span>
             )}
         </div>
