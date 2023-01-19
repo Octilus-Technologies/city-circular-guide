@@ -58,9 +58,11 @@ export default function Welcome({
                             </button>
                         </li>
                         {circulars.map((circular, i: number) => (
-                            <li key={`circular-${i}`}>
+                            <li key={`circular-${circular.id}`}>
                                 <button
-                                    onClick={() => toggleCircularPath(i)}
+                                    onClick={() =>
+                                        toggleCircularPath(circular.id)
+                                    }
                                     className={`tab tab-active !px-4 !py-1 text-xs capitalize transition-all ${
                                         circular.isActive
                                             ? "tab-active"
@@ -102,15 +104,15 @@ export default function Welcome({
                                 }
 
                                 return (
-                                    <Fragment key={`path-${i}`}>
+                                    <Fragment key={`path-${circular.id}`}>
                                         <Source
-                                            id={`path-data-${i}`}
+                                            id={`path-data-${circular.id}`}
                                             type="geojson"
                                             data={circular.path as any}
                                         >
                                             <Layer
                                                 {...layerStyles}
-                                                id={`path-${i}-line`}
+                                                id={`path-${circular.id}-line`}
                                             />
                                         </Source>
                                     </Fragment>

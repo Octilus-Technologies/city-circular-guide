@@ -11,6 +11,7 @@ import { getCircularDetails } from "../map-helpers";
 import { getMatch } from "../mapbox-api";
 
 export type CircularData = {
+    id: string;
     name: CircularName;
     color: string;
     path: {
@@ -36,12 +37,16 @@ const useCirculars = (mapAccessToken: string) => {
     }, [circularsData]);
 
     const toggleCircularPath = useCallback(
-        (index?: number) => {
-            // TODO: use some unique ID instead of index
-            if (index !== undefined) {
+        (id?: string) => {
+            if (id !== undefined) {
                 setCircularsData((prevData) => {
                     const newData = [...prevData];
-                    newData[index].isActive = !newData[index].isActive;
+                    const updatedCircularIndex = newData.findIndex(
+                        (circular) => circular.id === id
+                    );
+                    newData[updatedCircularIndex].isActive =
+                        !newData[updatedCircularIndex].isActive;
+
                     return newData;
                 });
 
@@ -83,9 +88,11 @@ const useCirculars = (mapAccessToken: string) => {
             // const meta = segmentPath.map((path) => path?.journey);
 
             const circularsData = circularNames.map((name, index) => {
+                const circularDetails = getCircularDetails(name);
                 const circularData = {
+                    id: circularDetails?.id as string,
                     name,
-                    color: getCircularDetails(name)?.color ?? "#000",
+                    color: circularDetails?.color ?? "#000",
                     path: paths[index],
                     stops: stops[index],
                     isActive: true,
