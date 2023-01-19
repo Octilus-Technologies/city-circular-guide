@@ -3,11 +3,11 @@ import BusRouteMap from "@/Components/map/BusRouteMap";
 import DestinationMarker from "@/Components/map/DestinationMarker";
 import FromMarker from "@/Components/map/FromMarker";
 import SideBar from "@/Components/SideBar";
-import useCirculars from "@/utils/hooks/userCirculars";
+import useCirculars from "@/utils/hooks/useCirculars";
 import { Head } from "@inertiajs/inertia-react";
 import "mapbox-gl/dist/mapbox-gl.css";
 import React, { Fragment, useState } from "react";
-import { Layer, LayerProps, Marker, Source } from "react-map-gl";
+import { Layer, LayerProps, Source } from "react-map-gl";
 
 const pathLayerStyles: LayerProps & Record<string, any> = {
     type: "line",

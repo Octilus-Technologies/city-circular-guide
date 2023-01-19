@@ -1,6 +1,7 @@
 import { Segment } from "@/utils/hooks/useJourney";
 import React from "react";
 import { FaCaretRight, FaFlag, FaMapMarkerAlt } from "react-icons/fa";
+import CircularIcon from "./Icons/CircularIcon";
 
 function JourneySteps({
     segment,
@@ -40,16 +41,25 @@ function JourneySteps({
     return (
         <span className="flex flex-col items-start gap-2">
             {!!segment?.circular && (
-                <span>
-                    <strong>{segment.circular.id}</strong> :{" "}
-                    {segment.circular.name} circular
+                <span className="flex items-center justify-center gap-2">
+                    <CircularIcon
+                        name={segment.circular.name}
+                        color={segment.circular.color}
+                    />
+                    <span>
+                        {segment.circular.name} circular (
+                        {segment.circular.isClockwise
+                            ? "clockwise"
+                            : "anti clockwise"}
+                        )
+                    </span>
                 </span>
             )}
 
             {!!stops && (
                 <span className="">
                     <FaMapMarkerAlt className="mr-1 inline-block text-secondary" />
-                    Hop on the bus from{" "}
+                    Hop on the <strong>{segment?.circular?.id}</strong> bus from{" "}
                     <span className="font-bold text-secondary">
                         {stops[0].name}
                     </span>{" "}

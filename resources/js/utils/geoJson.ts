@@ -125,7 +125,7 @@ export const getStopDetails = (coordinates: Coordinates[]) => {
         if (!stop) return;
 
         const inCirculars = allStops
-            .filter((s) => s.name === stop.name)
+            .filter((s) => s.coordinates === stop.coordinates) // May change this comparison in future
             .map((s) => s.circularName);
         const isClockwise = true; // FIXME: Improve this
 

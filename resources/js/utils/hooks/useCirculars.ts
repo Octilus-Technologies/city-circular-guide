@@ -8,7 +8,7 @@ import {
     generateLayerFromGeometry,
     getCircularCoordinates,
     getStopDetails,
-} from "./../geoJson";
+} from "../geoJson";
 
 export type CircularData = {
     name: CircularName;

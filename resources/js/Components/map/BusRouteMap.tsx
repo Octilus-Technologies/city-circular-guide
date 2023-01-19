@@ -5,8 +5,8 @@ import {
     circularNames,
     getStopDetails,
 } from "@/utils/geoJson";
+import { CircularData } from "@/utils/hooks/useCirculars";
 import { Segment } from "@/utils/hooks/useJourney";
-import { CircularData } from "@/utils/hooks/userCirculars";
 import { findNearestStop } from "@/utils/map-helpers";
 import { PropsOf } from "@headlessui/react/dist/types";
 import "mapbox-gl/dist/mapbox-gl.css";

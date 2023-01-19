@@ -1,6 +1,7 @@
 import { BusStopDetail } from "@/utils/geoJson";
 import React, { CSSProperties } from "react";
 import { MdDirectionsBus } from "react-icons/md";
+import CircularIcon from "./Icons/CircularIcon";
 
 function BusStopInfo({ stop }: { stop: BusStopDetail }) {
     const infoColor =
@@ -37,16 +38,15 @@ function BusStopInfo({ stop }: { stop: BusStopDetail }) {
                             Interchange
                         </div>
                         <div className="interchange-icons -space-x-[0.4rem] pt-2 saturate-150">
-                            {stop.circulars.map((circular) => (
-                                <span
-                                    key={circular?.name}
-                                    title={`${circular?.name} circular`}
-                                    className="bordered inline-block aspect-square w-[1rem] rounded-full border-[3px] opacity-80"
-                                    style={{
-                                        borderColor: circular?.color,
-                                    }}
-                                />
-                            ))}
+                            {stop.circulars.map(
+                                (circular) =>
+                                    !!circular && (
+                                        <CircularIcon
+                                            name={circular.name}
+                                            color={circular.color}
+                                        />
+                                    )
+                            )}
                         </div>
                     </div>
                 )}

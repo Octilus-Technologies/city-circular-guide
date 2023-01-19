@@ -90,7 +90,6 @@ function JourneyControls({
                                     />
                                 )}
 
-                                {/* modify data so that each segment have a from and destination */}
                                 {segment.path?.profile === "walking" && (
                                     <WalkSteps
                                         segment={segment}

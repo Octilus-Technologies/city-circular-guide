@@ -1,6 +1,6 @@
 import { getOptimizedStops } from "@/utils/map-helpers";
 import { getMatch } from "@/utils/mapbox-api";
-import { BBox, bbox, center, lineString } from "@turf/turf";
+import { BBox, bbox, center, distance, lineString, point } from "@turf/turf";
 import { useEffect, useState } from "react";
 import {
     CircularName,
@@ -25,6 +25,52 @@ export type Segment = {
     circular: ReturnType<typeof getCircularDetails>;
 };
 
+const generateRouteSegments = (
+    from: LocationSummary,
+    destination: LocationSummary
+) => {
+    const segments: {
+        stops: Coordinates[];
+        profile: Profile;
+        circular?: {
+            name: CircularName;
+            isClockwise: boolean;
+        };
+    }[] = getOptimizedStops(from.coords, destination.coords).map((segment) => ({
+        ...segment,
+        profile: "driving",
+    }));
+    if (!segments || !segments.length) {
+        return console.log("Unable to find a route");
+    }
+
+    // Attach walking segments
+    if (distance(point(from.coords), point(segments[0].stops[0])) > 0.1) {
+        segments.unshift({
+            stops: [from.coords, segments[0].stops[0]],
+            profile: "walking",
+        });
+    }
+
+    if (
+        distance(
+            point(destination.coords),
+            point(segments[segments.length - 1].stops[1])
+        ) > 0.1
+    ) {
+        const lastSegment = segments[segments.length - 1];
+        segments.push({
+            stops: [
+                lastSegment.stops[lastSegment.stops.length - 1],
+                destination.coords,
+            ],
+            profile: "walking",
+        });
+    }
+
+    return segments;
+};
+
 const useJourney = (
     mapAccessToken: string,
     from: LocationSummary,
@@ -39,33 +85,8 @@ const useJourney = (
     useEffect(() => {
         const generatePathLayer = async () => {
             // console.log("useJourney", from, destination);
-            const segments: {
-                stops: Coordinates[];
-                profile: Profile;
-                circularName?: CircularName;
-            }[] = getOptimizedStops(from.coords, destination.coords).map(
-                (segment) => ({
-                    ...segment,
-                    profile: "driving",
-                })
-            );
-            if (!segments || !segments.length) {
-                return console.log("Unable to find a route");
-            }
-
-            segments.unshift({
-                stops: [from.coords, segments[0].stops[0]],
-                profile: "walking",
-            });
-            const lastSegment = segments[segments.length - 1];
-            segments.push({
-                stops: [
-                    lastSegment.stops[lastSegment.stops.length - 1],
-                    destination.coords,
-                ],
-                profile: "walking",
-            });
-            // console.log("segments", segments);
+            const segments = generateRouteSegments(from, destination);
+            if (!segments) return;
 
             const segmentPathPromises = segments.map((segment) =>
                 getMatch(mapAccessToken, segment.stops, segment.profile)
@@ -81,7 +102,7 @@ const useJourney = (
                     segment.path?.profile == "driving"
                         ? getStopDetails(segments[i].stops)
                         : [];
-                const circularName = segments[i]?.circularName ?? "";
+                const circular = segments[i]?.circular ?? "";
 
                 return {
                     path: segment.path ?? undefined,
@@ -89,18 +110,26 @@ const useJourney = (
                     stops: stops,
                     from: stops[0]?.name ?? "",
                     destination: stops[stops.length - 1]?.name ?? "",
-                    circular: getCircularDetails(circularName),
+                    circular: circular
+                        ? getCircularDetails(
+                              circular.name,
+                              circular.isClockwise
+                          )
+                        : undefined,
                 };
             });
 
             // Hydrate walking segments
             segmentLayers.forEach((segment, i) => {
                 if (segment.path?.profile == "walking") {
-                    segment.from = segmentLayers[i - 1]
-                        ? segmentLayers[i - 1].destination + " stop"
+                    const fromStop = segmentLayers[i - 1];
+                    segment.from = fromStop
+                        ? `${fromStop.destination} stop`
                         : from.name.split(",")[0];
-                    segment.destination = segmentLayers[i + 1]
-                        ? segmentLayers[i + 1].from + " stop"
+
+                    const destinationStop = segmentLayers[i + 1];
+                    segment.destination = destinationStop
+                        ? `${destinationStop.from} stop`
                         : destination.name.split(",")[0];
                 }
             });

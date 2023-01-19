@@ -108,7 +108,10 @@ const getOptimizedSegmentStops = (
         ? optimizedStops.reverse()
         : optimizedStops;
 
-    return optimizedStops;
+    return {
+        stops: optimizedStops,
+        isClockwise: isClockwiseShorter,
+    };
 };
 
 const calculateCost = (
@@ -230,9 +233,18 @@ export const getOptimizedStops = (
 
     const segmentStops = segments.map(({ circularName, from, destination }) => {
         const coordinates = getCircularCoordinates(circularName);
+        const stopSegments = getOptimizedSegmentStops(
+            from,
+            destination,
+            coordinates
+        );
+
         return {
-            stops: getOptimizedSegmentStops(from, destination, coordinates),
-            circularName,
+            stops: stopSegments.stops,
+            circular: {
+                name: circularName,
+                isClockwise: stopSegments.isClockwise,
+            },
         };
     });
 
