@@ -82,7 +82,7 @@ export function generateLineFromPoints(
     };
 }
 
-export const getAllStopDetails = (unique = false) => {
+export const getAllStopDetails = (unique = false, isClockwise = true) => {
     const stops = (Object.keys(circulars) as CircularName[]).map(
         (circularName) => {
             const circular = circulars[circularName];
@@ -91,7 +91,10 @@ export const getAllStopDetails = (unique = false) => {
                 coordinates: f.geometry.coordinates,
                 name: f.properties.name,
                 nameLocale: f.properties.name_ml,
-                circularName: circularName,
+                circular: {
+                    ...getCircularDetails(circularName, isClockwise),
+                    name: circularName,
+                },
             }));
         }
     );
@@ -105,7 +108,7 @@ export const getAllStopDetails = (unique = false) => {
             acc.find(
                 (s) =>
                     s.name === stop.name &&
-                    s.circularName === stop.circularName &&
+                    s.circular?.name === stop.circular?.name &&
                     s.coordinates[0] === stop.coordinates[0] &&
                     s.coordinates[1] === stop.coordinates[1]
             )
@@ -116,24 +119,32 @@ export const getAllStopDetails = (unique = false) => {
     }, [] as typeof allStops);
 };
 
-export const getStopDetails = (coordinates: Coordinates[]) => {
-    const allStops = getAllStopDetails(true);
+export const getStopDetails = (
+    coordinates: Coordinates[],
+    circularName?: CircularName,
+    isClockwise?: boolean
+) => {
+    const allStops = getAllStopDetails(true, isClockwise);
     const stops = coordinates.map((c) => {
-        const stop = allStops.find(
-            (s) => s.coordinates[0] === c[0] && s.coordinates[1] === c[1]
-        );
+        const stop = allStops.find((s) => {
+            if (circularName && s.circular?.name !== circularName) return false;
+            if (
+                isClockwise !== undefined &&
+                s.circular?.isClockwise !== isClockwise
+            )
+                return false;
+
+            return s.coordinates[0] === c[0] && s.coordinates[1] === c[1];
+        });
         if (!stop) return;
 
         const inCirculars = allStops
             .filter((s) => s.coordinates === stop.coordinates) // May change this comparison in future
-            .map((s) => s.circularName);
-        const isClockwise = true; // FIXME: Improve this
+            .map((s) => s.circular);
 
         const stopDetails = {
             ...stop,
-            circulars: inCirculars.map((name) =>
-                getCircularDetails(name, isClockwise)
-            ),
+            circulars: inCirculars,
         };
 
         return stopDetails;

@@ -155,8 +155,9 @@ const findNearestJunction = (
 
     const nearest = junctions.reduce(
         (acc, curr) => {
+            const circularName = fromStop.circular?.name as CircularName;
             // number of intermediate stops
-            const cost = calculateCost(from, curr, fromStop.circularName);
+            const cost = calculateCost(from, curr, circularName);
 
             if (cost < acc.cost) {
                 return {
@@ -271,10 +272,12 @@ const jsonToGeoJson = (
 };
 
 export const getCircularDetails = (name: string, isClockwise = true) => {
-    return circularMeta.meta.find((circular) => {
-        return (
-            circular.name.toLowerCase() == name &&
-            circular.isClockwise == isClockwise
-        );
-    });
+    return circularMeta.meta
+        .map((circular) => ({
+            ...circular,
+            name: circular.name.toLowerCase(),
+        }))
+        .find((circular) => {
+            return circular.name == name && circular.isClockwise == isClockwise;
+        });
 };

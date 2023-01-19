@@ -98,11 +98,15 @@ const useJourney = (
             }));
 
             const segmentLayers: Segment[] = segmentPath.map((segment, i) => {
+                const circular = segments[i]?.circular;
                 const stops =
                     segment.path?.profile == "driving"
-                        ? getStopDetails(segments[i].stops)
+                        ? getStopDetails(
+                              segments[i].stops,
+                              circular?.name,
+                              circular?.isClockwise
+                          )
                         : [];
-                const circular = segments[i]?.circular ?? "";
 
                 return {
                     path: segment.path ?? undefined,

@@ -46,13 +46,7 @@ function JourneySteps({
                         name={segment.circular.name}
                         color={segment.circular.color}
                     />
-                    <span>
-                        {segment.circular.name} circular (
-                        {segment.circular.isClockwise
-                            ? "clockwise"
-                            : "anti clockwise"}
-                        )
-                    </span>
+                    <span>{segment.circular.label} circular</span>
                 </span>
             )}
 
@@ -61,7 +55,7 @@ function JourneySteps({
                     <FaMapMarkerAlt className="mr-1 inline-block text-secondary" />
                     Hop on the <strong>{segment?.circular?.id}</strong> bus from{" "}
                     <span className="font-bold text-secondary">
-                        {stops[0].name}
+                        {stops[0]?.name}
                     </span>{" "}
                     stop
                 </span>
