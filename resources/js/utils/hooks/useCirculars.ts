@@ -1,7 +1,5 @@
 import { useCallback, useEffect, useMemo, useState } from "react";
-import { getMatch } from "../mapbox-api";
 import {
-    circularColors,
     CircularName,
     circulars as circularGeoJson,
     Coordinates,
@@ -9,6 +7,8 @@ import {
     getCircularCoordinates,
     getStopDetails,
 } from "../geoJson";
+import { getCircularDetails } from "../map-helpers";
+import { getMatch } from "../mapbox-api";
 
 export type CircularData = {
     name: CircularName;
@@ -85,7 +85,7 @@ const useCirculars = (mapAccessToken: string) => {
             const circularsData = circularNames.map((name, index) => {
                 const circularData = {
                     name,
-                    color: circularColors[name],
+                    color: getCircularDetails(name)?.color ?? "#000",
                     path: paths[index],
                     stops: stops[index],
                     isActive: true,

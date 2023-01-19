@@ -26,15 +26,6 @@ export const circulars = {
 
 export const circularNames = Object.keys(circulars) as CircularName[];
 
-// TODO: Remove all reference to these colors
-export const circularColors: Record<CircularName, string> = {
-    blue: "hsl(239, 100%, 70%)",
-    red: "hsl(0, 100%, 70%)",
-    green: "hsl(120, 60%, 50%)",
-    magenta: "hsl(300, 100%, 70%)",
-    brown: "hsl(30, 100%, 70%)",
-} as const;
-
 export function generateLayerFromGeometry(geometry: Geometry<"LineString">) {
     // console.log({ geometry });
     return {

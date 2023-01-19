@@ -1,5 +1,4 @@
 import {
-    circularColors,
     CircularGeojson,
     CircularName,
     circularNames,
@@ -7,7 +6,7 @@ import {
 } from "@/utils/geoJson";
 import { CircularData } from "@/utils/hooks/useCirculars";
 import { Segment } from "@/utils/hooks/useJourney";
-import { findNearestStop } from "@/utils/map-helpers";
+import { findNearestStop, getCircularDetails } from "@/utils/map-helpers";
 import { PropsOf } from "@headlessui/react/dist/types";
 import "mapbox-gl/dist/mapbox-gl.css";
 import React, { Fragment, ReactNode, useCallback, useState } from "react";
@@ -130,7 +129,8 @@ function BusRouteMap({
                         id: `${circularName}-point`,
                         paint: {
                             "circle-radius": 5,
-                            "circle-color": circularColors[circularName],
+                            "circle-color":
+                                getCircularDetails(circularName)?.color,
                             "circle-opacity": 0.75,
                         },
                     }}
