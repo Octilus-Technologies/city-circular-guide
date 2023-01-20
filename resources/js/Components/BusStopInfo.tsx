@@ -13,11 +13,24 @@ function BusStopInfo({ stop }: { stop: BusStopDetail }) {
     return (
         <div className="flex flex-col items-center gap-1" style={rootStyles}>
             <div className="bus-info flex w-full items-stretch justify-around overflow-hidden rounded-md text-white">
-                <div className="icon border-base bordered grid place-content-center border-r-[1px] bg-[var(--circular-info-color)] px-2">
+                <div className="icon border-base bordered grid place-content-center border-r-[1px] bg-[var(--circular-info-color)] p-2">
                     <MdDirectionsBus className="inline-block text-6xl" />
                 </div>
-                <div className="align-center flex flex-1 flex-col items-center justify-center bg-[var(--circular-info-color)] p-2 text-2xl font-bold">
-                    <span>{stop?.circulars?.[0]?.id}</span>
+                <div className="w-full bg-[var(--circular-info-color)] p-2">
+                    <div className="grid grid-flow-col grid-rows-2 justify-center gap-3 text-xl font-bold">
+                        {stop?.circulars?.map((circular, i) => (
+                            <span
+                                key={circular.id}
+                                style={{
+                                    borderColor: circular.color,
+                                }}
+                                className="border-b-2 text-center"
+                            >
+                                {circular.id}
+                                {/* TODO: Improve grid layout */}
+                            </span>
+                        ))}
+                    </div>
                 </div>
             </div>
 

@@ -140,13 +140,22 @@ export const getStopDetails = (
             .filter(
                 (s) =>
                     distance(point(s.coordinates), point(stop.coordinates)) <
-                    0.1
+                    0.03
             ) // May change this comparison in future
             .map((s) => s.circular);
 
+        const uniqueCirculars = inCirculars.reduce((circulars, circular) => {
+            const duplicate = circulars.find((c) => c.name === circular?.name);
+            if (duplicate) return circulars;
+
+            circulars.push(circular);
+
+            return circulars;
+        }, [] as typeof inCirculars);
+
         const stopDetails = {
             ...stop,
-            circulars: inCirculars,
+            circulars: uniqueCirculars,
         };
 
         return stopDetails;
