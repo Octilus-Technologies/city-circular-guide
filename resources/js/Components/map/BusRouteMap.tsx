@@ -68,7 +68,7 @@ function BusRouteMap({
                 event.lngLat.lng,
                 event.lngLat.lat,
             ]);
-            if (!nearestStop || nearestStop.distance > 120) return;
+            if (!nearestStop || nearestStop.distance > 50) return;
 
             const stop = getStopDetails([nearestStop.coordinates])[0];
             console.log("stop", stop);

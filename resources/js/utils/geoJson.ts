@@ -5,7 +5,7 @@ import magentaCircular from "@/constants/magenta.json";
 import redCircular from "@/constants/red.json";
 import { filterNullValues } from "@/utils/arrayUtils";
 import { getCircularDetails } from "@/utils/map-helpers";
-import { Feature } from "@turf/turf";
+import { distance, Feature, point } from "@turf/turf";
 
 export type Coordinates = number[];
 export type CircularName = keyof typeof circulars;
@@ -137,7 +137,11 @@ export const getStopDetails = (
         if (!stop) return;
 
         const inCirculars = allStops
-            .filter((s) => s.coordinates === stop.coordinates) // May change this comparison in future
+            .filter(
+                (s) =>
+                    distance(point(s.coordinates), point(stop.coordinates)) <
+                    0.1
+            ) // May change this comparison in future
             .map((s) => s.circular);
 
         const stopDetails = {
