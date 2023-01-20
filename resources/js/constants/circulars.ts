@@ -1,4 +1,4 @@
-// TODO: integrate this details in geojson file
+// may integrate this details in geojson file
 const meta = [
     {
         id: "1A",

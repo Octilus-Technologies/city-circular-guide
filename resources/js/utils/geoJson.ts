@@ -3,12 +3,15 @@ import brownCircular from "@/constants/brown.json";
 import greenCircular from "@/constants/green.json";
 import magentaCircular from "@/constants/magenta.json";
 import redCircular from "@/constants/red.json";
-import { getCircularDetails } from "./map-helpers";
+import { filterNullValues } from "@/utils/arrayUtils";
+import { getCircularDetails } from "@/utils/map-helpers";
+import { Feature } from "@turf/turf";
 
 export type Coordinates = number[];
 export type CircularName = keyof typeof circulars;
 export type CircularGeojson = typeof circulars[CircularName];
 export type PointFeatureCollection = CircularGeojson;
+export type PointFeature = PointFeatureCollection["features"][number];
 export type Geometry<TType extends string> = {
     coordinates: Coordinates;
     type: TType;
@@ -40,40 +43,42 @@ export function generateLayerFromGeometry(geometry: Geometry<"LineString">) {
     };
 }
 
+const generateLineStringFeature = (from: Coordinates, to: Coordinates) => {
+    const feature: Feature = {
+        type: "Feature",
+        properties: {},
+        geometry: {
+            coordinates: [from, to],
+            type: "LineString",
+        },
+    };
+
+    return feature;
+};
+
 export function generateLineFromPoints(
     pointCollection: PointFeatureCollection
 ) {
-    let lastPoint: typeof pointCollection["features"][number] | null = null;
+    let lastPoint: PointFeature | undefined;
+    const features = pointCollection.features.map((stop) => {
+        lastPoint = stop;
+        if (!lastPoint?.geometry || !stop?.geometry) return null;
 
-    return {
+        const from = lastPoint.geometry.coordinates;
+        const to = stop.geometry.coordinates;
+
+        return generateLineStringFeature(from, to);
+    });
+
+    const featureCollection = {
         type: "FeatureCollection",
-        features: pointCollection.features
-            .map((stop) => {
-                if (!lastPoint?.geometry || !stop?.geometry) {
-                    lastPoint = stop;
-                    return null;
-                }
-
-                const feature = {
-                    type: "Feature",
-                    properties: {},
-                    geometry: {
-                        coordinates: [
-                            lastPoint.geometry.coordinates,
-                            stop.geometry.coordinates,
-                        ],
-                        type: "LineString",
-                    },
-                };
-
-                lastPoint = stop;
-                return feature;
-            })
-            .filter((stop) => !!stop),
+        features: filterNullValues(features),
     };
+
+    return featureCollection;
 }
 
-export const getAllStopDetails = (unique = false, isClockwise = true) => {
+export const getAllStopDetails = (mustBeUnique = false, isClockwise = true) => {
     const stops = (Object.keys(circulars) as CircularName[]).map(
         (circularName) => {
             const circular = circulars[circularName];
@@ -92,21 +97,22 @@ export const getAllStopDetails = (unique = false, isClockwise = true) => {
 
     const allStops = stops.flat();
 
-    if (!unique) return allStops;
+    if (!mustBeUnique) return allStops;
 
-    return allStops.reduce((acc, stop) => {
-        if (
-            acc.find(
-                (s) =>
-                    s.name === stop.name &&
-                    s.circular?.name === stop.circular?.name &&
-                    s.coordinates[0] === stop.coordinates[0] &&
-                    s.coordinates[1] === stop.coordinates[1]
-            )
-        )
-            return acc;
+    return allStops.reduce((uniqueStops, stop) => {
+        const duplicateStop = uniqueStops.find(
+            (s) =>
+                s.name === stop.name &&
+                s.circular?.name === stop.circular?.name &&
+                s.coordinates[0] === stop.coordinates[0] &&
+                s.coordinates[1] === stop.coordinates[1]
+        );
 
-        return [...acc, stop];
+        if (duplicateStop) return uniqueStops;
+
+        uniqueStops.push(stop);
+
+        return uniqueStops;
     }, [] as typeof allStops);
 };
 
@@ -122,8 +128,9 @@ export const getStopDetails = (
             if (
                 isClockwise !== undefined &&
                 s.circular?.isClockwise !== isClockwise
-            )
+            ) {
                 return false;
+            }
 
             return s.coordinates[0] === c[0] && s.coordinates[1] === c[1];
         });
@@ -141,9 +148,7 @@ export const getStopDetails = (
         return stopDetails;
     });
 
-    return stops.filter(
-        (s): s is NonNullable<typeof stops[number]> => s !== null
-    );
+    return filterNullValues(stops);
 };
 
 export const getCircularCoordinates = (circularName: CircularName) => {

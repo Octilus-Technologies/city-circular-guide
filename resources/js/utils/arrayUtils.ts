@@ -25,3 +25,10 @@ export const isSameArray = <T>(arr1: Array<T>, arr2: Array<T>) => {
 
     return arr1.every((val, index) => val === arr2[index]);
 };
+
+/**
+ * Filters `null` and `undefined` from runtime and type level
+ */
+export const filterNullValues = <T>(arr: Array<T | null | undefined>) => {
+    return arr.filter((v): v is T => v !== null && v !== undefined);
+};

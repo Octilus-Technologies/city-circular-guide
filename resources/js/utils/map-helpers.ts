@@ -1,6 +1,5 @@
-import { distance, point } from "@turf/turf";
-import circularMeta from "../constants/circulars";
-import { rotateArray } from "./arrayUtils";
+import circularMeta from "@/constants/circulars";
+import { filterNullValues, rotateArray } from "@/utils/arrayUtils";
 import {
     CircularName,
     circulars,
@@ -8,7 +7,14 @@ import {
     getAllStopDetails,
     getCircularCoordinates,
     getStopDetails,
-} from "./geoJson";
+} from "@/utils/geoJson";
+import { Profile } from "@/utils/mapbox-api";
+import { distance, point } from "@turf/turf";
+
+export type LocationSummary = {
+    name: string;
+    coords: Coordinates;
+};
 
 export const findNearestStop = (
     coordinates: Coordinates,
@@ -57,12 +63,13 @@ const findNearbyStops = (coordinates: Coordinates) => {
     });
 
     // sort by distances
-    const sortedStops = nearestStopsFromAllCirculars
-        .filter((data) => data)
-        .sort((a, b) => (a?.distance ?? 0) - (b?.distance ?? 0));
+    const sortedStops = nearestStopsFromAllCirculars.sort(
+        (a, b) => (a?.distance ?? 0) - (b?.distance ?? 0)
+    );
+    const filteredStops = filterNullValues(sortedStops);
 
     // return max 3 nearest stops
-    return sortedStops.slice(0, Math.min(sortedStops.length, 3));
+    return filteredStops.slice(0, Math.min(sortedStops.length, 3));
 };
 
 const findShortestPath = (
@@ -177,17 +184,13 @@ const findNearestJunction = (
     return nearest.coordinates;
 };
 
-export const getOptimizedStops = (
-    from: Coordinates,
-    destination: Coordinates
-) => {
+const getOptimizedStops = (from: Coordinates, destination: Coordinates) => {
     // find nearby stop and circular
     const fromStop = findNearbyStops(from)[0];
     const destinationStop = findNearbyStops(destination)[0];
     if (!fromStop || !destinationStop) return [];
 
     const requiredCirculars = [fromStop];
-
     if (destinationStop.circularName !== fromStop.circularName) {
         requiredCirculars.push(destinationStop);
     }
@@ -253,6 +256,69 @@ export const getOptimizedStops = (
     return segmentStops.filter((segment) => segment.stops.length > 1);
 };
 
+export const generateRouteSegments = (
+    from: LocationSummary,
+    destination: LocationSummary
+) => {
+    const segments: {
+        stops: Coordinates[];
+        profile: Profile;
+        circular?: {
+            name: CircularName;
+            isClockwise: boolean;
+        };
+    }[] = getOptimizedStops(from.coords, destination.coords).map((segment) => ({
+        ...segment,
+        profile: "driving",
+    }));
+    if (!segments || !segments.length) {
+        return console.log("Unable to find a route");
+    }
+
+    // Attach walking segments
+    const distanceToFirstStop = distance(
+        point(from.coords),
+        point(segments[0].stops[0])
+    );
+    if (distanceToFirstStop > 0.1) {
+        segments.unshift({
+            stops: [from.coords, segments[0].stops[0]],
+            profile: "walking",
+        });
+    }
+
+    const distanceFromLastStop = distance(
+        point(destination.coords),
+        point(segments[segments.length - 1].stops[1])
+    );
+    if (distanceFromLastStop > 0.1) {
+        const lastSegment = segments[segments.length - 1];
+
+        segments.push({
+            stops: [
+                lastSegment.stops[lastSegment.stops.length - 1],
+                destination.coords,
+            ],
+            profile: "walking",
+        });
+    }
+
+    return segments;
+};
+
+export const getCircularDetails = (name: CircularName, isClockwise = true) => {
+    const allCirculars = circularMeta.meta.map((circular) => ({
+        ...circular,
+        name: circular.name.toLowerCase(),
+    }));
+
+    const circularDetails = allCirculars.find((circular) => {
+        return circular.name == name && circular.isClockwise == isClockwise;
+    });
+
+    return circularDetails;
+};
+
 const jsonToGeoJson = (
     data: {
         name_en: string;
@@ -269,15 +335,4 @@ const jsonToGeoJson = (
             type: "Point",
         },
     }));
-};
-
-export const getCircularDetails = (name: string, isClockwise = true) => {
-    return circularMeta.meta
-        .map((circular) => ({
-            ...circular,
-            name: circular.name.toLowerCase(),
-        }))
-        .find((circular) => {
-            return circular.name == name && circular.isClockwise == isClockwise;
-        });
 };

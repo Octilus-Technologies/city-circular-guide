@@ -1,21 +1,19 @@
-import { getOptimizedStops } from "@/utils/map-helpers";
-import { getMatch } from "@/utils/mapbox-api";
-import { BBox, bbox, center, distance, lineString, point } from "@turf/turf";
-import { useEffect, useState } from "react";
 import {
-    CircularName,
+    Coordinates,
     generateLayerFromGeometry,
     getStopDetails,
-} from "../geoJson";
-import { Coordinates } from "./../geoJson";
-import { getCircularDetails } from "./../map-helpers";
-import { Profile } from "./../mapbox-api";
+} from "@/utils/geoJson";
+import {
+    generateRouteSegments,
+    getCircularDetails,
+    LocationSummary,
+} from "@/utils/map-helpers";
+import { getMatch } from "@/utils/mapbox-api";
+import { BBox, bbox, center, lineString } from "@turf/turf";
+import { useEffect, useState } from "react";
 
 type Path = Awaited<ReturnType<typeof getMatch>>;
-type LocationSummary = {
-    name: string;
-    coords: Coordinates;
-};
+
 export type Segment = {
     layer: ReturnType<typeof generateLayerFromGeometry>;
     stops: ReturnType<typeof getStopDetails>;
@@ -23,52 +21,6 @@ export type Segment = {
     from: string;
     destination: string;
     circular: ReturnType<typeof getCircularDetails>;
-};
-
-const generateRouteSegments = (
-    from: LocationSummary,
-    destination: LocationSummary
-) => {
-    const segments: {
-        stops: Coordinates[];
-        profile: Profile;
-        circular?: {
-            name: CircularName;
-            isClockwise: boolean;
-        };
-    }[] = getOptimizedStops(from.coords, destination.coords).map((segment) => ({
-        ...segment,
-        profile: "driving",
-    }));
-    if (!segments || !segments.length) {
-        return console.log("Unable to find a route");
-    }
-
-    // Attach walking segments
-    if (distance(point(from.coords), point(segments[0].stops[0])) > 0.1) {
-        segments.unshift({
-            stops: [from.coords, segments[0].stops[0]],
-            profile: "walking",
-        });
-    }
-
-    if (
-        distance(
-            point(destination.coords),
-            point(segments[segments.length - 1].stops[1])
-        ) > 0.1
-    ) {
-        const lastSegment = segments[segments.length - 1];
-        segments.push({
-            stops: [
-                lastSegment.stops[lastSegment.stops.length - 1],
-                destination.coords,
-            ],
-            profile: "walking",
-        });
-    }
-
-    return segments;
 };
 
 const useJourney = (
@@ -83,43 +35,45 @@ const useJourney = (
     }>();
 
     useEffect(() => {
-        const generatePathLayer = async () => {
+        (async () => {
             // console.log("useJourney", from, destination);
-            const segments = generateRouteSegments(from, destination);
-            if (!segments) return;
+            const stopSegments = generateRouteSegments(from, destination);
+            if (!stopSegments) return;
 
-            const segmentPathPromises = segments.map((segment) =>
+            const pathSegmentPromises = stopSegments.map((segment) =>
                 getMatch(mapAccessToken, segment.stops, segment.profile)
             );
-            const segmentPath: {
+            const pathSegments: {
                 path?: Path;
-            }[] = (await Promise.all(segmentPathPromises)).map((path) => ({
+            }[] = (await Promise.all(pathSegmentPromises)).map((path) => ({
                 path: path,
             }));
 
-            const segmentLayers: Segment[] = segmentPath.map((segment, i) => {
-                const circular = segments[i]?.circular;
+            const segmentLayers: Segment[] = pathSegments.map((segment, i) => {
+                const stopSegment = stopSegments[i];
+                const circular = stopSegment?.circular;
                 const stops =
                     segment.path?.profile == "driving"
                         ? getStopDetails(
-                              segments[i].stops,
+                              stopSegment.stops,
                               circular?.name,
                               circular?.isClockwise
                           )
                         : [];
+                const layer = generateLayerFromGeometry(
+                    segment?.path?.geometry
+                );
+                const circularDetails = circular
+                    ? getCircularDetails(circular.name, circular.isClockwise)
+                    : undefined;
 
                 return {
-                    path: segment.path ?? undefined,
-                    layer: generateLayerFromGeometry(segment?.path?.geometry),
+                    path: segment.path,
+                    layer: layer,
                     stops: stops,
                     from: stops[0]?.name ?? "",
                     destination: stops[stops.length - 1]?.name ?? "",
-                    circular: circular
-                        ? getCircularDetails(
-                              circular.name,
-                              circular.isClockwise
-                          )
-                        : undefined,
+                    circular: circularDetails,
                 };
             });
 
@@ -153,9 +107,7 @@ const useJourney = (
                 bbox: boundingBox,
                 center: mapCenter.geometry?.coordinates as Coordinates,
             });
-        };
-
-        generatePathLayer();
+        })();
     }, [from, destination]);
 
     return { segments, mapMeta };
