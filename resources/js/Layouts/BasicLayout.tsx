@@ -1,11 +1,12 @@
 import SmallHeader from "@/Components/SmallHeader";
-import React from "react";
+import React, { ReactNode } from "react";
 
-function BasicLayout({ children }) {
+function BasicLayout({ children }: { children: ReactNode }) {
     return (
         <>
+            <SmallHeader />
+
             <div className="container m-auto mt-5 max-w-7xl">
-                <SmallHeader />
                 <main>{children}</main>
             </div>
         </>

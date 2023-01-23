@@ -57,11 +57,11 @@ function Faqs() {
     return (
         <BasicLayout>
             <div className="p-8">
-                <div className="mt-5 rounded-lg bg-base-200 p-4 py-8 shadow-xl">
-                    <h4 className="text-center text-4xl font-bold uppercase tracking-widest text-primary-content">
+                <div className="mt-5 rounded-lg bg-base-200 p-4 py-8">
+                    <h4 className="text-center text-4xl font-bold uppercase tracking-widest text-base-content">
                         FAQ
                     </h4>
-                    <p className="mt-2 text-center text-sm text-secondary-content">
+                    <p className="mt-2 text-center text-sm">
                         Here are some of the frequently asked questions
                     </p>
                     <div className="mt-12 space-y-12 px-2 xl:px-16">

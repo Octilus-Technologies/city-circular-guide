@@ -15,8 +15,9 @@ function WalkSteps({
 
     return (
         <div className="flex w-full flex-col items-start justify-between gap-2">
-            <span className="flex items-center gap-2">
+            <p className="flex items-center gap-2">
                 <FaMapMarkerAlt className="text-secondary" />
+
                 <span className="text-sm">
                     Walk from{" "}
                     <span className="font-bold text-secondary">
@@ -27,8 +28,9 @@ function WalkSteps({
                         {segment.destination}
                     </span>
                 </span>
+
                 <FaFlag className="mr-2 inline-block text-secondary" />
-            </span>
+            </p>
 
             {!!journey && (
                 <span className="opacity-50">

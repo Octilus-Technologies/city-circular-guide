@@ -24,14 +24,14 @@ module.exports = {
                     ...require("daisyui/src/colors/themes")[
                         "[data-theme=light]"
                     ],
-                    primary: "hsl(240, 45%, 50%)",
+                    primary: "#4646b9",
                     secondary: "#f88459",
                 },
                 dark: {
                     ...require("daisyui/src/colors/themes")[
                         "[data-theme=dark]"
                     ],
-                    primary: "hsl(240, 45%, 50%)",
+                    primary: "#4646b9",
                     secondary: "#f88459",
                 },
             },

@@ -5,7 +5,7 @@ function Contact() {
     return (
         <BasicLayout>
             <div className="bg-base flex min-h-screen items-center justify-start">
-                <div className="mx-auto w-full max-w-lg">
+                <div className="mx-auto w-full max-w-lg rounded-lg bg-base-200 p-8">
                     <h1 className="text-4xl font-medium">Contact us</h1>
                     <p className="mt-3">
                         Email us at help@domain.com or message us here:

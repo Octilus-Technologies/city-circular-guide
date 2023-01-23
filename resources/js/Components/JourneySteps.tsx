@@ -12,8 +12,7 @@ function JourneySteps({
     expanded?: boolean;
 }) {
     const [isExpanded, setIsExpanded] = useState(expanded);
-    const [animationParent, enableAnimations] =
-        useAutoAnimate<HTMLUListElement>();
+    const [animationParent] = useAutoAnimate<HTMLUListElement>();
 
     const stops = segment?.stops;
     const journey = segment?.path?.journey;
@@ -56,7 +55,7 @@ function JourneySteps({
                 <div className="opacity-80">
                     <button
                         onClick={() => setIsExpanded((val) => !val)}
-                        className="btn-link btn h-auto min-h-fit p-0 capitalize text-inherit no-underline"
+                        className="btn-link btn block h-auto min-h-fit p-0 capitalize text-inherit no-underline"
                     >
                         {intermediateStops.length} intermediate stops (
                         {isExpanded ? "hide" : "show"})

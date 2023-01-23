@@ -1,15 +1,19 @@
-import { Link, usePage } from "@inertiajs/inertia-react";
-import React, { ReactNode } from "react";
-import AppIcon from "./AppIcon";
+import AppIcon from "@/Components/AppIcon";
+import { InertiaLink, Link, usePage } from "@inertiajs/inertia-react";
+import React, { ComponentProps, ReactNode } from "react";
+
+type NavLinkProps = {
+    href: string;
+    children: ReactNode;
+    forceDark?: boolean;
+} & ComponentProps<InertiaLink>;
 
 const NavLink = ({
     href,
     children,
+    forceDark = false,
     ...props
-}: {
-    href: string;
-    children: ReactNode;
-} & Record<string, any>) => {
+}: NavLinkProps) => {
     const { url } = usePage();
     const isActive = url.startsWith(href);
 
@@ -18,7 +22,7 @@ const NavLink = ({
             href={href}
             className={
                 isActive
-                    ? "text-primary-content"
+                    ? "text-secondary"
                     : "opacity-60 transition-all duration-100 hover:opacity-90"
             }
             {...props}
@@ -33,27 +37,37 @@ const NavLink = ({
     );
 };
 
-function SmallHeader() {
+function SmallHeader({ forceDark = false }: { forceDark?: boolean }) {
     return (
-        <header className="hidden min-w-[35vw] md:block">
-            <nav className="mx-1 mb-2 flex items-center justify-between gap-6 text-white">
-                <Link href="/" className="flex items-center gap-2">
-                    <AppIcon />
-                </Link>
+        <div className={`${forceDark ? "" : "shadow-sm"}`}>
+            <div className="container m-auto max-w-7xl">
+                <header className="hidden min-w-[35vw] pt-2 pb-1 md:block">
+                    <nav
+                        className={`mx-1 mb-2 flex items-center justify-between gap-6 ${
+                            forceDark ? "text-white" : ""
+                        }`}
+                    >
+                        <Link href="/" className="flex items-center gap-2">
+                            <AppIcon forceDark={forceDark} />
+                        </Link>
 
-                <ul className="flex gap-3 text-sm font-bold">
-                    <li>
-                        <NavLink href="/journey">Journey</NavLink>
-                    </li>
-                    <li>
-                        <NavLink href="/faq">FAQ</NavLink>
-                    </li>
-                    <li>
-                        <NavLink href="/contact">Contact</NavLink>
-                    </li>
-                </ul>
-            </nav>
-        </header>
+                        <ul className="flex gap-3 text-sm font-bold">
+                            <li>
+                                <NavLink href="/faq" forceDark={forceDark}>
+                                    FAQ
+                                </NavLink>
+                            </li>
+
+                            <li>
+                                <NavLink href="/contact" forceDark={forceDark}>
+                                    Contact
+                                </NavLink>
+                            </li>
+                        </ul>
+                    </nav>
+                </header>
+            </div>
+        </div>
     );
 }
 
