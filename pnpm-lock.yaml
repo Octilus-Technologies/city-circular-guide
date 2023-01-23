@@ -1,6 +1,7 @@
 lockfileVersion: 5.4
 
 specifiers:
+  '@formkit/auto-animate': 1.0.0-beta.5
   '@headlessui/react': ^1.7.7
   '@inertiajs/inertia': ^0.11.1
   '@inertiajs/inertia-react': ^0.8.1
@@ -33,6 +34,7 @@ specifiers:
   vite: ^3.2.5
 
 dependencies:
+  '@formkit/auto-animate': 1.0.0-beta.5
   '@turf/turf': 6.5.0
   react-hook-geolocation: 1.1.0_react@18.2.0
   react-icons: 4.7.1_react@18.2.0
@@ -474,6 +476,10 @@ packages:
     dependencies:
       '@floating-ui/core': 1.1.0
     dev: true
+
+  /@formkit/auto-animate/1.0.0-beta.5:
+    resolution: {integrity: sha512-WoSwyhAZPOe6RB/IgicOtCHtrWwEpfKIZ/H/nxpKfnZL9CB6hhhBGU5bCdMRw7YpAUF2CDlQa+WWh+gCqz5lDg==}
+    dev: false
 
   /@headlessui/react/1.7.7_biqbaboplfbrettd7655fr4n2y:
     resolution: {integrity: sha512-BqDOd/tB9u2tA0T3Z0fn18ktw+KbVwMnkxxsGPIH2hzssrQhKB5n/6StZOyvLYP/FsYtvuXfi9I0YowKPv2c1w==}

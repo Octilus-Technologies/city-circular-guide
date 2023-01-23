@@ -1,10 +1,10 @@
+import JourneySteps from "@/Components/JourneySteps";
+import WalkSteps from "@/Components/WalkSteps";
 import { Segment } from "@/utils/hooks/useJourney";
 import { Inertia } from "@inertiajs/inertia";
 import { GeometryObject } from "@turf/turf";
 import React, { Fragment } from "react";
 import { FaFlag, FaMapMarkerAlt } from "react-icons/fa";
-import JourneySteps from "./JourneySteps";
-import WalkSteps from "./WalkSteps";
 
 type JourneyControlProps = {
     expanded?: boolean;
@@ -76,27 +76,27 @@ function JourneyControls({
 
             <hr className="mb-4 w-full bg-white opacity-50" />
 
-            <ul className="flex w-full flex-col gap-5">
+            <div className="flex w-full flex-col gap-5">
                 {segments.map((segment, i) => {
                     const isLastSegment = i === segments.length - 1;
 
                     return (
                         <Fragment key={`segment-${i}`}>
-                            <li className="flex w-full flex-col items-start">
+                            <div className="flex w-full flex-col items-start">
                                 {segment.path?.profile === "driving" && (
                                     <JourneySteps
                                         segment={segment}
-                                        expanded={true}
+                                        expanded={false}
                                     />
                                 )}
 
                                 {segment.path?.profile === "walking" && (
                                     <WalkSteps
                                         segment={segment}
-                                        expanded={true}
+                                        expanded={false}
                                     />
                                 )}
-                            </li>
+                            </div>
 
                             {!isLastSegment && !!segment.path && (
                                 <span className="h-[3px] bg-primary" />
@@ -104,7 +104,7 @@ function JourneyControls({
                         </Fragment>
                     );
                 })}
-            </ul>
+            </div>
 
             <button
                 className="btn-outline btn-error btn mt-3 w-full px-5"

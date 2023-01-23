@@ -43,13 +43,13 @@ const useJourney = (
             const pathSegmentPromises = stopSegments.map((segment) =>
                 getMatch(mapAccessToken, segment.stops, segment.profile)
             );
-            const pathSegments: {
+            let pathSegments: {
                 path?: Path;
             }[] = (await Promise.all(pathSegmentPromises)).map((path) => ({
                 path: path,
             }));
 
-            const segmentLayers: Segment[] = pathSegments.map((segment, i) => {
+            let segmentLayers: Segment[] = pathSegments.map((segment, i) => {
                 const stopSegment = stopSegments[i];
                 const circular = stopSegment?.circular;
                 const stops =
@@ -100,6 +100,11 @@ const useJourney = (
                 .filter((c) => !!c);
             const boundingBox = bbox(lineString(allCoordinates as any));
             const mapCenter = center(lineString(allCoordinates as any));
+
+            // Filter empty (unmatched) segments
+            segmentLayers = segmentLayers.filter(
+                (segment) => !!segment.destination
+            );
 
             setSegments(segmentLayers);
             console.log("segmentLayers", segmentLayers);
