@@ -8,18 +8,51 @@
                 "name_ml": "കിഴക്കേകോട്ട"
             },
             "geometry": {
-                "coordinates": [76.94746537, 8.483684558],
+                "coordinates": [76.94743732, 8.483182267],
                 "type": "Point"
             }
         },
         {
             "type": "Feature",
             "properties": {
-                "name": "Thampanoor",
-                "name_ml": "തമ്പാനൂർ"
+                "name": "Thampanoor KTDC Chaithram",
+                "name_ml": "തമ്പാനൂർ കെടിഡിസി ചൈത്രം "
             },
             "geometry": {
-                "coordinates": [76.95048182, 8.487718267],
+                "coordinates": [76.95006276, 8.487973439],
+                "type": "Point"
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "name": "Thampanoor Bus Stand",
+                "name_ml": "തമ്പാനൂർ ബസ് സ്റ്റാൻഡ് "
+            },
+            "geometry": {
+                "coordinates": [76.95157618, 8.487821747],
+                "type": "Point"
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "name": "Thampanoor Railway Station",
+                "name_ml": "തമ്പാനൂർ റെയിൽവേ സ്റ്റേഷൻ "
+            },
+            "geometry": {
+                "coordinates": [76.95234529, 8.487440288],
+                "type": "Point"
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "name": "Thampanoor RMS",
+                "name_ml": "തമ്പാനൂർ ആർഎംഎസ് "
+            },
+            "geometry": {
+                "coordinates": [76.95016201, 8.487779363],
                 "type": "Point"
             }
         },
@@ -30,18 +63,29 @@
                 "name_ml": "ആയുർവേദ കോളേജ്"
             },
             "geometry": {
-                "coordinates": [76.94698756, 8.491415715],
+                "coordinates": [76.94706075, 8.490786411],
                 "type": "Point"
             }
         },
         {
             "type": "Feature",
             "properties": {
-                "name": "Statue",
-                "name_ml": "സ്റ്റാച്യു"
+                "name": "Statue BSNL",
+                "name_ml": "സ്റ്റാച്യു -ബിഎസ്എൻഎൽ "
             },
             "geometry": {
-                "coordinates": [76.94819049, 8.496423185],
+                "coordinates": [76.94745771, 8.492927915],
+                "type": "Point"
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "name": "Statue SBI",
+                "name_ml": "സ്റ്റാച്യു - എസ്ബിഐ"
+            },
+            "geometry": {
+                "coordinates": [76.94859763, 8.498937893],
                 "type": "Point"
             }
         },
@@ -63,7 +107,7 @@
                 "name_ml": "വി ജെ ടി"
             },
             "geometry": {
-                "coordinates": [76.94935732, 8.502570418],
+                "coordinates": [76.94936223, 8.502689899],
                 "type": "Point"
             }
         },
@@ -74,7 +118,7 @@
                 "name_ml": "കേരളാ യൂണിവേഴ്സിറ്റി"
             },
             "geometry": {
-                "coordinates": [76.94815968, 8.503435873],
+                "coordinates": [76.94844651, 8.503687007],
                 "type": "Point"
             }
         },
@@ -85,7 +129,7 @@
                 "name_ml": "പാളയം"
             },
             "geometry": {
-                "coordinates": [76.95109061, 8.504616078],
+                "coordinates": [76.95111021, 8.504501199],
                 "type": "Point"
             }
         },
@@ -96,7 +140,7 @@
                 "name_ml": "നിയമസഭ"
             },
             "geometry": {
-                "coordinates": [76.95037312, 8.507008156],
+                "coordinates": [76.95052379, 8.506743005],
                 "type": "Point"
             }
         },
@@ -107,7 +151,7 @@
                 "name_ml": "പി എം ജി"
             },
             "geometry": {
-                "coordinates": [76.94973543, 8.508463822],
+                "coordinates": [76.94976821, 8.508453907],
                 "type": "Point"
             }
         },
@@ -118,7 +162,7 @@
                 "name_ml": "വികാസ് ഭവൻ ഡിപ്പോ"
             },
             "geometry": {
-                "coordinates": [76.94709358, 8.508581453],
+                "coordinates": [76.94691957, 8.508538671],
                 "type": "Point"
             }
         },
@@ -129,7 +173,7 @@
                 "name_ml": "പി എം ജി"
             },
             "geometry": {
-                "coordinates": [76.94954022, 8.508979806],
+                "coordinates": [76.94939606, 8.509053947],
                 "type": "Point"
             }
         },
@@ -140,7 +184,7 @@
                 "name_ml": "എൽ എം എസ്"
             },
             "geometry": {
-                "coordinates": [76.95166256, 8.50890814],
+                "coordinates": [76.95069521, 8.508873266],
                 "type": "Point"
             }
         },
@@ -151,7 +195,7 @@
                 "name_ml": "മ്യൂസിയം "
             },
             "geometry": {
-                "coordinates": [76.95404972, 8.508385257],
+                "coordinates": [76.95403103, 8.508411525],
                 "type": "Point"
             }
         },
@@ -162,7 +206,7 @@
                 "name_ml": "കനകക്കുന്ന്"
             },
             "geometry": {
-                "coordinates": [76.95823712, 8.509689325],
+                "coordinates": [76.95826679, 8.50962722],
                 "type": "Point"
             }
         },
@@ -184,7 +228,18 @@
                 "name_ml": "പോലീസ് ഹെഡ്ക്വാർട്ടേഴ്‌സ്"
             },
             "geometry": {
-                "coordinates": [76.96186627, 8.50646446],
+                "coordinates": [76.96194911, 8.506921374],
+                "type": "Point"
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "name": "Forest Head Quarters",
+                "name_ml": "ഫോറസ്റ്റ് ഹെഡ് ക്വാർട്ടേഴ്‌സ് "
+            },
+            "geometry": {
+                "coordinates": [76.9597685, 8.502658577],
                 "type": "Point"
             }
         },
@@ -195,7 +250,40 @@
                 "name_ml": "വഴുതക്കാട്"
             },
             "geometry": {
-                "coordinates": [76.95166256, 8.50890814],
+                "coordinates": [76.95816713, 8.500201048],
+                "type": "Point"
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "name": "Women's Collge",
+                "name_ml": "വിമൻസ് കോളേജ് "
+            },
+            "geometry": {
+                "coordinates": [76.95762357, 8.498309423],
+                "type": "Point"
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "name": "Bharat Bhavan",
+                "name_ml": "ഭാരത് ഭവൻ"
+            },
+            "geometry": {
+                "coordinates": [76.95827396, 8.495244606],
+                "type": "Point"
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "name": "Norka",
+                "name_ml": "നോർക്ക"
+            },
+            "geometry": {
+                "coordinates": [76.95814991, 8.493689796],
                 "type": "Point"
             }
         },
@@ -206,7 +294,7 @@
                 "name_ml": "പോലീസ് ട്രെയിനിങ് കോളേജ്"
             },
             "geometry": {
-                "coordinates": [76.95799555, 8.496654541],
+                "coordinates": [76.95879272, 8.492989349],
                 "type": "Point"
             }
         },
@@ -217,7 +305,7 @@
                 "name_ml": "മേട്ടുക്കട"
             },
             "geometry": {
-                "coordinates": [76.95853246, 8.490345095],
+                "coordinates": [76.95807407, 8.490170838],
                 "type": "Point"
             }
         },
@@ -228,18 +316,29 @@
                 "name_ml": "തൈക്കാട് ഹോസ്പിറ്റൽ"
             },
             "geometry": {
-                "coordinates": [76.95656948, 8.487579231],
+                "coordinates": [76.95673883, 8.487721475],
                 "type": "Point"
             }
         },
         {
             "type": "Feature",
             "properties": {
-                "name": "Thampanoor",
-                "name_ml": "തമ്പാനൂർ"
+                "name": "Thampanoor Railway Station",
+                "name_ml": "തമ്പാനൂർ റെയിൽവേ സ്റ്റേഷൻ "
             },
             "geometry": {
-                "coordinates": [76.95048182, 8.487718267],
+                "coordinates": [76.95233618, 8.487431476],
+                "type": "Point"
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "name": "Thampanoor RMS",
+                "name_ml": "തമ്പാനൂർ ആർഎംഎസ് "
+            },
+            "geometry": {
+                "coordinates": [76.9501777, 8.487788398],
                 "type": "Point"
             }
         },
@@ -250,7 +349,18 @@
                 "name_ml": "കിഴക്കേകോട്ട"
             },
             "geometry": {
-                "coordinates": [76.94746537, 8.483684558],
+                "coordinates": [76.94781238, 8.483824663],
+                "type": "Point"
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "name": "East Fort- South",
+                "name_ml": "കിഴക്കേകൊട്ട - സൗത്ത് "
+            },
+            "geometry": {
+                "coordinates": [76.9481755, 8.48225419],
                 "type": "Point"
             }
         }

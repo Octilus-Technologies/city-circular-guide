@@ -1,7 +1,7 @@
+import CircularIcon from "@/Components/Icons/CircularIcon";
 import { BusStopDetail } from "@/utils/geoJson";
 import React, { CSSProperties } from "react";
 import { MdDirectionsBus } from "react-icons/md";
-import CircularIcon from "./Icons/CircularIcon";
 
 function BusStopInfo({ stop }: { stop: BusStopDetail }) {
     const clockwiseCirculars = stop.circulars.filter(
@@ -36,7 +36,6 @@ function BusStopInfo({ stop }: { stop: BusStopDetail }) {
                                 className="border-b-2 text-center"
                             >
                                 {circular.id}
-                                {/* TODO: Improve grid layout */}
                             </span>
                         ))}
                     </div>
@@ -50,7 +49,6 @@ function BusStopInfo({ stop }: { stop: BusStopDetail }) {
                                 className="border-b-2 text-center"
                             >
                                 {circular.id}
-                                {/* TODO: Improve grid layout */}
                             </span>
                         ))}
                     </div>

@@ -1,15 +1,17 @@
 import React, { HTMLAttributes } from "react";
 
+type CircularIconProps = {
+    name: string;
+    color: string;
+    className?: string;
+} & HTMLAttributes<HTMLSpanElement>;
+
 function CircularIcon({
     name,
     color,
     className = "",
     ...props
-}: {
-    name: string;
-    color: string;
-    className?: string;
-} & HTMLAttributes<HTMLSpanElement>) {
+}: CircularIconProps) {
     return (
         <span
             title={`${name} circular`}
