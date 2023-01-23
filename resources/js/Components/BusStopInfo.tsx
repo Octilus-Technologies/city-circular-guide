@@ -4,10 +4,19 @@ import { MdDirectionsBus } from "react-icons/md";
 import CircularIcon from "./Icons/CircularIcon";
 
 function BusStopInfo({ stop }: { stop: BusStopDetail }) {
+    const clockwiseCirculars = stop.circulars.filter(
+        (circular) => circular.isClockwise
+    );
+    const anticlockwiseCirculars = stop.circulars.filter(
+        (circular) => !circular.isClockwise
+    );
+
     const infoColor =
-        stop?.circulars.length == 1 ? stop.circulars?.[0]?.color : null;
+        (clockwiseCirculars.length == 1 ? clockwiseCirculars[0].color : null) ??
+        "hsl(var(--pf))";
+
     const rootStyles = {
-        "--circular-info-color": infoColor ?? "hsl(var(--pf))",
+        "--circular-info-color": infoColor,
     } as CSSProperties;
 
     return (
@@ -16,9 +25,23 @@ function BusStopInfo({ stop }: { stop: BusStopDetail }) {
                 <div className="icon border-base bordered grid place-content-center border-r-[1px] bg-[var(--circular-info-color)] p-2">
                     <MdDirectionsBus className="inline-block text-6xl" />
                 </div>
-                <div className="w-full bg-[var(--circular-info-color)] p-2">
-                    <div className="grid grid-flow-col grid-rows-2 justify-center gap-3 text-xl font-bold">
-                        {stop?.circulars?.map((circular, i) => (
+                <div className="clockwise flex w-full flex-col items-center justify-center gap-3 bg-[var(--circular-info-color)] p-3">
+                    <div className="flex justify-center gap-3 text-xl font-bold">
+                        {clockwiseCirculars?.map((circular, i) => (
+                            <span
+                                key={circular.id}
+                                style={{
+                                    borderColor: circular.color,
+                                }}
+                                className="border-b-2 text-center"
+                            >
+                                {circular.id}
+                                {/* TODO: Improve grid layout */}
+                            </span>
+                        ))}
+                    </div>
+                    <div className="anti-clockwise flex justify-center gap-3 text-xl font-bold">
+                        {anticlockwiseCirculars?.map((circular, i) => (
                             <span
                                 key={circular.id}
                                 style={{
@@ -45,18 +68,18 @@ function BusStopInfo({ stop }: { stop: BusStopDetail }) {
                     {stop.nameLocale}
                 </div>
 
-                {stop.circulars.length > 1 && (
+                {clockwiseCirculars.length > 1 && (
                     <div className="interchange">
                         <div className="name rounded-md bg-[var(--circular-info-color)] px-4 text-sm tracking-wider text-white">
                             Interchange
                         </div>
                         <div className="interchange-icons -space-x-[0.4rem] pt-2 saturate-150">
-                            {stop.circulars.map(
+                            {clockwiseCirculars.map(
                                 (circular) =>
                                     !!circular && (
                                         <CircularIcon
                                             name={circular.name}
-                                            color={circular.color}
+                                            color={circular.color ?? infoColor}
                                         />
                                     )
                             )}
