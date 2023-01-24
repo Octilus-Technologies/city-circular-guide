@@ -4,7 +4,7 @@ import React from "react";
 function SideBar({ children }: { children: React.ReactNode }) {
     return (
         <section
-            className="actions absolute bottom-0 left-0 right-0 z-50 flex max-h-[60vh]
+            className="actions fixed md:absolute bottom-0 left-0 right-0 z-50 flex max-h-[60vh]
             flex-col gap-2 overflow-auto rounded-t-3xl bg-primary bg-opacity-80
             p-5 text-center backdrop-blur-md md:top-0 md:right-auto
             md:max-h-full md:max-w-[600px] md:flex-col md:gap-5 md:rounded-none"
