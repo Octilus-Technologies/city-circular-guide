@@ -35,7 +35,7 @@ function JourneySteps({
             )}
 
             {!!stops && (
-                <p className="">
+                <p className="text-left">
                     <FaMapMarkerAlt className="mr-1 inline-block text-secondary" />
                     Hop on the <strong>{segment?.circular?.id}</strong> bus from{" "}
                     <span className="font-bold text-secondary">
@@ -76,7 +76,7 @@ function JourneySteps({
             )}
 
             {!!stops && (
-                <p className="">
+                <p className="text-left">
                     <FaFlag className="mr-2 inline-block text-secondary" />
                     Hop off the bus at{" "}
                     <span className="font-bold text-secondary">

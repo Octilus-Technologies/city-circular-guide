@@ -55,20 +55,20 @@ function JourneyControls({
 
     return (
         <div className="flex flex-col items-start gap-3">
-            <div className="align-center relative flex w-full justify-between pt-4 pb-2 text-sm font-bold">
-                <span className="flex w-[25%] items-center justify-center gap-1">
+            <div className="align-center relative flex flex-col md:flex-row gap-3 md:gap-1 w-full justify-between pt-4 pb-2 text-sm font-bold">
+                <span className="flex md:w-[25%] items-center justify-center gap-1">
                     <FaMapMarkerAlt className="mr-1 inline-block flex-shrink-0 text-xl text-secondary" />
                     {(from?.name as string).split(",")[0]}
                 </span>
 
                 <div className="relative mx-4 flex flex-1 items-center justify-center">
-                    <span className="absolute top-[50%] left-0 right-0 -z-[1] translate-y-[-50%] border-0 border-t-2 border-dashed opacity-40"></span>
+                    <span className="absolute top-[50%] left-0 right-0 -z-[1] translate-y-[-50%] border-0 border-t-2 border-dashed opacity-30"></span>
                     <span className="grid h-[30px] w-[30px] place-content-center rounded-full bg-secondary text-primary shadow-lg">
                         to
                     </span>
                 </div>
 
-                <span className="flex w-[25%] items-center justify-center gap-1">
+                <span className="flex md:w-[25%] items-center justify-center gap-1">
                     <FaFlag className="mr-1 inline-block flex-shrink-0 text-xl text-secondary" />
                     {(destination?.name as string).split(",")[0]}
                 </span>
