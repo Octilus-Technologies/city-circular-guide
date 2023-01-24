@@ -134,9 +134,13 @@ function BusRouteMap({
 
             {segments
                 ?.filter((segment) => !!segment.path?.geometry)
-                .map((segment, i) => {
-                    <SegmentLayer segment={segment} id={i} />;
-                })}
+                .map((segment, i) => (
+                    <SegmentLayer
+                        key={`segment-${i}`}
+                        segment={segment}
+                        id={i}
+                    />
+                ))}
 
             {children}
         </Map>

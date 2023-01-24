@@ -61,7 +61,7 @@ function RouteMap({
         zoom: 13.5,
     });
 
-    console.log("viewState", viewState);
+    // console.log("viewState", viewState);
 
     useEffect(() => {
         setViewState((oldViewState) => {
