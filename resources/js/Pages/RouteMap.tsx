@@ -5,6 +5,7 @@ import FromMarker from "@/Components/map/FromMarker";
 import SideBar from "@/Components/SideBar";
 import { circulars, Coordinates } from "@/utils/geoJson";
 import useJourney from "@/utils/hooks/useJourney";
+import useViewState from "@/utils/hooks/useViewState";
 import { Inertia } from "@inertiajs/inertia";
 import React, { useEffect, useMemo, useState } from "react";
 
@@ -54,11 +55,13 @@ function RouteMap({
         journeyTo
     );
 
-    const [viewState, setViewState] = useState({
+    const [viewState, setViewState] = useViewState({
         longitude: journeyFrom.coords[0],
         latitude: journeyFrom.coords[1],
         zoom: 13.5,
     });
+
+    console.log("viewState", viewState);
 
     useEffect(() => {
         setViewState((oldViewState) => {
@@ -74,7 +77,7 @@ function RouteMap({
     }, [mapMeta?.center]);
 
     return (
-        <div className="h-full max-h-screen min-h-screen w-full flex-row-reverse">
+        <div className="h-full max-h-[100dvh] min-h-[100dvh] w-full flex-row-reverse">
             <section className="map-container flex flex-1">
                 <BusRouteMap
                     segments={segments}

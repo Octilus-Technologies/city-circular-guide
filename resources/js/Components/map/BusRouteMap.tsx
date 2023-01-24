@@ -1,3 +1,6 @@
+import BusStopInfo from "@/Components/BusStopInfo";
+import BusStopsLayer from "@/Components/map/BusStopsLayer";
+import SegmentLayer from "@/Components/map/SegmentLayer";
 import {
     CircularGeojson,
     CircularName,
@@ -9,31 +12,16 @@ import { Segment } from "@/utils/hooks/useJourney";
 import { findNearestStop, getCircularDetails } from "@/utils/map-helpers";
 import { PropsOf } from "@headlessui/react/dist/types";
 import "mapbox-gl/dist/mapbox-gl.css";
-import React, { Fragment, ReactNode, useCallback, useState } from "react";
+import React, { ReactNode, useCallback, useState } from "react";
 import Map, {
     GeolocateControl,
     GeolocateResultEvent,
-    Layer,
-    LayerProps,
     LngLatBoundsLike,
     MapLayerMouseEvent,
     NavigationControl,
     Popup,
-    Source,
     ViewStateChangeEvent,
 } from "react-map-gl";
-import BusStopInfo from "../BusStopInfo";
-import BusStopsLayer from "./BusStopsLayer";
-
-const pathLayerStyles: LayerProps = {
-    type: "line",
-    paint: {
-        "line-width": 3,
-        "line-color": "royalblue",
-        "line-opacity": 0.75,
-        // "line-dasharray": [1, 2],
-    },
-};
 
 function BusRouteMap({
     circulars,
@@ -146,39 +134,8 @@ function BusRouteMap({
 
             {segments
                 ?.filter((segment) => !!segment.path?.geometry)
-                ?.map((segment, i: number) => {
-                    const layerStyles = { ...pathLayerStyles };
-                    if (
-                        layerStyles.type == "line" &&
-                        segment.path?.profile === "walking"
-                    ) {
-                        layerStyles.paint = {
-                            ...layerStyles.paint,
-                            "line-dasharray": [1, 0.5],
-                        };
-                    }
-
-                    if (
-                        segment?.circular?.color &&
-                        layerStyles.type == "line"
-                    ) {
-                        layerStyles.paint = {
-                            ...layerStyles.paint,
-                            "line-color": segment.circular.color,
-                        };
-                    }
-
-                    return (
-                        <Fragment key={`path-${i}`}>
-                            <Source
-                                id={`path-data-${i}`}
-                                type="geojson"
-                                data={segment.path?.geometry as any}
-                            >
-                                <Layer {...layerStyles} id={`path-${i}-line`} />
-                            </Source>
-                        </Fragment>
-                    );
+                .map((segment, i) => {
+                    <SegmentLayer segment={segment} id={i} />;
                 })}
 
             {children}

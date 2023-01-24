@@ -124,6 +124,7 @@ function InitialRouteQueryForm({
                     <FaMapMarkerAlt className="mr-1 inline-block text-secondary" />
                     <span className="label-text text-inherit">From?</span>
                 </label>
+
                 <AsyncSelect
                     cacheOptions
                     loadOptions={loadOptions}
@@ -145,6 +146,7 @@ function InitialRouteQueryForm({
                     <FaFlag className="mr-2 inline-block text-secondary" />
                     <span className="label-text text-inherit">Where to?</span>
                 </label>
+
                 <AsyncSelect
                     cacheOptions
                     loadOptions={loadOptions}

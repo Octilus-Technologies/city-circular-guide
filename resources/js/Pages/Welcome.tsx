@@ -1,37 +1,26 @@
 import InitialRouteQueryForm from "@/Components/forms/InitialRouteQueryForm";
 import BusRouteMap from "@/Components/map/BusRouteMap";
+import CircularFilter from "@/Components/map/CircularFilter";
+import CircularPathLayer from "@/Components/map/CircularPathLayer";
 import DestinationMarker from "@/Components/map/DestinationMarker";
 import FromMarker from "@/Components/map/FromMarker";
 import SideBar from "@/Components/SideBar";
+import { Coordinates } from "@/utils/geoJson";
 import useCirculars from "@/utils/hooks/useCirculars";
+import useViewState from "@/utils/hooks/useViewState";
 import { Head } from "@inertiajs/inertia-react";
 import "mapbox-gl/dist/mapbox-gl.css";
-import React, { Fragment, useState } from "react";
-import { Layer, LayerProps, Source } from "react-map-gl";
-
-const pathLayerStyles: LayerProps & Record<string, any> = {
-    type: "line",
-    paint: {
-        "line-width": 3,
-        "line-color": "royalblue",
-        "line-opacity": 0.5,
-        // "line-dasharray": [1, 2],
-    },
-};
+import React, { useMemo, useState } from "react";
 
 export default function Welcome({
     mapAccessToken,
 }: {
     mapAccessToken: string;
 }) {
-    const [fromCoords, setFromCoords] = useState<number[]>();
-    const [destinationCoords, setDestinationCoords] = useState<number[]>();
+    const [fromCoords, setFromCoords] = useState<Coordinates>();
+    const [destinationCoords, setDestinationCoords] = useState<Coordinates>();
 
-    const [viewState, setViewState] = useState({
-        longitude: 76.93,
-        latitude: 8.51,
-        zoom: 12.5,
-    });
+    const [viewState, setViewState] = useViewState();
 
     const {
         circulars,
@@ -40,43 +29,22 @@ export default function Welcome({
         geoJson: circularsGeojson,
     } = useCirculars(mapAccessToken);
 
+    const activeCirculars = useMemo(
+        () => circulars.filter((circular) => circular.isActive),
+        [circulars]
+    );
+
     return (
         <>
             <Head title="Welcome" />
 
-            <div className="h-full max-h-screen min-h-screen w-full flex-row-reverse">
+            <div className="h-full max-h-[100dvh] min-h-[100dbh] w-full flex-row-reverse">
                 <section className="map-container relative flex flex-1">
-                    <ul className="tab tabs-boxed absolute left-0 top-0 z-10 my-3 flex h-auto flex-wrap gap-2 bg-opacity-60 font-bold opacity-90 transition-all md:left-[40vw]">
-                        <li key={`circular-all`}>
-                            <button
-                                onClick={() => toggleCircularPath()}
-                                className={`tab tab-active !px-4 !py-1 text-xs capitalize transition-all ${
-                                    isAllActive ? "tab-active" : "opacity-50"
-                                }`}
-                            >
-                                All
-                            </button>
-                        </li>
-                        {circulars.map((circular, i: number) => (
-                            <li key={`circular-${circular.id}`}>
-                                <button
-                                    onClick={() =>
-                                        toggleCircularPath(circular.id)
-                                    }
-                                    className={`tab tab-active !px-4 !py-1 text-xs capitalize transition-all ${
-                                        circular.isActive
-                                            ? "tab-active"
-                                            : "opacity-50"
-                                    }`}
-                                    style={{
-                                        backgroundColor: circular.color,
-                                    }}
-                                >
-                                    {circular.name}
-                                </button>
-                            </li>
-                        ))}
-                    </ul>
+                    <CircularFilter
+                        circulars={circulars}
+                        toggleCircularPath={toggleCircularPath}
+                        isAllActive={isAllActive}
+                    />
 
                     <BusRouteMap
                         activeCirculars={circulars.filter(
@@ -92,32 +60,12 @@ export default function Welcome({
                             <DestinationMarker coords={destinationCoords} />
                         )}
 
-                        {circulars
-                            .filter((circular) => circular.isActive)
-                            .map((circular, i: number) => {
-                                const layerStyles = { ...pathLayerStyles };
-                                if (circular.color && layerStyles) {
-                                    layerStyles.paint = {
-                                        ...layerStyles.paint,
-                                        "line-color": circular.color,
-                                    };
-                                }
-
-                                return (
-                                    <Fragment key={`path-${circular.id}`}>
-                                        <Source
-                                            id={`path-data-${circular.id}`}
-                                            type="geojson"
-                                            data={circular.path as any}
-                                        >
-                                            <Layer
-                                                {...layerStyles}
-                                                id={`path-${circular.id}-line`}
-                                            />
-                                        </Source>
-                                    </Fragment>
-                                );
-                            })}
+                        {activeCirculars.map((circular) => (
+                            <CircularPathLayer
+                                circular={circular}
+                                key={`circular-path-layer-${circular.id}`}
+                            />
+                        ))}
                     </BusRouteMap>
                 </section>
 
