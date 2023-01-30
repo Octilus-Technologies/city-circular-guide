@@ -12,7 +12,7 @@ import React, { useEffect, useMemo, useState } from "react";
 const isProduction = process.env.NODE_ENV === "production";
 const isTesting = !isProduction;
 
-function RouteMap({
+function Journey({
     mapAccessToken,
     journey,
 }: {
@@ -100,7 +100,7 @@ function RouteMap({
             </section>
 
             <SideBar>
-                <div className="alert inline-block w-auto bg-opacity-10 text-primary-content backdrop-blur-sm">
+                <div className="alert inline-block w-full bg-opacity-10 text-primary-content backdrop-blur-sm">
                     {!!segments && (
                         <JourneyControls
                             expanded={true}
@@ -114,4 +114,4 @@ function RouteMap({
     );
 }
 
-export default RouteMap;
+export default Journey;

@@ -37,7 +37,7 @@ class JourneyController extends Controller
 
     public function journey(Journey $journey)
     {
-        return Inertia::render('RouteMap', [
+        return Inertia::render('Journey', [
             'journey' => $journey,
             'canLogin' => Route::has('login'),
             'canRegister' => Route::has('register'),
