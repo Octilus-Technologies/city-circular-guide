@@ -1,0 +1,511 @@
+{
+    "type": "FeatureCollection",
+    "features": [
+        {
+            "type": "Feature",
+            "properties": {
+                "name": "East Fort",
+                "name_ml": "കിഴക്കേക്കോട്ട"
+            },
+            "geometry": {
+                "coordinates": [76.94761709, 8.482270284],
+                "type": "Point"
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "name": "North Bus Stand",
+                "name_ml": "നോർത്ത് ബസ് സ്റ്റാൻഡ്"
+            },
+            "geometry": {
+                "coordinates": [76.94755272, 8.484005257],
+                "type": "Point"
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "name": "Thampanoor Bus Stand",
+                "name_ml": "തമ്പാനൂർ"
+            },
+            "geometry": {
+                "coordinates": [76.95145265, 8.48789698],
+                "type": "Point"
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "name": "Thampanoor Railway Station",
+                "name_ml": "തമ്പാനൂർ റെയിൽവേ സ്റ്റേഷൻ"
+            },
+            "geometry": {
+                "coordinates": [76.9523351, 8.487422123],
+                "type": "Point"
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "name": "Thampanoor - Railway Parcel Gate",
+                "name_ml": "തമ്പാനൂർ പാർസൽ ഗേറ്റ്"
+            },
+            "geometry": {
+                "coordinates": [76.95077942, 8.487713934],
+                "type": "Point"
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "name": "Thampanoor - RMS",
+                "name_ml": "തമ്പാനൂർ ആർഎംഎസ്"
+            },
+            "geometry": {
+                "coordinates": [76.95016251, 8.487785561],
+                "type": "Point"
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "name": "East Fort",
+                "name_ml": "കിഴക്കേക്കോട്ട"
+            },
+            "geometry": {
+                "coordinates": [76.94779775, 8.483816255],
+                "type": "Point"
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "name": "South Bus Stand",
+                "name_ml": "സൗത്ത് ബസ് സ്റ്റാൻഡ്"
+            },
+            "geometry": {
+                "coordinates": [76.94760999, 8.482285552],
+                "type": "Point"
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "name": "Manacaud",
+                "name_ml": "മണക്കാട്"
+            },
+            "geometry": {
+                "coordinates": [76.94759075, 8.475310547],
+                "type": "Point"
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "name": "Mukkolakkal Temple",
+                "name_ml": "മുക്കോലയ്ക്കൽ ക്ഷേത്രം"
+            },
+            "geometry": {
+                "coordinates": [76.94253479, 8.473477376],
+                "type": "Point"
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "name": "Paramabil Nagar",
+                "name_ml": "പറമ്പിൽ നഗർ"
+            },
+            "geometry": {
+                "coordinates": [76.94090669, 8.471707867],
+                "type": "Point"
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "name": "Kallumoodu",
+                "name_ml": "കല്ലുമൂട്"
+            },
+            "geometry": {
+                "coordinates": [76.93613772, 8.469582854],
+                "type": "Point"
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "name": "Ponnara School",
+                "name_ml": "പൊന്നറ സ്‌കൂൾ"
+            },
+            "geometry": {
+                "coordinates": [76.93406974, 8.468601259],
+                "type": "Point"
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "name": "Ponnara Bridge",
+                "name_ml": "പൊന്നറ പാലം"
+            },
+            "geometry": {
+                "coordinates": [76.93258379, 8.467752309],
+                "type": "Point"
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "name": "Priyadarshini Nagar",
+                "name_ml": "പ്രിയദർശിനി നഗർ"
+            },
+            "geometry": {
+                "coordinates": [76.93172817, 8.467378241],
+                "type": "Point"
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "name": "Bangaladesh Colony",
+                "name_ml": "ബംഗ്ലാദേശ് കോളനി"
+            },
+            "geometry": {
+                "coordinates": [76.93031196, 8.466728262],
+                "type": "Point"
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "name": "Valiyathura",
+                "name_ml": "വലിയതുറ"
+            },
+            "geometry": {
+                "coordinates": [76.92622428, 8.464677505],
+                "type": "Point"
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "name": "Kuzhivilakam",
+                "name_ml": "കുഴിവിളാകം"
+            },
+            "geometry": {
+                "coordinates": [76.92336485, 8.467842918],
+                "type": "Point"
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "name": "FCI - Warehouse",
+                "name_ml": "എഫ്‌സിഐ  വെയർഹൌസ്"
+            },
+            "geometry": {
+                "coordinates": [76.92290082, 8.471259927],
+                "type": "Point"
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "name": "Kochuthopp",
+                "name_ml": "കൊച്ചുതോപ്പ്"
+            },
+            "geometry": {
+                "coordinates": [76.92273453, 8.471570322],
+                "type": "Point"
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "name": "Airport - Domestic",
+                "name_ml": "എയർ പോർട്ട് (ഡൊമസ്റ്റിക്)"
+            },
+            "geometry": {
+                "coordinates": [76.9198887, 8.474690171],
+                "type": "Point"
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "name": "Valiya Thoppe",
+                "name_ml": "വലിയത്തോപ്പ്"
+            },
+            "geometry": {
+                "coordinates": [76.917236, 8.475910513],
+                "type": "Point"
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "name": "Air Cargo - Shanghumugham",
+                "name_ml": "എയർ കാർഗോ - ശംഖുമുഖം"
+            },
+            "geometry": {
+                "coordinates": [76.91374108, 8.476963718],
+                "type": "Point"
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "name": "Shanghumugham",
+                "name_ml": "ശംഖുമുഖം"
+            },
+            "geometry": {
+                "coordinates": [76.91284295, 8.48127564],
+                "type": "Point"
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "name": "GV Raja",
+                "name_ml": "ജിവി രാജ"
+            },
+            "geometry": {
+                "coordinates": [76.91128458, 8.488536495],
+                "type": "Point"
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "name": "Rajeev Nagar",
+                "name_ml": "രാജീവ് നഗർ"
+            },
+            "geometry": {
+                "coordinates": [76.9083388, 8.491627698],
+                "type": "Point"
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "name": "Juma Masjid",
+                "name_ml": "ജുമാ മസ്ജിദ്"
+            },
+            "geometry": {
+                "coordinates": [76.90595163, 8.493747284],
+                "type": "Point"
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "name": "All Saints Church",
+                "name_ml": "ആൾ സെയിന്റ്സ് ചർച്ച്"
+            },
+            "geometry": {
+                "coordinates": [76.90711839, 8.495004705],
+                "type": "Point"
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "name": "All Saints College",
+                "name_ml": "ആൾ സെയിന്റ്സ് കോളേജ്"
+            },
+            "geometry": {
+                "coordinates": [76.90849973, 8.495877469],
+                "type": "Point"
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "name": "Mathilakam",
+                "name_ml": "മതിലകം"
+            },
+            "geometry": {
+                "coordinates": [76.91063195, 8.493918412],
+                "type": "Point"
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "name": "Brahmose Aerospace",
+                "name_ml": "ബ്രഹ്മോസ് ഏറോസ്പേസ്"
+            },
+            "geometry": {
+                "coordinates": [76.91260259, 8.491792603],
+                "type": "Point"
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "name": "ITI - Chakka",
+                "name_ml": "ഐടിഐ - ചാക്ക"
+            },
+            "geometry": {
+                "coordinates": [76.91657123, 8.490563655],
+                "type": "Point"
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "name": "KSEB - Chakkai",
+                "name_ml": "കെഎസ്ഇബി - ചാക്ക"
+            },
+            "geometry": {
+                "coordinates": [76.91893016, 8.488684237],
+                "type": "Point"
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "name": "Airport - International Terminal",
+                "name_ml": "എയർപോർട്ട് - ഇന്റർനാഷണൽ ടെർമിനൽ"
+            },
+            "geometry": {
+                "coordinates": [76.92254846, 8.487893694],
+                "type": "Point"
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "name": "Chakka",
+                "name_ml": "ചാക്ക"
+            },
+            "geometry": {
+                "coordinates": [76.92325985, 8.492318679],
+                "type": "Point"
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "name": "Petta - KEPCO",
+                "name_ml": "പേട്ട - കെപ്കോ"
+            },
+            "geometry": {
+                "coordinates": [76.92903621, 8.494931918],
+                "type": "Point"
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "name": "Petta Pallimukk",
+                "name_ml": "പേട്ട - പള്ളിമുക്ക്"
+            },
+            "geometry": {
+                "coordinates": [76.93228168, 8.496714584],
+                "type": "Point"
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "name": "Pattoor",
+                "name_ml": "പാറ്റൂർ"
+            },
+            "geometry": {
+                "coordinates": [76.93715257, 8.497727941],
+                "type": "Point"
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "name": "Govt. Eye Hospital",
+                "name_ml": "ഗവ.കണ്ണാശുപത്രി"
+            },
+            "geometry": {
+                "coordinates": [76.94069605, 8.49940068],
+                "type": "Point"
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "name": "General Hospital",
+                "name_ml": "ജനറൽ ഹോസ്പിറ്റൽ"
+            },
+            "geometry": {
+                "coordinates": [76.94258969, 8.499331708],
+                "type": "Point"
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "name": "Kerala University",
+                "name_ml": "കേരള യൂണിവേർസിറ്റി"
+            },
+            "geometry": {
+                "coordinates": [76.94819551, 8.503573435],
+                "type": "Point"
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "name": "Palayam Saphalyam",
+                "name_ml": "പാളയം- സാഫല്യം"
+            },
+            "geometry": {
+                "coordinates": [76.95014816, 8.502414193],
+                "type": "Point"
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "name": "Statue",
+                "name_ml": "സ്റ്റാച്യു"
+            },
+            "geometry": {
+                "coordinates": [76.94856628, 8.497769566],
+                "type": "Point"
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "name": "Thampanoor Bus Stand",
+                "name_ml": "തമ്പാനൂർ ബസ് സ്റ്റാൻഡ്"
+            },
+            "geometry": {
+                "coordinates": [76.95146803, 8.487885024],
+                "type": "Point"
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "name": "Thampanoor Railway Station",
+                "name_ml": "തമ്പാനൂർ റെയിൽവേ സ്റ്റേഷൻ"
+            },
+            "geometry": {
+                "coordinates": [76.95234511, 8.487434043],
+                "type": "Point"
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "name": "East Fort",
+                "name_ml": "കിഴക്കേക്കോട്ട"
+            },
+            "geometry": {
+                "coordinates": [76.94780048, 8.483818421],
+                "type": "Point"
+            }
+        }
+    ]
+}

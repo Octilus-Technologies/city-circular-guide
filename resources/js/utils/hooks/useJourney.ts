@@ -102,9 +102,7 @@ const useJourney = (
             const mapCenter = center(lineString(allCoordinates as any));
 
             // Filter empty (unmatched) segments
-            segmentLayers = segmentLayers.filter(
-                (segment) => !!segment.destination
-            );
+            segmentLayers = segmentLayers.filter((segment) => !!segment.path);
 
             setSegments(segmentLayers);
             console.log("segmentLayers", segmentLayers);

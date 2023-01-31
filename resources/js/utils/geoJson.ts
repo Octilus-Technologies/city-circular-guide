@@ -1,15 +1,11 @@
-import blueCircular from "@/constants/blue.json";
-import brownCircular from "@/constants/brown.json";
-import greenCircular from "@/constants/green.json";
-import magentaCircular from "@/constants/magenta.json";
-import redCircular from "@/constants/red.json";
+import circulars, { acwCirculars } from "@/constants/circulars";
 import { filterNullValues } from "@/utils/arrayUtils";
 import { getCircularDetails } from "@/utils/map-helpers";
 import { distance, Feature, point } from "@turf/turf";
 
 export type Coordinates = number[];
 export type CircularName = keyof typeof circulars;
-export type CircularGeojson = typeof circulars[CircularName];
+export type CircularGeojson = (typeof circulars)[CircularName];
 export type PointFeatureCollection = CircularGeojson;
 export type PointFeature = PointFeatureCollection["features"][number];
 export type Geometry<TType extends string> = {
@@ -17,15 +13,6 @@ export type Geometry<TType extends string> = {
     type: TType;
 };
 export type BusStopDetail = ReturnType<typeof getStopDetails>[number];
-
-// * Register all circulars here
-export const circulars = {
-    blue: blueCircular,
-    red: redCircular,
-    green: greenCircular,
-    magenta: magentaCircular,
-    brown: brownCircular,
-};
 
 export const circularNames = Object.keys(circulars) as CircularName[];
 
@@ -78,10 +65,21 @@ export function generateLineFromPoints(
     return featureCollection;
 }
 
+export const getCirculars = (isClockwise = true) => {
+    return isClockwise ? circulars : acwCirculars;
+};
+
+export const getCircular = (circularName: CircularName, isClockwise = true) => {
+    const allCirculars = getCirculars(isClockwise);
+    const circular = allCirculars[circularName] ?? circulars[circularName];
+
+    return circular;
+};
+
 export const getAllStopDetails = (mustBeUnique = false, isClockwise = true) => {
     const stops = (Object.keys(circulars) as CircularName[]).map(
         (circularName) => {
-            const circular = circulars[circularName];
+            const circular = getCircular(circularName, isClockwise);
 
             return circular.features.map((f) => ({
                 coordinates: f.geometry.coordinates,
@@ -119,18 +117,14 @@ export const getAllStopDetails = (mustBeUnique = false, isClockwise = true) => {
 export const getStopDetails = (
     coordinates: Coordinates[],
     circularName?: CircularName,
-    isClockwise?: boolean
+    isClockwise: boolean = true
 ) => {
     const allStops = getAllStopDetails(true, isClockwise);
+    allStops.push(...getAllStopDetails(true, !isClockwise));
+
     const stops = coordinates.map((c) => {
         const stop = allStops.find((s) => {
             if (circularName && s.circular?.name !== circularName) return false;
-            if (
-                isClockwise !== undefined &&
-                s.circular?.isClockwise !== isClockwise
-            ) {
-                return false;
-            }
 
             return s.coordinates[0] === c[0] && s.coordinates[1] === c[1];
         });
@@ -140,17 +134,17 @@ export const getStopDetails = (
             .filter(
                 (s) =>
                     distance(point(s.coordinates), point(stop.coordinates)) <
-                    0.03
+                        0.03 &&
+                    s.circular.isClockwise === stop.circular?.isClockwise
             ) // May change this comparison in future
             .map((s) => s.circular);
 
-        const uniqueCirculars = inCirculars.reduce((circulars, circular) => {
-            const duplicate = circulars.find((c) => c.name === circular?.name);
-            if (duplicate) return circulars;
+        const uniqueCirculars = inCirculars.reduce((acc, circular) => {
+            if (!acc.some((c) => c.name === circular.name)) {
+                acc.push(circular);
+            }
 
-            circulars.push(circular);
-
-            return circulars;
+            return acc;
         }, [] as typeof inCirculars);
 
         const stopDetails = {
@@ -164,6 +158,12 @@ export const getStopDetails = (
     return filterNullValues(stops);
 };
 
-export const getCircularCoordinates = (circularName: CircularName) => {
-    return circulars[circularName].features.map((f) => f.geometry.coordinates);
+export const getCircularCoordinates = (
+    circularName: CircularName,
+    isClockwise = true
+) => {
+    const circular = getCircular(circularName, isClockwise);
+    const stops = circular.features.map((f) => f.geometry.coordinates);
+
+    return stops;
 };

@@ -76,6 +76,7 @@ function BusStopInfo({ stop }: { stop: BusStopDetail }) {
                                 (circular) =>
                                     !!circular && (
                                         <CircularIcon
+                                            key={circular.id}
                                             name={circular.name}
                                             color={circular.color ?? infoColor}
                                         />

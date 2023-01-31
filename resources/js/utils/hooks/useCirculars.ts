@@ -1,14 +1,14 @@
-import { useCallback, useEffect, useMemo, useState } from "react";
 import {
     CircularName,
-    circulars as circularGeoJson,
     Coordinates,
     generateLayerFromGeometry,
     getCircularCoordinates,
+    getCirculars,
     getStopDetails,
-} from "../geoJson";
-import { getCircularDetails } from "../map-helpers";
-import { getMatch } from "../mapbox-api";
+} from "@/utils/geoJson";
+import { getCircularDetails } from "@/utils/map-helpers";
+import { getMatch } from "@/utils/mapbox-api";
+import { useCallback, useEffect, useMemo, useState } from "react";
 
 export type CircularData = {
     id: string;
@@ -29,7 +29,7 @@ export type CircularData = {
     isActive: boolean;
 };
 
-const useCirculars = (mapAccessToken: string) => {
+const useCirculars = (mapAccessToken: string, isClockwise: boolean = true) => {
     const [circularsData, setCircularsData] = useState<CircularData[]>([]);
 
     const isAllActive = useMemo(() => {
@@ -64,13 +64,15 @@ const useCirculars = (mapAccessToken: string) => {
         [isAllActive]
     );
 
+    const circularGeoJson = getCirculars(isClockwise);
+
     useEffect(() => {
         const generatePathLayer = async () => {
             const circularNames = Object.keys(
                 circularGeoJson
             ) as CircularName[];
             let segments: Coordinates[][] = circularNames.map((key) =>
-                getCircularCoordinates(key)
+                getCircularCoordinates(key, isClockwise)
             );
 
             // Add first stop as last stop to make it circular
@@ -84,7 +86,9 @@ const useCirculars = (mapAccessToken: string) => {
             const paths = segmentPath.map((path) =>
                 generateLayerFromGeometry(path?.geometry as any)
             );
-            const stops = segments.map((segment) => getStopDetails(segment));
+            const stops = segments.map((segment, i) =>
+                getStopDetails(segment, circularNames[i], isClockwise)
+            );
             // const meta = segmentPath.map((path) => path?.journey);
 
             const circularsData = circularNames.map((name, index) => {

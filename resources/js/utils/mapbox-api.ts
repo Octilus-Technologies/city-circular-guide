@@ -9,6 +9,8 @@ export async function getMatch(
     profile: Profile = "driving",
     radius: number[] | null = null
 ) {
+    if (coordinates.length < 2) return;
+
     const coordinatesStr = coordinates.map((c) => c.join(",")).join(";");
     const params: Record<string, string> = {
         geometries: "geojson",
@@ -32,7 +34,7 @@ export async function getMatch(
     const response = await query.json();
 
     if (response.code !== "Ok") {
-        console.log(`${response.code} - ${response.message}.`);
+        console.log(`${response.code} - ${response.message}.`, coordinates);
         return;
     }
 

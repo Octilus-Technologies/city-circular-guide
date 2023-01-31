@@ -1,0 +1,269 @@
+{
+    "type": "FeatureCollection",
+    "features": [
+        {
+            "type": "Feature",
+            "properties": {
+                "name": "Peroorkada Depot",
+                "name_ml": "പേരൂർക്കട ഡിപ്പോ"
+            },
+            "geometry": {
+                "coordinates": [76.96754415, 8.534727325],
+                "type": "Point"
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "name": "Peroorkada",
+                "name_ml": "പേരൂർക്കട"
+            },
+            "geometry": {
+                "coordinates": [76.96670328, 8.536747203],
+                "type": "Point"
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "name": "Ambalamukku",
+                "name_ml": "അമ്പലമുക്ക്"
+            },
+            "geometry": {
+                "coordinates": [76.9613472, 8.530971131],
+                "type": "Point"
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "name": "Kowdiar",
+                "name_ml": "കവടിയാർ"
+            },
+            "geometry": {
+                "coordinates": [76.96001146, 8.522053212],
+                "type": "Point"
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "name": "Kuravankonam",
+                "name_ml": "കുറവങ്കോണം"
+            },
+            "geometry": {
+                "coordinates": [76.95234571, 8.523114248],
+                "type": "Point"
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "name": "Pattom",
+                "name_ml": "പട്ടം"
+            },
+            "geometry": {
+                "coordinates": [76.94275949, 8.518318341],
+                "type": "Point"
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "name": "Plamoodu",
+                "name_ml": "പ്ലാമൂട്"
+            },
+            "geometry": {
+                "coordinates": [76.94594776, 8.514274184],
+                "type": "Point"
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "name": "PMG",
+                "name_ml": "പിഎംജി"
+            },
+            "geometry": {
+                "coordinates": [76.94940244, 8.509048431],
+                "type": "Point"
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "name": "LMS",
+                "name_ml": "എൽഎംഎസ്"
+            },
+            "geometry": {
+                "coordinates": [76.95209538, 8.507419679],
+                "type": "Point"
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "name": "Bakery",
+                "name_ml": "ബേക്കറി"
+            },
+            "geometry": {
+                "coordinates": [76.95397293, 8.500586273],
+                "type": "Point"
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "name": "Model School",
+                "name_ml": "മോഡൽ സ്‌കൂൾ"
+            },
+            "geometry": {
+                "coordinates": [76.95405876, 8.493848246],
+                "type": "Point"
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "name": "Aristo",
+                "name_ml": "അരിസ്റ്റോ"
+            },
+            "geometry": {
+                "coordinates": [76.95395147, 8.489317255],
+                "type": "Point"
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "name": "Thampanoor",
+                "name_ml": "തമ്പാനൂർ"
+            },
+            "geometry": {
+                "coordinates": [76.95017492, 8.487778615],
+                "type": "Point"
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "name": "Statue BSNL",
+                "name_ml": "സ്റ്റാച്യു ബിഎസ്എൻഎൽ"
+            },
+            "geometry": {
+                "coordinates": [76.94747125, 8.492946297],
+                "type": "Point"
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "name": "Statue SBI",
+                "name_ml": "സ്റ്റാച്യു എസ്ബിഐ"
+            },
+            "geometry": {
+                "coordinates": [76.94858705, 8.498941569],
+                "type": "Point"
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "name": "Palayam",
+                "name_ml": "പാളയം"
+            },
+            "geometry": {
+                "coordinates": [76.9510976, 8.504480481],
+                "type": "Point"
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "name": "Niyamasabha",
+                "name_ml": "നിയമസഭ"
+            },
+            "geometry": {
+                "coordinates": [76.95049678, 8.506740588],
+                "type": "Point"
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "name": "LMS",
+                "name_ml": "എൽഎംഎസ്"
+            },
+            "geometry": {
+                "coordinates": [76.95070706, 8.508888417],
+                "type": "Point"
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "name": "Museum",
+                "name_ml": "മ്യൂസിയം"
+            },
+            "geometry": {
+                "coordinates": [76.95404373, 8.508410934],
+                "type": "Point"
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "name": "Vellayamabalam",
+                "name_ml": "വെള്ളയമ്പലം"
+            },
+            "geometry": {
+                "coordinates": [76.9621942, 8.511914541],
+                "type": "Point"
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "name": "TTC",
+                "name_ml": "ടിടിസി"
+            },
+            "geometry": {
+                "coordinates": [76.96062242, 8.519548834],
+                "type": "Point"
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "name": "Kowdiar",
+                "name_ml": "കവടിയാർ"
+            },
+            "geometry": {
+                "coordinates": [76.96045613, 8.522615241],
+                "type": "Point"
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "name": "Ambalamukku",
+                "name_ml": "അമ്പലമുക്ക്"
+            },
+            "geometry": {
+                "coordinates": [76.96223175, 8.532557021],
+                "type": "Point"
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "name": "Peroorkada Depot",
+                "name_ml": "പേരൂർക്കട ഡിപ്പോ"
+            },
+            "geometry": {
+                "coordinates": [76.96754415, 8.534727325],
+                "type": "Point"
+            }
+        }
+    ]
+}

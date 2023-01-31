@@ -1,11 +1,11 @@
-import circularMeta from "@/constants/circulars";
+import { meta } from "@/constants/circulars";
 import { filterNullValues, rotateArray } from "@/utils/arrayUtils";
 import {
     CircularName,
-    circulars,
     Coordinates,
     getAllStopDetails,
     getCircularCoordinates,
+    getCirculars,
     getStopDetails,
 } from "@/utils/geoJson";
 import { Profile } from "@/utils/mapbox-api";
@@ -44,7 +44,8 @@ export const findNearestStop = (
     return nearestStop;
 };
 
-const findNearbyStops = (coordinates: Coordinates) => {
+const findNearbyStops = (coordinates: Coordinates, maxDistance?: number) => {
+    const circulars = getCirculars();
     const circularNames = Object.keys(circulars) as CircularName[];
     const nearestStopsFromAllCirculars = circularNames.map((circularName) => {
         const circular = circulars[circularName];
@@ -54,6 +55,8 @@ const findNearbyStops = (coordinates: Coordinates) => {
         );
 
         if (!nearestStop) return null;
+
+        if (maxDistance && nearestStop.distance > maxDistance) return null; // FIXME: not working as expected
 
         return {
             circularName: circularName,
@@ -77,15 +80,30 @@ const findShortestPath = (
     destination: Coordinates,
     coordinates: Coordinates[]
 ) => {
+    console.log(
+        getStopDetails([from])[0].name,
+        ": TO :",
+        getStopDetails([destination])[0].name
+    );
+    console.log(
+        "coordinates: ",
+        getStopDetails(coordinates).map((s) => s.name)
+    );
+
     const firstStop = findNearestStop(from, coordinates);
     if (!firstStop) return [];
 
-    let adjustedCoordinates = rotateArray(coordinates, firstStop?.index);
+    // coordinates = rotateArray(coordinates, firstStop?.index); // FIXME: consider anticlockwise path
 
-    const lastStop = findNearestStop(destination, adjustedCoordinates);
+    const lastStop = findNearestStop(destination, coordinates);
     if (!lastStop) return [];
 
-    const stops = adjustedCoordinates.slice(0, lastStop.index + 1);
+    // Invalid route
+    // if (lastStop.index < firstStop.index) return [];
+
+    let stops = coordinates.slice(0, lastStop.index + 1);
+
+    console.log(getStopDetails(stops).map((s) => s.name));
 
     return stops;
 };
@@ -93,30 +111,27 @@ const findShortestPath = (
 const getOptimizedSegmentStops = (
     from: Coordinates,
     destination: Coordinates,
-    coordinates: Coordinates[]
+    circularName: CircularName
 ) => {
-    const clockwisePath = findShortestPath(from, destination, coordinates);
-    const counterClockwisePath = findShortestPath(
-        destination,
-        from,
-        coordinates
-    );
+    const cwCoordinates = getCircularCoordinates(circularName);
+    const acwCoordinates = getCircularCoordinates(circularName, false);
+    const cwPath = findShortestPath(from, destination, cwCoordinates);
+    const acwPath = findShortestPath(from, destination, acwCoordinates);
 
     const isClockwiseShorter =
-        clockwisePath.length < counterClockwisePath.length;
-    let optimizedStops = isClockwiseShorter
-        ? clockwisePath
-        : counterClockwisePath;
+        !!cwPath.length && cwPath.length < acwPath.length;
+    let stops = isClockwiseShorter ? cwPath : acwPath;
 
-    const isWrongDirection =
-        optimizedStops[0] !== from &&
-        optimizedStops[optimizedStops.length - 1] !== destination;
-    optimizedStops = isWrongDirection
-        ? optimizedStops.reverse()
-        : optimizedStops;
+    // const isWrongDirection =
+    //     stops[0] !== from && stops[stops.length - 1] !== destination;
+    // stops = isWrongDirection ? stops.reverse() : stops;
+    // console.log(
+    //     "finalStops",
+    //     getStopDetails(stops).map((s) => s.name)
+    // );
 
     return {
-        stops: optimizedStops,
+        stops: stops,
         isClockwise: isClockwiseShorter,
     };
 };
@@ -184,10 +199,37 @@ const findNearestJunction = (
     return nearest.coordinates;
 };
 
-const getOptimizedStops = (from: Coordinates, destination: Coordinates) => {
+const bruteForceRoutes = (from: Coordinates, destination: Coordinates) => {
+    const fromStops = findNearbyStops(from, 250);
+    const destinationStops = findNearbyStops(destination, 250);
+
+    const stopOptions: ReturnType<typeof getOptimizedStops>[] = [];
+    fromStops.forEach((fromStop) => {
+        destinationStops.forEach((destinationStop) => {
+            const stops = getOptimizedStops(fromStop, destinationStop);
+            if (stops.flatMap((segment) => segment.stops).length)
+                stopOptions.push(stops);
+        });
+    });
+
+    // shortest route based on number of stops
+    // TODO: walking distance to the stop
+    const shortestRoute = stopOptions.reduce((acc, curr) => {
+        const isShorter =
+            curr.flatMap((s) => s.stops).length <
+            acc.flatMap((s) => s.stops).length;
+
+        return isShorter ? curr : acc;
+    }, stopOptions[0]);
+
+    return shortestRoute;
+};
+
+const getOptimizedStops = (
+    fromStop: ReturnType<typeof findNearbyStops>[number],
+    destinationStop: ReturnType<typeof findNearbyStops>[number]
+) => {
     // find nearby stop and circular
-    const fromStop = findNearbyStops(from)[0];
-    const destinationStop = findNearbyStops(destination)[0];
     if (!fromStop || !destinationStop) return [];
 
     const requiredCirculars = [fromStop];
@@ -236,11 +278,10 @@ const getOptimizedStops = (from: Coordinates, destination: Coordinates) => {
     });
 
     const segmentStops = segments.map(({ circularName, from, destination }) => {
-        const coordinates = getCircularCoordinates(circularName);
         const stopSegments = getOptimizedSegmentStops(
             from,
             destination,
-            coordinates
+            circularName
         );
 
         return {
@@ -267,7 +308,7 @@ export const generateRouteSegments = (
             name: CircularName;
             isClockwise: boolean;
         };
-    }[] = getOptimizedStops(from.coords, destination.coords).map((segment) => ({
+    }[] = bruteForceRoutes(from.coords, destination.coords)?.map((segment) => ({
         ...segment,
         profile: "driving",
     }));
@@ -307,13 +348,16 @@ export const generateRouteSegments = (
 };
 
 export const getCircularDetails = (name: CircularName, isClockwise = true) => {
-    const allCirculars = circularMeta.meta.map((circular) => ({
+    const allCirculars = meta.map((circular) => ({
         ...circular,
-        name: circular.name.toLowerCase(),
+        name: circular.name.toLowerCase().replace("-", ""),
     }));
 
     const circularDetails = allCirculars.find((circular) => {
-        return circular.name == name && circular.isClockwise == isClockwise;
+        return (
+            circular.name == name.toLowerCase() &&
+            circular.isClockwise == isClockwise
+        );
     });
 
     return circularDetails;

@@ -1,0 +1,445 @@
+{
+    "type": "FeatureCollection",
+    "features": [
+        {
+            "type": "Feature",
+            "properties": {
+                "name": "East Fort",
+                "name_ml": "കിഴക്കേകോട്ട"
+            },
+            "geometry": {
+                "coordinates": [76.94780697, 8.483829752],
+                "type": "Point"
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "name": "Attakulangara",
+                "name_ml": "അട്ടകുളങ്ങര"
+            },
+            "geometry": {
+                "coordinates": [76.94923595, 8.479665395],
+                "type": "Point"
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "name": "Choorakattu",
+                "name_ml": "ചൂരക്കാട്ട്"
+            },
+            "geometry": {
+                "coordinates": [76.95239695, 8.479608608],
+                "type": "Point"
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "name": "Killipalam",
+                "name_ml": "കിള്ളിപ്പാലം"
+            },
+            "geometry": {
+                "coordinates": [76.956904, 8.481201796],
+                "type": "Point"
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "name": "Karamana - PRS",
+                "name_ml": "കരമന - പിആർഎസ്"
+            },
+            "geometry": {
+                "coordinates": [76.95944619, 8.481507813],
+                "type": "Point"
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "name": "Kailas Jn",
+                "name_ml": "കൈലാസ് ജം."
+            },
+            "geometry": {
+                "coordinates": [76.96165346, 8.481233344],
+                "type": "Point"
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "name": "Karamana",
+                "name_ml": "കരമന"
+            },
+            "geometry": {
+                "coordinates": [76.96636784, 8.482271278],
+                "type": "Point"
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "name": "Kunchallumood",
+                "name_ml": "കുഞ്ചാലുംമൂട്"
+            },
+            "geometry": {
+                "coordinates": [76.97168508, 8.485413458],
+                "type": "Point"
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "name": "Pareeksha Bhavan",
+                "name_ml": "പരീക്ഷ ഭവൻ"
+            },
+            "geometry": {
+                "coordinates": [76.97287509, 8.490038145],
+                "type": "Point"
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "name": "Poojapura",
+                "name_ml": "പൂജപ്പുര"
+            },
+            "geometry": {
+                "coordinates": [76.97478891, 8.493054072],
+                "type": "Point"
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "name": "Chengalloor - HLL",
+                "name_ml": "ചെങ്ങല്ലൂർ - എച്എൽഎൽ"
+            },
+            "geometry": {
+                "coordinates": [76.97899294, 8.496189854],
+                "type": "Point"
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "name": "Rotary",
+                "name_ml": "റോട്ടറി"
+            },
+            "geometry": {
+                "coordinates": [76.9805846, 8.496943826],
+                "type": "Point"
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "name": "Vijayamohini Mill",
+                "name_ml": "വിജയമോഹിനി മിൽ"
+            },
+            "geometry": {
+                "coordinates": [76.9856945, 8.498073204],
+                "type": "Point"
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "name": "Tirumala - Pallikukk",
+                "name_ml": "തിരുമല - പള്ളിമുക്ക്"
+            },
+            "geometry": {
+                "coordinates": [76.98836428, 8.500347723],
+                "type": "Point"
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "name": "Tirumala",
+                "name_ml": "തിരുമല"
+            },
+            "geometry": {
+                "coordinates": [76.99276926, 8.502985012],
+                "type": "Point"
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "name": "Arayalloor",
+                "name_ml": "അരയല്ലൂർ"
+            },
+            "geometry": {
+                "coordinates": [76.99472455, 8.506291062],
+                "type": "Point"
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "name": "Valiyavila",
+                "name_ml": "വലിയവിള"
+            },
+            "geometry": {
+                "coordinates": [76.998246, 8.507202302],
+                "type": "Point"
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "name": "Elippode",
+                "name_ml": "ഇലിപ്പോട്"
+            },
+            "geometry": {
+                "coordinates": [76.99461293, 8.509473612],
+                "type": "Point"
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "name": "Elippode - Market",
+                "name_ml": "ഇലിപ്പോട് മാർക്കറ്റ്"
+            },
+            "geometry": {
+                "coordinates": [76.99094796, 8.508817457],
+                "type": "Point"
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "name": "Vettamukk",
+                "name_ml": "വേട്ടമുക്ക്"
+            },
+            "geometry": {
+                "coordinates": [76.98755093, 8.508574553],
+                "type": "Point"
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "name": "Nirmithi Kendram",
+                "name_ml": "നിർമ്മിതി കേന്ദ്രം"
+            },
+            "geometry": {
+                "coordinates": [76.98768808, 8.510763836],
+                "type": "Point"
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "name": "PTP Nagar",
+                "name_ml": "പി ടി പി നഗർ"
+            },
+            "geometry": {
+                "coordinates": [76.987653, 8.51281746],
+                "type": "Point"
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "name": "Forest Office (PTP Nagar)",
+                "name_ml": "ഫോറെസ്റ്റ് ഓഫീസ് (പി ടി പി നഗർ)"
+            },
+            "geometry": {
+                "coordinates": [76.98550633, 8.513208626],
+                "type": "Point"
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "name": "Padayani Road",
+                "name_ml": "പടയണി റോഡ്"
+            },
+            "geometry": {
+                "coordinates": [76.98134377, 8.513584018],
+                "type": "Point"
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "name": "Maruthamkuzhi",
+                "name_ml": "മരുതംകുഴി"
+            },
+            "geometry": {
+                "coordinates": [76.97808708, 8.512953107],
+                "type": "Point"
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "name": "Sri Ramakrishna Hospital",
+                "name_ml": "ശ്രീരാമകൃഷ്ണ ഹോസ്പിറ്റൽ"
+            },
+            "geometry": {
+                "coordinates": [76.97339822, 8.513334808],
+                "type": "Point"
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "name": "Sasthamangalam",
+                "name_ml": "ശാസ്തമംഗലം"
+            },
+            "geometry": {
+                "coordinates": [76.97139508, 8.51227803],
+                "type": "Point"
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "name": "Alakapuri Convention Centre",
+                "name_ml": "അളകാപുരി കൺവെൻഷൻ സെന്റർ"
+            },
+            "geometry": {
+                "coordinates": [76.9706589, 8.507748968],
+                "type": "Point"
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "name": "Idappazhinji",
+                "name_ml": "ഇടപ്പഴഞ്ഞി"
+            },
+            "geometry": {
+                "coordinates": [76.9694688, 8.505135877],
+                "type": "Point"
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "name": "Jagathy Govt. High School",
+                "name_ml": "ജഗതി ഗവ.ഹൈ സ്‌കൂൾ"
+            },
+            "geometry": {
+                "coordinates": [76.96817767, 8.500679172],
+                "type": "Point"
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "name": "Jagathi",
+                "name_ml": "ജഗതി"
+            },
+            "geometry": {
+                "coordinates": [76.96371684, 8.493933674],
+                "type": "Point"
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "name": "Ananthapuri Auditorium",
+                "name_ml": "അനന്തപുരി ഓഡിറ്റോറിയം"
+            },
+            "geometry": {
+                "coordinates": [76.96342976, 8.492810593],
+                "type": "Point"
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "name": "Kannettumukk",
+                "name_ml": "കണ്ണേറ്റുമുക്ക്"
+            },
+            "geometry": {
+                "coordinates": [76.96126897, 8.4908025],
+                "type": "Point"
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "name": "Shanthi Kavadam",
+                "name_ml": "ശാന്തി കവാടം"
+            },
+            "geometry": {
+                "coordinates": [76.96146992, 8.489054769],
+                "type": "Point"
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "name": "Valiyashala",
+                "name_ml": "വലിയശാല"
+            },
+            "geometry": {
+                "coordinates": [76.96104412, 8.486695685],
+                "type": "Point"
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "name": "Valiyashala - mahadeva temple",
+                "name_ml": "വലിയശാല മഹാദേവ ക്ഷേത്രം"
+            },
+            "geometry": {
+                "coordinates": [76.95773762, 8.483514604],
+                "type": "Point"
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "name": "Chenthitta",
+                "name_ml": "ചെന്തിട്ട"
+            },
+            "geometry": {
+                "coordinates": [76.95662158, 8.48411439],
+                "type": "Point"
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "name": "Thampanoor -railway station",
+                "name_ml": "തമ്പാനൂർ റെയിൽവേ സ്റ്റേഷൻ"
+            },
+            "geometry": {
+                "coordinates": [76.95233583, 8.487429148],
+                "type": "Point"
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "name": "Thampanoor - RMS",
+                "name_ml": "തമ്പാനൂർ ആർഎംഎസ്"
+            },
+            "geometry": {
+                "coordinates": [76.95016157, 8.487781608],
+                "type": "Point"
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "name": "East Fort",
+                "name_ml": "കിഴക്കേകോട്ട"
+            },
+            "geometry": {
+                "coordinates": [76.94780236, 8.483824225],
+                "type": "Point"
+            }
+        }
+    ]
+}

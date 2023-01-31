@@ -1,5 +1,38 @@
+import airRailAcwCircular from "@/constants/air-rail-acw.json";
+import airRailCircular from "@/constants/air-rail.json";
+import blueAcwCircular from "@/constants/blue-acw.json";
+import blueCircular from "@/constants/blue.json";
+import brownAcwCircular from "@/constants/brown-acw.json";
+import brownCircular from "@/constants/brown.json";
+import greenAcwCircular from "@/constants/green-acw.json";
+import greenCircular from "@/constants/green.json";
+import magentaAcwCircular from "@/constants/magenta-acw.json";
+import magentaCircular from "@/constants/magenta.json";
+import redAcwCircular from "@/constants/red-acw.json";
+import redCircular from "@/constants/red.json";
+
+// * Register all circulars here
+const circulars = {
+    blue: blueCircular,
+    red: redCircular,
+    green: greenCircular,
+    magenta: magentaCircular,
+    brown: brownCircular,
+    airRail: airRailCircular,
+};
+
+// * Register all ACW circulars here
+export const acwCirculars = {
+    blue: blueAcwCircular,
+    red: redAcwCircular,
+    green: greenAcwCircular,
+    magenta: magentaAcwCircular,
+    brown: brownAcwCircular,
+    airRail: airRailAcwCircular,
+};
+
 // may integrate this details in geojson file
-const meta = [
+export const meta = [
     {
         id: "1A",
         label: "Red - ACW",
@@ -114,4 +147,4 @@ const meta = [
     },
 ];
 
-export default { meta };
+export default circulars;

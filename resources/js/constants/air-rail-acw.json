@@ -1,0 +1,467 @@
+{
+    "type": "FeatureCollection",
+    "features": [
+        {
+            "type": "Feature",
+            "properties": {
+                "name": "East Fort",
+                "name_ml": "കിഴക്കേക്കോട്ട"
+            },
+            "geometry": {
+                "coordinates": [76.94743809, 8.483173106],
+                "type": "Point"
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "name": "Thamapanoor Railway Station",
+                "name_ml": "തമ്പാനൂർ റെയിൽവേ സ്റ്റേഷൻ"
+            },
+            "geometry": {
+                "coordinates": [76.95233893, 8.487423776],
+                "type": "Point"
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "name": "Thamapanoor Railway parcel gate",
+                "name_ml": "തമ്പാനൂർ പാർസൽ ഗേറ്റ്"
+            },
+            "geometry": {
+                "coordinates": [76.95077233, 8.487705151],
+                "type": "Point"
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "name": "Thamapanoor RMS",
+                "name_ml": "തമ്പാനൂർ ആർഎംഎസ്"
+            },
+            "geometry": {
+                "coordinates": [76.95015783, 8.487780185],
+                "type": "Point"
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "name": "Ayurveda College Jn",
+                "name_ml": "ആയുർവേദ കോളേജ് ജം."
+            },
+            "geometry": {
+                "coordinates": [76.94706636, 8.490762751],
+                "type": "Point"
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "name": "Statue",
+                "name_ml": "സ്റ്റാച്യു"
+            },
+            "geometry": {
+                "coordinates": [76.94839778, 8.497767002],
+                "type": "Point"
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "name": "VJT",
+                "name_ml": "വിജെടി"
+            },
+            "geometry": {
+                "coordinates": [76.94938781, 8.502568986],
+                "type": "Point"
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "name": "Kerala University",
+                "name_ml": "കേരള യൂണിവേർസിറ്റി"
+            },
+            "geometry": {
+                "coordinates": [76.94823846, 8.502955393],
+                "type": "Point"
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "name": "General Hospital",
+                "name_ml": "ജനറൽ ഹോസ്പിറ്റൽ"
+            },
+            "geometry": {
+                "coordinates": [76.94298865, 8.499275132],
+                "type": "Point"
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "name": "Govt. Eye Hospital",
+                "name_ml": "ഗവ.കണ്ണാശുപത്രി"
+            },
+            "geometry": {
+                "coordinates": [76.94070893, 8.499211355],
+                "type": "Point"
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "name": "Pattoor",
+                "name_ml": "പാറ്റൂർ"
+            },
+            "geometry": {
+                "coordinates": [76.93744297, 8.497684468],
+                "type": "Point"
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "name": "Petta - Pallimukk",
+                "name_ml": "പേട്ട - പള്ളിമുക്ക്"
+            },
+            "geometry": {
+                "coordinates": [76.93236006, 8.496547739],
+                "type": "Point"
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "name": "Petta - KEPCO",
+                "name_ml": "പേട്ട - കെപ്കോ"
+            },
+            "geometry": {
+                "coordinates": [76.92914341, 8.494829509],
+                "type": "Point"
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "name": "Chackka",
+                "name_ml": "ചാക്ക"
+            },
+            "geometry": {
+                "coordinates": [76.92372291, 8.492394712],
+                "type": "Point"
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "name": "Ananthapuri Hospital",
+                "name_ml": "അനന്തപുരി ഹോസ്പിറ്റൽ"
+            },
+            "geometry": {
+                "coordinates": [76.92826718, 8.48629452],
+                "type": "Point"
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "name": "Airport - International",
+                "name_ml": "എയർപോർട്ട് - ഇന്റർനാഷണൽ"
+            },
+            "geometry": {
+                "coordinates": [76.9256271, 8.488793135],
+                "type": "Point"
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "name": "Airport - International Terminal",
+                "name_ml": "എയർപോർട്ട് - ഇന്റർനാഷണൽ ടെർമിനൽ"
+            },
+            "geometry": {
+                "coordinates": [76.92254846, 8.487893694],
+                "type": "Point"
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "name": "ITI - Chakkai",
+                "name_ml": "ഐടിഐ - ചാക്ക"
+            },
+            "geometry": {
+                "coordinates": [76.91726685, 8.489791075],
+                "type": "Point"
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "name": "Brahmose Aerospace",
+                "name_ml": "ബ്രഹ്മോസ് ഏറോസ്പേസ്"
+            },
+            "geometry": {
+                "coordinates": [76.91286672, 8.491242961],
+                "type": "Point"
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "name": "Mathilakam",
+                "name_ml": "മതിലകം"
+            },
+            "geometry": {
+                "coordinates": [76.9103632, 8.493974143],
+                "type": "Point"
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "name": "All Saints College",
+                "name_ml": "ആൾ സെയിന്റ്സ് കോളേജ്"
+            },
+            "geometry": {
+                "coordinates": [76.9086259, 8.495493542],
+                "type": "Point"
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "name": "All Saints Church",
+                "name_ml": "ആൾ സെയിന്റ്സ് ചർച്ച്"
+            },
+            "geometry": {
+                "coordinates": [76.90709345, 8.494791993],
+                "type": "Point"
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "name": "Juma Masjid",
+                "name_ml": "ജുമാ മസ്ജിദ്"
+            },
+            "geometry": {
+                "coordinates": [76.90617169, 8.493430159],
+                "type": "Point"
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "name": "Rajeev Nagar",
+                "name_ml": "രാജീവ് നഗർ"
+            },
+            "geometry": {
+                "coordinates": [76.90842866, 8.491711916],
+                "type": "Point"
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "name": "GV Raja",
+                "name_ml": "ജിവി രാജ"
+            },
+            "geometry": {
+                "coordinates": [76.91128458, 8.488536495],
+                "type": "Point"
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "name": "Shanghumugham",
+                "name_ml": "ശംഖുമുഖം"
+            },
+            "geometry": {
+                "coordinates": [76.91283178, 8.480743693],
+                "type": "Point"
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "name": "Aircargo - Shanghumugham",
+                "name_ml": "എയർ കാർഗോ - ശംഖുമുഖം"
+            },
+            "geometry": {
+                "coordinates": [76.91333721, 8.477652117],
+                "type": "Point"
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "name": "Valiya Thoppe",
+                "name_ml": "വലിയത്തോപ്പ്"
+            },
+            "geometry": {
+                "coordinates": [76.91722526, 8.475911292],
+                "type": "Point"
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "name": "Airport - Domestic",
+                "name_ml": "എയർ പോർട്ട് (ഡൊമസ്റ്റിക്)"
+            },
+            "geometry": {
+                "coordinates": [76.91974396, 8.474812017],
+                "type": "Point"
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "name": "Kochuthopp",
+                "name_ml": "കൊച്ചുതോപ്പ്"
+            },
+            "geometry": {
+                "coordinates": [76.92271821, 8.47157093],
+                "type": "Point"
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "name": "FCI ware house",
+                "name_ml": "എഫ്‌സിഐ  വെയർഹൌസ്"
+            },
+            "geometry": {
+                "coordinates": [76.92288459, 8.471253173],
+                "type": "Point"
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "name": "Kuzhivilakam",
+                "name_ml": "കുഴിവിളാകം"
+            },
+            "geometry": {
+                "coordinates": [76.9245612, 8.465925535],
+                "type": "Point"
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "name": "Valiyathura",
+                "name_ml": "വലിയതുറ"
+            },
+            "geometry": {
+                "coordinates": [76.9256762, 8.464472103],
+                "type": "Point"
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "name": "Bangladesh Colony",
+                "name_ml": "ബംഗ്ലാദേശ് കോളനി"
+            },
+            "geometry": {
+                "coordinates": [76.93030244, 8.466718686],
+                "type": "Point"
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "name": "Priyadarshini Nagar",
+                "name_ml": "പ്രിയദർശിനി നഗർ"
+            },
+            "geometry": {
+                "coordinates": [76.93172869, 8.467379016],
+                "type": "Point"
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "name": "Ponnara School",
+                "name_ml": "പൊന്നറ സ്‌കൂൾ"
+            },
+            "geometry": {
+                "coordinates": [76.93420946, 8.468763453],
+                "type": "Point"
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "name": "Kallumoodu",
+                "name_ml": "കല്ലുമൂട്"
+            },
+            "geometry": {
+                "coordinates": [76.9358633, 8.469626379],
+                "type": "Point"
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "name": "Parambil Nagar",
+                "name_ml": "പറമ്പിൽ നഗർ"
+            },
+            "geometry": {
+                "coordinates": [76.93831372, 8.470403011],
+                "type": "Point"
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "name": "Mukkolakkal Temple",
+                "name_ml": "മുക്കോലയ്ക്കൽ ക്ഷേത്രം"
+            },
+            "geometry": {
+                "coordinates": [76.94214866, 8.473336939],
+                "type": "Point"
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "name": "Manacaud",
+                "name_ml": "മണക്കാട്"
+            },
+            "geometry": {
+                "coordinates": [76.94700777, 8.475182826],
+                "type": "Point"
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "name": "East Fort",
+                "name_ml": "കിഴക്കേക്കോട്ട"
+            },
+            "geometry": {
+                "coordinates": [76.94754599, 8.484003796],
+                "type": "Point"
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "name": "Thampanoor Railway Station",
+                "name_ml": "തമ്പാനൂർ റെയിൽവേ സ്റ്റേഷൻ"
+            },
+            "geometry": {
+                "coordinates": [76.95144343, 8.487903178],
+                "type": "Point"
+            }
+        }
+    ]
+}

@@ -1,0 +1,258 @@
+{
+    "type": "FeatureCollection",
+    "features": [
+        {
+            "type": "Feature",
+            "properties": {
+                "name": "East Fort",
+                "name_ml": "കിഴക്കേകോട്ട"
+            },
+            "geometry": {
+                "coordinates": [76.94744469, 8.483168525],
+                "type": "Point"
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "name": "Thampanoor KTDC Chaithram",
+                "name_ml": "തമ്പാനൂർ കെടിഡിസി ചൈത്രം"
+            },
+            "geometry": {
+                "coordinates": [76.95006581, 8.487981946],
+                "type": "Point"
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "name": "Thampanoor - Bus stand",
+                "name_ml": "തമ്പാനൂർ ബസ് സ്റ്റാൻഡ്"
+            },
+            "geometry": {
+                "coordinates": [76.95158309, 8.487835631],
+                "type": "Point"
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "name": "Thycaud Hospital",
+                "name_ml": "തൈക്കാട് ഹോസ്പിറ്റൽ"
+            },
+            "geometry": {
+                "coordinates": [76.95642324, 8.487437954],
+                "type": "Point"
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "name": "Mettukada",
+                "name_ml": "മേട്ടുക്കട"
+            },
+            "geometry": {
+                "coordinates": [76.95762189, 8.490180418],
+                "type": "Point"
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "name": "Govt.Arts College",
+                "name_ml": "ഗവ. ആർട്സ് കോളേജ്"
+            },
+            "geometry": {
+                "coordinates": [76.95602874, 8.493121698],
+                "type": "Point"
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "name": "Vazhuthacaud",
+                "name_ml": "വഴുതക്കാട്"
+            },
+            "geometry": {
+                "coordinates": [76.95748316, 8.498009759],
+                "type": "Point"
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "name": "Police Headquarters",
+                "name_ml": "പോലീസ് ഹെഡ്ക്വാർട്ടേഴ്‌സ്"
+            },
+            "geometry": {
+                "coordinates": [76.96184165, 8.507059673],
+                "type": "Point"
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "name": "Kanakakunnu",
+                "name_ml": "കനകക്കുന്ന്"
+            },
+            "geometry": {
+                "coordinates": [76.95758544, 8.509315292],
+                "type": "Point"
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "name": "Museum",
+                "name_ml": "മ്യൂസിയം"
+            },
+            "geometry": {
+                "coordinates": [76.95531899, 8.508079183],
+                "type": "Point"
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "name": "PMG",
+                "name_ml": "പി എം ജി"
+            },
+            "geometry": {
+                "coordinates": [76.94976709, 8.50844478],
+                "type": "Point"
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "name": "Vikas Bhavan Depot",
+                "name_ml": "വികാസ് ഭവൻ ഡിപ്പോ"
+            },
+            "geometry": {
+                "coordinates": [76.94693166, 8.508544194],
+                "type": "Point"
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "name": "PMG",
+                "name_ml": "പി എം ജി"
+            },
+            "geometry": {
+                "coordinates": [76.94939656, 8.509053651],
+                "type": "Point"
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "name": "Niyamasabha",
+                "name_ml": "നിയമസഭ"
+            },
+            "geometry": {
+                "coordinates": [76.95052489, 8.506736604],
+                "type": "Point"
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "name": "Palayam - sabhalyam",
+                "name_ml": "പാളയം സാഫല്യം"
+            },
+            "geometry": {
+                "coordinates": [76.95028692, 8.502549805],
+                "type": "Point"
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "name": "VJT",
+                "name_ml": "വി ജെ ടി"
+            },
+            "geometry": {
+                "coordinates": [76.94936114, 8.502687385],
+                "type": "Point"
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "name": "Kerala University",
+                "name_ml": "കേരളാ യൂണിവേഴ്സിറ്റി"
+            },
+            "geometry": {
+                "coordinates": [76.94845187, 8.503690116],
+                "type": "Point"
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "name": "Palayam - sabhalyam",
+                "name_ml": "പാളയം സാഫല്യം"
+            },
+            "geometry": {
+                "coordinates": [76.95028692, 8.502549805],
+                "type": "Point"
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "name": "Statue - secretariat",
+                "name_ml": "സ്റ്റാച്യു - സെക്രട്ടറിയേറ്റ്"
+            },
+            "geometry": {
+                "coordinates": [76.94855003, 8.497439268],
+                "type": "Point"
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "name": "Ayurveda College",
+                "name_ml": "ആയുർവേദ കോളേജ്"
+            },
+            "geometry": {
+                "coordinates": [76.9472802, 8.491487713],
+                "type": "Point"
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "name": "Overbridge - SMV",
+                "name_ml": "ഓവർബ്രിഡ്ജ് - എസ്എംവി"
+            },
+            "geometry": {
+                "coordinates": [76.94755086, 8.489339509],
+                "type": "Point"
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "name": "Thampanoor",
+                "name_ml": "തമ്പാനൂർ"
+            },
+            "geometry": {
+                "coordinates": [76.95158588, 8.487824828],
+                "type": "Point"
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "name": "East Fort North",
+                "name_ml": "കിഴക്കേകോട്ട നോർത്ത്"
+            },
+            "geometry": {
+                "coordinates": [76.94780823, 8.483816033],
+                "type": "Point"
+            }
+        }
+    ]
+}

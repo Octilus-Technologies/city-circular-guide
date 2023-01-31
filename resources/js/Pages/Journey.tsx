@@ -3,7 +3,7 @@ import BusRouteMap from "@/Components/map/BusRouteMap";
 import DestinationMarker from "@/Components/map/DestinationMarker";
 import FromMarker from "@/Components/map/FromMarker";
 import SideBar from "@/Components/SideBar";
-import { circulars, Coordinates } from "@/utils/geoJson";
+import { Coordinates, getCirculars } from "@/utils/geoJson";
 import useJourney from "@/utils/hooks/useJourney";
 import useViewState from "@/utils/hooks/useViewState";
 import { Inertia } from "@inertiajs/inertia";
@@ -79,9 +79,10 @@ function Journey({
     return (
         <div className="h-full max-h-[100dvh] min-h-[100dvh] w-full flex-row-reverse">
             <section className="map-container flex flex-1">
+                {/* TODO: Send specific stops to render */}
                 <BusRouteMap
                     segments={segments}
-                    circulars={circulars}
+                    circulars={getCirculars(false)}
                     {...viewState}
                     onMove={(evt) => setViewState(evt.viewState)}
                     mapboxAccessToken={mapAccessToken}

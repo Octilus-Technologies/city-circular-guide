@@ -59,13 +59,6 @@ function BusRouteMap({
             if (!nearestStop || nearestStop.distance > 50) return;
 
             const stop = getStopDetails([nearestStop.coordinates])[0];
-            stop.circulars.push(
-                ...getStopDetails(
-                    [nearestStop.coordinates],
-                    undefined,
-                    false
-                )[0].circulars
-            );
             console.log("stop", stop);
 
             // Make sure the popup is hidden before showing it again

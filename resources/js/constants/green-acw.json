@@ -1,0 +1,412 @@
+{
+    "type": "FeatureCollection",
+    "features": [
+        {
+            "type": "Feature",
+            "properties": {
+                "name": "Eastfort",
+                "name_ml": "കിഴക്കേകോട്ട"
+            },
+            "geometry": {
+                "coordinates": [76.9474308, 8.483162306],
+                "type": "Point"
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "name": "Thampanoor - KTDC Chaithram",
+                "name_ml": "തമ്പാനൂർ -കെടിഡിസി ചൈത്രം"
+            },
+            "geometry": {
+                "coordinates": [76.95005668, 8.487966612],
+                "type": "Point"
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "name": "Thampanoor",
+                "name_ml": "തമ്പാനൂർ"
+            },
+            "geometry": {
+                "coordinates": [76.95158018, 8.487839276],
+                "type": "Point"
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "name": "Thampanoor - RMS",
+                "name_ml": "തമ്പാനൂർ - ആർഎംഎസ്"
+            },
+            "geometry": {
+                "coordinates": [76.95015861, 8.487775608],
+                "type": "Point"
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "name": "Ayurveda college",
+                "name_ml": "ആയുർവേദ കോളേജ്"
+            },
+            "geometry": {
+                "coordinates": [76.94705529, 8.490778602],
+                "type": "Point"
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "name": "Statue - BSNL",
+                "name_ml": "സ്റ്റാച്യു"
+            },
+            "geometry": {
+                "coordinates": [76.94745494, 8.49292472],
+                "type": "Point"
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "name": "Palayam",
+                "name_ml": "പാളയം"
+            },
+            "geometry": {
+                "coordinates": [76.95111616, 8.504496042],
+                "type": "Point"
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "name": "LMS",
+                "name_ml": "എൽ എം എസ്"
+            },
+            "geometry": {
+                "coordinates": [76.95189131, 8.50743524],
+                "type": "Point"
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "name": "PMG",
+                "name_ml": "പിഎംജി"
+            },
+            "geometry": {
+                "coordinates": [76.94976432, 8.508443264],
+                "type": "Point"
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "name": "Vikas Bhavan depot",
+                "name_ml": "വികാസ്ഭവൻ ഡിപ്പോ"
+            },
+            "geometry": {
+                "coordinates": [76.94665296, 8.508711185],
+                "type": "Point"
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "name": "Law college Jn",
+                "name_ml": "ലോ കോളേജ് ജംഗ്ഷൻ"
+            },
+            "geometry": {
+                "coordinates": [76.94514019, 8.508801376],
+                "type": "Point"
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "name": "Varambassery",
+                "name_ml": "വരമ്പശ്ശേരി"
+            },
+            "geometry": {
+                "coordinates": [76.9431168, 8.506818958],
+                "type": "Point"
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "name": "Miranda Jn",
+                "name_ml": "മിറാൻഡ ജംഗ്ഷൻ"
+            },
+            "geometry": {
+                "coordinates": [76.94172474, 8.504184818],
+                "type": "Point"
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "name": "Vadayakkadu",
+                "name_ml": "വടയക്കാട്"
+            },
+            "geometry": {
+                "coordinates": [76.93843099, 8.504052182],
+                "type": "Point"
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "name": "Mulavana jn",
+                "name_ml": "മുളവന ജംഗ്ഷൻ"
+            },
+            "geometry": {
+                "coordinates": [76.93898461, 8.506725221],
+                "type": "Point"
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "name": "Gowreesha hospital",
+                "name_ml": "ഗൗരീശ ഹോസ്പിറ്റൽ"
+            },
+            "geometry": {
+                "coordinates": [76.93839413, 8.508726705],
+                "type": "Point"
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "name": "Pottakuzhi",
+                "name_ml": "പൊട്ടക്കുഴി"
+            },
+            "geometry": {
+                "coordinates": [76.93732509, 8.514588028],
+                "type": "Point"
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "name": "Murinjapalam",
+                "name_ml": "മുറിഞ്ഞപാലം"
+            },
+            "geometry": {
+                "coordinates": [76.9345121, 8.515745168],
+                "type": "Point"
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "name": "Medical College",
+                "name_ml": "മെഡിക്കൽ കോളേജ്"
+            },
+            "geometry": {
+                "coordinates": [76.93011293, 8.522234983],
+                "type": "Point"
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "name": "Govt.Medical College HSS",
+                "name_ml": "മെഡിക്കൽ കോളേജ് സ്‌കൂൾ"
+            },
+            "geometry": {
+                "coordinates": [76.92785451, 8.516966897],
+                "type": "Point"
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "name": "Kumarapuram Signal",
+                "name_ml": "കുമാരപുരം സിഗ്നൽ"
+            },
+            "geometry": {
+                "coordinates": [76.92738781, 8.514218762],
+                "type": "Point"
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "name": "Kumarapuram",
+                "name_ml": "കുമാരപുരം"
+            },
+            "geometry": {
+                "coordinates": [76.92748973, 8.512940184],
+                "type": "Point"
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "name": "Burma Road",
+                "name_ml": "ബർമ റോഡ്"
+            },
+            "geometry": {
+                "coordinates": [76.92875753, 8.510502694],
+                "type": "Point"
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "name": "Koyikkal Lane",
+                "name_ml": "കോയിക്കൽ ലെയിൻ"
+            },
+            "geometry": {
+                "coordinates": [76.92974543, 8.508695884],
+                "type": "Point"
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "name": "John Cox College",
+                "name_ml": "ജോൺ കോക്സ് കോളേജ്"
+            },
+            "geometry": {
+                "coordinates": [76.93106261, 8.506755226],
+                "type": "Point"
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "name": "Kannamoola",
+                "name_ml": "കണ്ണമ്മൂല"
+            },
+            "geometry": {
+                "coordinates": [76.93183849, 8.503306632],
+                "type": "Point"
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "name": "Kannamoola Bridge",
+                "name_ml": "കണ്ണമ്മൂല പാലം"
+            },
+            "geometry": {
+                "coordinates": [76.93146707, 8.500947911],
+                "type": "Point"
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "name": "Petta Pallimukku",
+                "name_ml": "പേട്ട പള്ളിമുക്ക്"
+            },
+            "geometry": {
+                "coordinates": [76.93252159, 8.496768671],
+                "type": "Point"
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "name": "Petta Pallimukku - B",
+                "name_ml": "പേട്ട പള്ളിമുക്ക് B"
+            },
+            "geometry": {
+                "coordinates": [76.93418631, 8.495741867],
+                "type": "Point"
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "name": "Ambalathumukk",
+                "name_ml": "അമ്പലത്തുമുക്ക്"
+            },
+            "geometry": {
+                "coordinates": [76.9364666, 8.49374003],
+                "type": "Point"
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "name": "Uppidamoodu Bridge",
+                "name_ml": "ഉപ്പിടാംമൂട് പാലം"
+            },
+            "geometry": {
+                "coordinates": [76.94050039, 8.490702718],
+                "type": "Point"
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "name": "Sreekanteswaram Temple",
+                "name_ml": "ശ്രീകണ്ഠേശ്വരം മഹാദേവക്ഷേത്രം"
+            },
+            "geometry": {
+                "coordinates": [76.94206175, 8.487434576],
+                "type": "Point"
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "name": "Fort Hospital",
+                "name_ml": "ഫോർട്ട് ആശുപത്രി"
+            },
+            "geometry": {
+                "coordinates": [76.94183317, 8.484454102],
+                "type": "Point"
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "name": "Padinjare Nada",
+                "name_ml": "പടിഞ്ഞാറേ നട"
+            },
+            "geometry": {
+                "coordinates": [76.94190501, 8.482576059],
+                "type": "Point"
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "name": "Vazhapalli",
+                "name_ml": "വാഴപ്പള്ളി"
+            },
+            "geometry": {
+                "coordinates": [76.94198635, 8.480689479],
+                "type": "Point"
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "name": "Transport Bhavan",
+                "name_ml": "ട്രാൻസ്‌പോർട് ഭവൻ"
+            },
+            "geometry": {
+                "coordinates": [76.9458608, 8.480521921],
+                "type": "Point"
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "name": "Eastfort",
+                "name_ml": "കിഴക്കേകോട്ട"
+            },
+            "geometry": {
+                "coordinates": [76.9473753, 8.481483654],
+                "type": "Point"
+            }
+        }
+    ]
+}
