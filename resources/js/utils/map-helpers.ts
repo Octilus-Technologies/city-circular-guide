@@ -26,6 +26,7 @@ export const findNearestStop = (
         index: number;
         coordinates: Coordinates;
         distance: number;
+        isClockwise: boolean;
     } | null>((nearestStop, coordinates, i) => {
         const to = point(coordinates);
         const d = distance(from, to, { units: "meters" });
@@ -35,6 +36,7 @@ export const findNearestStop = (
                 index: i,
                 coordinates,
                 distance: d,
+                isClockwise: nearestStop?.isClockwise ?? true,
             };
         }
 
@@ -62,6 +64,7 @@ const findNearbyStops = (coordinates: Coordinates, maxDistance?: number) => {
             circularName: circularName,
             coordinates: nearestStop?.coordinates,
             distance: nearestStop?.distance,
+            isClockwise: nearestStop.isClockwise,
         };
     });
 
@@ -101,7 +104,7 @@ const findShortestPath = (
     // Invalid route
     // if (lastStop.index < firstStop.index) return [];
 
-    let stops = coordinates.slice(0, lastStop.index + 1);
+    let stops = coordinates.slice(firstStop.index, lastStop.index + 1);
 
     console.log(getStopDetails(stops).map((s) => s.name));
 
@@ -200,8 +203,9 @@ const findNearestJunction = (
 };
 
 const bruteForceRoutes = (from: Coordinates, destination: Coordinates) => {
-    const fromStops = findNearbyStops(from, 250);
-    const destinationStops = findNearbyStops(destination, 250);
+    const maxDistance = 200;
+    const fromStops = findNearbyStops(from, maxDistance);
+    const destinationStops = findNearbyStops(destination, maxDistance);
 
     const stopOptions: ReturnType<typeof getOptimizedStops>[] = [];
     fromStops.forEach((fromStop) => {
@@ -213,27 +217,39 @@ const bruteForceRoutes = (from: Coordinates, destination: Coordinates) => {
     });
 
     // shortest route based on number of stops
-    // TODO: walking distance to the stop
-    const shortestRoute = stopOptions.reduce((acc, curr) => {
+    // FIXME: must consider walking distance to the stop
+    let shortestRoute = stopOptions.reduce((acc, curr) => {
         const isShorter =
-            curr.flatMap((s) => s.stops).length <
+            curr.flatMap((s) => s.stops).length >
             acc.flatMap((s) => s.stops).length;
 
         return isShorter ? curr : acc;
     }, stopOptions[0]);
 
+    console.log("stopOptions", stopOptions);
+
+    // shortestRoute = stopOptions[0];
+
     return shortestRoute;
 };
 
-const getOptimizedStops = (
-    fromStop: ReturnType<typeof findNearbyStops>[number],
-    destinationStop: ReturnType<typeof findNearbyStops>[number]
+const getOptimizedStops = <
+    NearbyStop extends ReturnType<typeof findNearbyStops>[number]
+>(
+    fromStop: NearbyStop,
+    destinationStop: NearbyStop
 ) => {
     // find nearby stop and circular
     if (!fromStop || !destinationStop) return [];
 
+    console.log("fromStop", fromStop);
+    console.log("destinationStop", destinationStop);
     const requiredCirculars = [fromStop];
-    if (destinationStop.circularName !== fromStop.circularName) {
+    // FIXME: same circular interchange is required (anti circular)
+    if (
+        destinationStop.circularName !== fromStop.circularName ||
+        destinationStop.isClockwise !== fromStop.isClockwise
+    ) {
         requiredCirculars.push(destinationStop);
     }
 
@@ -242,6 +258,7 @@ const getOptimizedStops = (
         from: Coordinates;
         destination: Coordinates;
     }[] = [];
+    console.log("requiredCirculars", requiredCirculars);
 
     requiredCirculars.map((stop, i) => {
         const nextStop = requiredCirculars[i + 1];
@@ -252,6 +269,8 @@ const getOptimizedStops = (
                 getCircularCoordinates(nextStop.circularName),
                 stop.coordinates
             );
+            // FIXME: unable to find a junction as the circulars are not connected
+            // ! required more than 1 junction
 
             segments.push({
                 circularName: stop.circularName,
