@@ -243,8 +243,8 @@ const getOptimizedStops = <
     // find nearby stop and circular
     if (!fromStop || !destinationStop) return [];
 
-    console.log("fromStop", fromStop);
-    console.log("destinationStop", destinationStop);
+    // console.log("fromStop", fromStop);
+    // console.log("destinationStop", destinationStop);
     const commonCircular = fromStop.circulars.find((fc) =>
         destinationStop.circulars.some((dc) => fc.name === dc.name)
     );
