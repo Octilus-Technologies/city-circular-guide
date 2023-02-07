@@ -1,3 +1,4 @@
+import { getAllStopDetails } from "@/utils/geoJson";
 import { geocode, reverseGeocode } from "@/utils/mapbox-api";
 import { Inertia } from "@inertiajs/inertia";
 import React, { FormEventHandler, useEffect, useState } from "react";
@@ -9,6 +10,7 @@ type Area = {
     name: string;
     id?: string;
     coordinates: number[];
+    type?: string;
 };
 
 type AreaOption = { label: string; value: Area };
@@ -60,6 +62,7 @@ function InitialRouteQueryForm({
                     name: area.place_name,
                     coordinates: area.center,
                     id: area.id,
+                    type: "stop",
                 },
             });
         };
@@ -71,6 +74,19 @@ function InitialRouteQueryForm({
         inputValue: string,
         callback: (options: AreaOption[]) => void
     ) => {
+        // Add bus stops to search result
+        const busStops = getAllStopDetails().filter((stop) =>
+            stop.name.toLowerCase().includes(inputValue.toLowerCase())
+        );
+        const busStopOptions = busStops.map((stop) => ({
+            label: stop.name,
+            value: {
+                name: stop.name,
+                coordinates: stop.coordinates,
+                id: stop.name.replace(/\s/g, "-"),
+            },
+        }));
+
         // search
         geocode(accessToken, inputValue).then((areaList) => {
             const filteredList = areaList.features
@@ -83,16 +99,19 @@ function InitialRouteQueryForm({
                     (d.name as string).includes("Thiruvananthapuram")
                 );
 
-            callback(
-                filteredList.map((d) => ({
-                    label: d.name,
-                    value: {
-                        name: d.name,
-                        coordinates: d.coordinates,
-                        id: d.id,
-                    },
-                }))
-            );
+            const areaOptions = filteredList.map((d) => ({
+                label: d.name,
+                value: {
+                    name: d.name,
+                    coordinates: d.coordinates,
+                    id: d.id,
+                    type: "area",
+                },
+            }));
+
+            const allOptions = [...busStopOptions, ...areaOptions];
+
+            callback(allOptions);
         });
     };
 
