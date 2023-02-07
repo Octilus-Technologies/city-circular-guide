@@ -41,7 +41,11 @@ const useJourney = (
             if (!stopSegments) return;
 
             const pathSegmentPromises = stopSegments.map((segment) =>
-                getMatch(mapAccessToken, segment.stops, segment.profile)
+                getMatch(
+                    mapAccessToken,
+                    segment.stops.map((s) => s.coordinates),
+                    segment.profile
+                )
             );
             let pathSegments: {
                 path?: Path;
@@ -52,10 +56,11 @@ const useJourney = (
             let segmentLayers: Segment[] = pathSegments.map((segment, i) => {
                 const stopSegment = stopSegments[i];
                 const circular = stopSegment?.circular;
+                // TODO: refactor
                 const stops =
                     segment.path?.profile == "driving"
                         ? getStopDetails(
-                              stopSegment.stops,
+                              stopSegment.stops.map((s) => s.coordinates),
                               circular?.name,
                               circular?.isClockwise
                           )

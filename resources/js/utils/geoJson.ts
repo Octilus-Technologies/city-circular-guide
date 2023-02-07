@@ -76,60 +76,49 @@ export const getCircular = (circularName: CircularName, isClockwise = true) => {
     return circular;
 };
 
-export const getAllStopDetails = (mustBeUnique = false, isClockwise = true) => {
-    const stops = (Object.keys(circulars) as CircularName[]).map(
-        (circularName) => {
-            const circular = getCircular(circularName, isClockwise);
+export const getAllStopDetails = (
+    mustBeUnique = false,
+    circularNames?: CircularName[],
+    isClockwise?: boolean
+) => {
+    circularNames ??= Object.keys(getCirculars()) as CircularName[];
+    const stops = circularNames.map((circularName) => {
+        const isClockwiseCircular = isClockwise ?? true;
+        const circular = getCircular(circularName, isClockwiseCircular);
 
-            return circular.features.map((f) => ({
+        const circularStops = circular.features.map((f) => ({
+            coordinates: f.geometry.coordinates,
+            name: f.properties.name,
+            nameLocale: f.properties.name_ml,
+            circular: {
+                ...getCircularDetails(circularName, isClockwiseCircular),
+                name: circularName,
+            },
+        }));
+
+        if (isClockwise === null) {
+            // Push anti circular routes
+            const acwCircular = getCircular(circularName, false);
+            const acwCircularStops = acwCircular.features.map((f) => ({
                 coordinates: f.geometry.coordinates,
                 name: f.properties.name,
                 nameLocale: f.properties.name_ml,
                 circular: {
-                    ...getCircularDetails(circularName, isClockwise),
+                    ...getCircularDetails(circularName, false),
                     name: circularName,
                 },
             }));
+
+            circularStops.push(...acwCircularStops);
         }
-    );
+
+        return circularStops;
+    });
 
     const allStops = stops.flat();
 
-    if (!mustBeUnique) return allStops;
-
-    return allStops.reduce((uniqueStops, stop) => {
-        const duplicateStop = uniqueStops.find(
-            (s) =>
-                s.name === stop.name &&
-                s.circular?.name === stop.circular?.name &&
-                s.coordinates[0] === stop.coordinates[0] &&
-                s.coordinates[1] === stop.coordinates[1]
-        );
-
-        if (duplicateStop) return uniqueStops;
-
-        uniqueStops.push(stop);
-
-        return uniqueStops;
-    }, [] as typeof allStops);
-};
-
-export const getStopDetails = (
-    coordinates: Coordinates[],
-    circularName?: CircularName,
-    isClockwise: boolean = true
-) => {
-    const allStops = getAllStopDetails(true, isClockwise);
-    allStops.push(...getAllStopDetails(true, !isClockwise));
-
-    const stops = coordinates.map((c) => {
-        const stop = allStops.find((s) => {
-            if (circularName && s.circular?.name !== circularName) return false;
-
-            return s.coordinates[0] === c[0] && s.coordinates[1] === c[1];
-        });
-        if (!stop) return;
-
+    // attach junction info
+    const allStopsWithCirculars = allStops.map((stop) => {
         const inCirculars = allStops
             .filter(
                 (s) =>
@@ -147,12 +136,49 @@ export const getStopDetails = (
             return acc;
         }, [] as typeof inCirculars);
 
-        const stopDetails = {
+        return {
             ...stop,
             circulars: uniqueCirculars,
         };
+    });
 
-        return stopDetails;
+    if (!mustBeUnique) return allStopsWithCirculars;
+
+    return allStopsWithCirculars.reduce((uniqueStops, stop) => {
+        const duplicateStop = uniqueStops.find(
+            (s) =>
+                s.name === stop.name &&
+                s.circular?.name === stop.circular?.name &&
+                s.coordinates[0] === stop.coordinates[0] &&
+                s.coordinates[1] === stop.coordinates[1]
+        );
+
+        if (duplicateStop) return uniqueStops;
+
+        uniqueStops.push(stop);
+
+        return uniqueStops;
+    }, [] as typeof allStopsWithCirculars);
+};
+
+export const getStopDetails = (
+    coordinates: Coordinates[],
+    circularName?: CircularName,
+    isClockwise: boolean = true
+) => {
+    const stops = coordinates.map((c) => {
+        const stop = getAllStopDetails(
+            undefined,
+            circularName ? [circularName] : undefined,
+            isClockwise
+        ).find((s) => {
+            // if (circularName && s.circular?.name !== circularName) return false;
+
+            return s.coordinates[0] === c[0] && s.coordinates[1] === c[1];
+        });
+        if (!stop) return;
+
+        return stop;
     });
 
     return filterNullValues(stops);

@@ -1,6 +1,7 @@
 import { meta } from "@/constants/circulars";
 import { filterNullValues, rotateArray } from "@/utils/arrayUtils";
 import {
+    BusStopDetail,
     CircularName,
     Coordinates,
     getAllStopDetails,
@@ -18,25 +19,23 @@ export type LocationSummary = {
 
 export const findNearestStop = (
     coordinates: Coordinates,
-    stops: Coordinates[] = getAllStopDetails().map((s) => s.coordinates)
+    stops: BusStopDetail[] = getAllStopDetails()
 ) => {
     let from = point(coordinates);
 
     const nearestStop = stops.reduce<{
         index: number;
-        coordinates: Coordinates;
         distance: number;
-        isClockwise: boolean;
-    } | null>((nearestStop, coordinates, i) => {
-        const to = point(coordinates);
+        stop: BusStopDetail;
+    } | null>((nearestStop, stop, i) => {
+        const to = point(stop.coordinates);
         const d = distance(from, to, { units: "meters" });
 
         if (!nearestStop || nearestStop.distance > d) {
             nearestStop = {
                 index: i,
-                coordinates,
                 distance: d,
-                isClockwise: nearestStop?.isClockwise ?? true,
+                stop: stop,
             };
         }
 
@@ -50,21 +49,15 @@ const findNearbyStops = (coordinates: Coordinates, maxDistance?: number) => {
     const circulars = getCirculars();
     const circularNames = Object.keys(circulars) as CircularName[];
     const nearestStopsFromAllCirculars = circularNames.map((circularName) => {
-        const circular = circulars[circularName];
         const nearestStop = findNearestStop(
             coordinates,
-            circular.features.map((f) => f.geometry.coordinates)
+            getAllStopDetails(undefined, [circularName]) // FIXME: This is causing issue
         );
-
         if (!nearestStop) return null;
 
-        if (maxDistance && nearestStop.distance > maxDistance) return null; // FIXME: not working as expected
-
         return {
-            circularName: circularName,
-            coordinates: nearestStop?.coordinates,
-            distance: nearestStop?.distance,
-            isClockwise: nearestStop.isClockwise,
+            ...nearestStop.stop,
+            distance: nearestStop.distance,
         };
     });
 
@@ -81,34 +74,26 @@ const findNearbyStops = (coordinates: Coordinates, maxDistance?: number) => {
 const findShortestPath = (
     from: Coordinates,
     destination: Coordinates,
-    coordinates: Coordinates[]
+    circularName: CircularName,
+    isClockwise: boolean
 ) => {
-    console.log(
-        getStopDetails([from])[0].name,
-        ": TO :",
-        getStopDetails([destination])[0].name
-    );
-    console.log(
-        "coordinates: ",
-        getStopDetails(coordinates).map((s) => s.name)
-    );
+    const stops = getAllStopDetails(undefined, [circularName], isClockwise);
+    // For debugging
+    // const fromDetail = getStopDetails([from])[0].name;
+    // const destinationDetail = getStopDetails([destination])[0].name;
+    // const CoordinatesDetail = getStopDetails(coordinates).map((s) => s.name);
 
-    const firstStop = findNearestStop(from, coordinates);
+    const firstStop = findNearestStop(from, stops);
     if (!firstStop) return [];
 
-    // coordinates = rotateArray(coordinates, firstStop?.index); // FIXME: consider anticlockwise path
+    // coordinates = rotateArray(coordinates, firstStop?.index)
 
-    const lastStop = findNearestStop(destination, coordinates);
+    const lastStop = findNearestStop(destination, stops);
     if (!lastStop) return [];
 
-    // Invalid route
-    // if (lastStop.index < firstStop.index) return [];
+    let optimizedStops = stops.slice(firstStop.index, lastStop.index + 1);
 
-    let stops = coordinates.slice(firstStop.index, lastStop.index + 1);
-
-    console.log(getStopDetails(stops).map((s) => s.name));
-
-    return stops;
+    return optimizedStops;
 };
 
 const getOptimizedSegmentStops = (
@@ -116,10 +101,8 @@ const getOptimizedSegmentStops = (
     destination: Coordinates,
     circularName: CircularName
 ) => {
-    const cwCoordinates = getCircularCoordinates(circularName);
-    const acwCoordinates = getCircularCoordinates(circularName, false);
-    const cwPath = findShortestPath(from, destination, cwCoordinates);
-    const acwPath = findShortestPath(from, destination, acwCoordinates);
+    const cwPath = findShortestPath(from, destination, circularName, true);
+    const acwPath = findShortestPath(from, destination, circularName, false);
 
     const isClockwiseShorter =
         !!cwPath.length && cwPath.length < acwPath.length;
@@ -203,7 +186,8 @@ const findNearestJunction = (
 };
 
 const bruteForceRoutes = (from: Coordinates, destination: Coordinates) => {
-    const maxDistance = 200;
+    const maxDistance = 300;
+    // FIXME: check if from stop is correctly evaluated
     const fromStops = findNearbyStops(from, maxDistance);
     const destinationStops = findNearbyStops(destination, maxDistance);
 
@@ -216,21 +200,38 @@ const bruteForceRoutes = (from: Coordinates, destination: Coordinates) => {
         });
     });
 
-    // shortest route based on number of stops
-    // FIXME: must consider walking distance to the stop
-    let shortestRoute = stopOptions.reduce((acc, curr) => {
-        const isShorter =
-            curr.flatMap((s) => s.stops).length >
-            acc.flatMap((s) => s.stops).length;
+    // shortest route based on stops and walking distance
+    let shortestRoute = stopOptions.reduce(
+        (shortRoute, curr) => {
+            const allStops = curr.flatMap((s) => s.stops);
+            const walkingCost = getWalkingCost(
+                from,
+                destination,
+                allStops.map((s) => s.coordinates)
+            );
+            const currentRouteCost = allStops.length + walkingCost;
+            const isShorter = currentRouteCost < shortRoute.cost;
 
-        return isShorter ? curr : acc;
-    }, stopOptions[0]);
+            if (isShorter) {
+                return {
+                    cost: currentRouteCost,
+                    stops: curr,
+                };
+            }
+
+            return shortRoute;
+        },
+        {
+            cost: Infinity,
+            stops: stopOptions[0],
+        }
+    );
 
     console.log("stopOptions", stopOptions);
 
     // shortestRoute = stopOptions[0];
 
-    return shortestRoute;
+    return shortestRoute.stops;
 };
 
 const getOptimizedStops = <
@@ -244,14 +245,24 @@ const getOptimizedStops = <
 
     console.log("fromStop", fromStop);
     console.log("destinationStop", destinationStop);
-    const requiredCirculars = [fromStop];
-    // FIXME: same circular interchange is required (anti circular)
+    const commonCircular = fromStop.circulars.find((fc) =>
+        destinationStop.circulars.some((dc) => fc.name === dc.name)
+    );
+
+    const fromCircular = commonCircular ?? fromStop.circular;
+    const toCircular = commonCircular ?? destinationStop.circular;
+
+    const requiredCirculars = [fromCircular];
+    // !FIXME: same circular interchange is required (anti clockwise)
+
     if (
-        destinationStop.circularName !== fromStop.circularName ||
-        destinationStop.isClockwise !== fromStop.isClockwise
+        fromCircular.name !== toCircular.name ||
+        fromCircular.isClockwise !== toCircular.isClockwise
     ) {
-        requiredCirculars.push(destinationStop);
+        requiredCirculars.push(toCircular);
     }
+
+    // TODO: Add intermediate circulars if junction is not available
 
     const segments: {
         circularName: CircularName;
@@ -260,36 +271,36 @@ const getOptimizedStops = <
     }[] = [];
     console.log("requiredCirculars", requiredCirculars);
 
-    requiredCirculars.map((stop, i) => {
-        const nextStop = requiredCirculars[i + 1];
+    requiredCirculars.map((circular, i) => {
+        const nextCircular = requiredCirculars[i + 1];
 
-        if (!!nextStop) {
+        if (!!nextCircular) {
             const junctionCoordinates = findNearestJunction(
-                getCircularCoordinates(stop.circularName),
-                getCircularCoordinates(nextStop.circularName),
-                stop.coordinates
+                getCircularCoordinates(circular.name),
+                getCircularCoordinates(nextCircular.name),
+                fromStop.coordinates
             );
             // FIXME: unable to find a junction as the circulars are not connected
-            // ! required more than 1 junction
+            // ! may require more than 1 junction
 
             segments.push({
-                circularName: stop.circularName,
-                from: stop.coordinates,
+                circularName: circular.name,
+                from: fromStop.coordinates,
                 destination: junctionCoordinates,
             });
 
             segments.push({
-                circularName: nextStop.circularName,
+                circularName: nextCircular.name,
                 from: junctionCoordinates,
-                destination: nextStop.coordinates,
+                destination: destinationStop.coordinates,
             });
         } else {
-            if (stop.coordinates !== destinationStop.coordinates) {
+            if (fromStop.coordinates !== destinationStop.coordinates) {
                 // * This gets executed if we are dealing with single circular
                 // * or if it is the last (destination) circular
                 segments.push({
-                    circularName: stop.circularName,
-                    from: stop.coordinates,
+                    circularName: circular.name,
+                    from: fromStop.coordinates,
                     destination: destinationStop.coordinates,
                 });
             }
@@ -321,7 +332,7 @@ export const generateRouteSegments = (
     destination: LocationSummary
 ) => {
     const segments: {
-        stops: Coordinates[];
+        stops: BusStopDetail[] | Pick<BusStopDetail, "coordinates">[];
         profile: Profile;
         circular?: {
             name: CircularName;
@@ -338,18 +349,23 @@ export const generateRouteSegments = (
     // Attach walking segments
     const distanceToFirstStop = distance(
         point(from.coords),
-        point(segments[0].stops[0])
+        point(segments[0].stops[0].coordinates)
     );
     if (distanceToFirstStop > 0.1) {
         segments.unshift({
-            stops: [from.coords, segments[0].stops[0]],
+            stops: [
+                {
+                    coordinates: from.coords,
+                },
+                segments[0].stops[0],
+            ],
             profile: "walking",
         });
     }
 
     const distanceFromLastStop = distance(
         point(destination.coords),
-        point(segments[segments.length - 1].stops[1])
+        point(segments[segments.length - 1].stops[1].coordinates)
     );
     if (distanceFromLastStop > 0.1) {
         const lastSegment = segments[segments.length - 1];
@@ -357,7 +373,9 @@ export const generateRouteSegments = (
         segments.push({
             stops: [
                 lastSegment.stops[lastSegment.stops.length - 1],
-                destination.coords,
+                {
+                    coordinates: destination.coords,
+                },
             ],
             profile: "walking",
         });
@@ -399,3 +417,22 @@ const jsonToGeoJson = (
         },
     }));
 };
+
+function getWalkingCost(
+    from: Coordinates,
+    destination: Coordinates,
+    stops: Coordinates[]
+) {
+    const WEIGHTAGE = 200;
+
+    const firstStop = stops[0];
+    const lastStop = stops[stops.length - 1];
+    const coords = [
+        [from, firstStop],
+        [lastStop, destination],
+    ];
+    const distances = coords.map(([a, b]) => distance(point(a), point(b)));
+    const totalDistance = distances.reduce((acc, curr) => acc + curr, 0);
+
+    return Math.round(totalDistance * WEIGHTAGE);
+}
