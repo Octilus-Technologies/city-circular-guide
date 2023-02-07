@@ -51,7 +51,7 @@ const findNearbyStops = (coordinates: Coordinates, maxDistance?: number) => {
     const nearestStopsFromAllCirculars = circularNames.map((circularName) => {
         const nearestStop = findNearestStop(
             coordinates,
-            getAllStopDetails(undefined, [circularName]) // FIXME: This is causing issue
+            getAllStopDetails(undefined, [circularName])
         );
         if (!nearestStop) return null;
 
@@ -77,21 +77,23 @@ const findShortestPath = (
     circularName: CircularName,
     isClockwise: boolean
 ) => {
-    const stops = getAllStopDetails(undefined, [circularName], isClockwise);
+    let stops = getAllStopDetails(undefined, [circularName], isClockwise);
     // For debugging
     // const fromDetail = getStopDetails([from])[0].name;
     // const destinationDetail = getStopDetails([destination])[0].name;
     // const CoordinatesDetail = getStopDetails(coordinates).map((s) => s.name);
 
-    const firstStop = findNearestStop(from, stops);
+    let firstStop = findNearestStop(from, stops);
     if (!firstStop) return [];
 
-    // coordinates = rotateArray(coordinates, firstStop?.index)
+    stops = rotateArray(stops, firstStop?.index);
 
     const lastStop = findNearestStop(destination, stops);
     if (!lastStop) return [];
 
-    let optimizedStops = stops.slice(firstStop.index, lastStop.index + 1);
+    firstStop = findNearestStop(from, stops); // just to confirm (if rotated)
+
+    let optimizedStops = stops.slice(firstStop?.index, lastStop.index + 1);
 
     return optimizedStops;
 };
@@ -187,7 +189,6 @@ const findNearestJunction = (
 
 const bruteForceRoutes = (from: Coordinates, destination: Coordinates) => {
     const maxDistance = 300;
-    // FIXME: check if from stop is correctly evaluated
     const fromStops = findNearbyStops(from, maxDistance);
     const destinationStops = findNearbyStops(destination, maxDistance);
 
@@ -227,9 +228,8 @@ const bruteForceRoutes = (from: Coordinates, destination: Coordinates) => {
         }
     );
 
-    console.log("stopOptions", stopOptions);
-
-    // shortestRoute = stopOptions[0];
+    // console.log("stopOptions", stopOptions);
+    console.log("shortestRoute", shortestRoute);
 
     return shortestRoute.stops;
 };
@@ -253,7 +253,8 @@ const getOptimizedStops = <
     const toCircular = commonCircular ?? destinationStop.circular;
 
     const requiredCirculars = [fromCircular];
-    // !FIXME: same circular interchange is required (anti clockwise)
+    // -FIXME: same circular interchange is required (if reached the terminus)
+    // Temporarily fixed the above issue by rotating the circulars array
 
     if (
         fromCircular.name !== toCircular.name ||
@@ -269,7 +270,7 @@ const getOptimizedStops = <
         from: Coordinates;
         destination: Coordinates;
     }[] = [];
-    console.log("requiredCirculars", requiredCirculars);
+    // console.log("requiredCirculars", requiredCirculars);
 
     requiredCirculars.map((circular, i) => {
         const nextCircular = requiredCirculars[i + 1];
@@ -295,7 +296,8 @@ const getOptimizedStops = <
                 destination: destinationStop.coordinates,
             });
         } else {
-            if (fromStop.coordinates !== destinationStop.coordinates) {
+            const lastSegment = segments[segments.length - 1];
+            if (lastSegment?.destination !== destinationStop.coordinates) {
                 // * This gets executed if we are dealing with single circular
                 // * or if it is the last (destination) circular
                 segments.push({
