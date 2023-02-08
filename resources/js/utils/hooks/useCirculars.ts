@@ -13,6 +13,7 @@ import { useCallback, useEffect, useMemo, useState } from "react";
 export type CircularData = {
     id: string;
     name: CircularName;
+    label?: string;
     color: string;
     path: {
         type: string;
@@ -96,6 +97,7 @@ const useCirculars = (mapAccessToken: string, isClockwise: boolean = true) => {
                 const circularData = {
                     id: circularDetails?.id as string,
                     name,
+                    label: circularDetails?.label,
                     color: circularDetails?.color ?? "#000",
                     path: paths[index],
                     stops: stops[index],

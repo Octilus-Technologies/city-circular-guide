@@ -34,7 +34,7 @@ function CircularFilter({
                             backgroundColor: circular.color,
                         }}
                     >
-                        {circular.name}
+                        {circular.name.replace("_", " ")}
                     </button>
                 </li>
             ))}
