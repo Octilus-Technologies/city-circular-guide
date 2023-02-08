@@ -1,6 +1,6 @@
 import {
     Coordinates,
-    generateLayerFromGeometry,
+    generateLayerFromGeometry as generateLayer,
     getStopDetails,
 } from "@/utils/geoJson";
 import {
@@ -15,7 +15,7 @@ import { useEffect, useState } from "react";
 type Path = Awaited<ReturnType<typeof getMatch>>;
 
 export type Segment = {
-    layer: ReturnType<typeof generateLayerFromGeometry>;
+    layer: ReturnType<typeof generateLayer>;
     stops: ReturnType<typeof getStopDetails>;
     path?: Path;
     from: string;
@@ -40,34 +40,29 @@ const useJourney = (
             const stopSegments = generateRouteSegments(from, destination);
             if (!stopSegments) return;
 
-            const pathSegmentPromises = stopSegments.map((segment) =>
+            const promises = stopSegments.map((segment) =>
                 getMatch(
                     mapAccessToken,
                     segment.stops.map((s) => s.coordinates),
                     segment.profile
                 )
             );
-            let pathSegments: {
+            const pathSegments: {
                 path?: Path;
-            }[] = (await Promise.all(pathSegmentPromises)).map((path) => ({
-                path: path,
-            }));
+            }[] = (await Promise.all(promises)).map((path) => ({ path }));
 
-            let segmentLayers: Segment[] = pathSegments.map((segment, i) => {
+            const segmentLayers: Segment[] = pathSegments.map((segment, i) => {
                 const stopSegment = stopSegments[i];
                 const circular = stopSegment?.circular;
-                // TODO: refactor
-                const stops =
-                    segment.path?.profile == "driving"
-                        ? getStopDetails(
-                              stopSegment.stops.map((s) => s.coordinates),
-                              circular?.name,
-                              circular?.isClockwise
-                          )
-                        : [];
-                const layer = generateLayerFromGeometry(
-                    segment?.path?.geometry
-                );
+                const isDriving = segment.path?.profile == "driving";
+                const stops = isDriving
+                    ? getStopDetails(
+                          stopSegment.stops.map((s) => s.coordinates),
+                          circular?.name,
+                          circular?.isClockwise
+                      )
+                    : [];
+                const layer = generateLayer(segment?.path?.geometry);
                 const circularDetails = circular
                     ? getCircularDetails(circular.name, circular.isClockwise)
                     : undefined;
@@ -76,8 +71,8 @@ const useJourney = (
                     path: segment.path,
                     layer: layer,
                     stops: stops,
-                    from: stops[0]?.name ?? "",
-                    destination: stops[stops.length - 1]?.name ?? "",
+                    from: stops[0]?.name,
+                    destination: stops[stops.length - 1]?.name,
                     circular: circularDetails,
                 };
             });
@@ -98,19 +93,16 @@ const useJourney = (
             });
 
             const allCoordinates = segmentLayers
-                .flatMap(
-                    (segment) =>
-                        segment.layer?.features?.[0].geometry?.coordinates
-                )
+                .flatMap((s) => s.layer?.features?.[0].geometry?.coordinates)
                 .filter((c) => !!c);
             const boundingBox = bbox(lineString(allCoordinates as any));
             const mapCenter = center(lineString(allCoordinates as any));
 
             // Filter empty (unmatched) segments
-            segmentLayers = segmentLayers.filter((segment) => !!segment.path);
+            const filteredSegments = segmentLayers.filter((s) => !!s.path);
+            console.log("filteredSegments", filteredSegments);
 
-            setSegments(segmentLayers);
-            console.log("segmentLayers", segmentLayers);
+            setSegments(filteredSegments);
             setMapMeta({
                 bbox: boundingBox,
                 center: mapCenter.geometry?.coordinates as Coordinates,
