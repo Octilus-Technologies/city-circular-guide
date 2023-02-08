@@ -75,7 +75,7 @@ function InitialRouteQueryForm({
         callback: (options: AreaOption[]) => void
     ) => {
         // Add bus stops to search result
-        const busStops = getAllStopDetails().filter((stop) =>
+        const busStops = getAllStopDetails(true).filter((stop) =>
             stop.name.toLowerCase().includes(inputValue.toLowerCase())
         );
         const busStopOptions = busStops.map((stop) => ({
