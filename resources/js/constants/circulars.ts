@@ -18,7 +18,7 @@ const circulars = {
     green: greenCircular,
     magenta: magentaCircular,
     brown: brownCircular,
-    airRail: airRailCircular,
+    air_rail: airRailCircular,
 };
 
 // * Register all ACW circulars here
@@ -28,7 +28,7 @@ export const acwCirculars = {
     green: greenAcwCircular,
     magenta: magentaAcwCircular,
     brown: brownAcwCircular,
-    airRail: airRailAcwCircular,
+    air_rail: airRailAcwCircular,
 };
 
 // may integrate this details in geojson file

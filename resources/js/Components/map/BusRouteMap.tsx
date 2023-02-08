@@ -5,9 +5,9 @@ import {
     CircularGeojson,
     CircularName,
     circularNames,
+    getCircular,
     getStopDetails,
 } from "@/utils/geoJson";
-import { CircularData } from "@/utils/hooks/useCirculars";
 import { Segment } from "@/utils/hooks/useJourney";
 import { findNearestStop, getCircularDetails } from "@/utils/map-helpers";
 import { PropsOf } from "@headlessui/react/dist/types";
@@ -36,11 +36,12 @@ function BusRouteMap({
     segments?: Segment[];
     children: ReactNode;
     onMove: (evt: ViewStateChangeEvent) => void;
-    activeCirculars?: CircularData[];
+    activeCirculars?: { name: string; color: string }[];
     maxBounds?: LngLatBoundsLike;
 } & Partial<PropsOf<typeof Map>>) {
-    const activeCircularsNames =
-        activeCirculars?.map((c) => c.name) ?? circularNames;
+    activeCirculars ??= circularNames
+        .map((cName) => getCircularDetails(cName))
+        .filter((c): c is NonNullable<typeof c> => !!c);
 
     const [popup, setPopup] = useState<{
         coordinates?: number[];
@@ -107,18 +108,17 @@ function BusRouteMap({
                 }
             />
 
-            {activeCircularsNames.map((circularName) => (
+            {activeCirculars.map((circular) => (
                 <BusStopsLayer
-                    key={`${circularName}-circular-data`}
-                    id={`${circularName}-circular-data`}
+                    key={`${circular.name}-circular-data`}
+                    id={`${circular.name}-circular-data`}
                     type="geojson"
-                    data={circulars[circularName] as any}
+                    data={getCircular(circular.name) as any}
                     layerProps={{
-                        id: `${circularName}-point`,
+                        id: `${circular.name}-point`,
                         paint: {
-                            "circle-radius": 5,
-                            "circle-color":
-                                getCircularDetails(circularName)?.color,
+                            "circle-radius": 3,
+                            "circle-color": circular.color,
                             "circle-opacity": 0.75,
                         },
                     }}

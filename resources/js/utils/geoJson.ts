@@ -69,9 +69,13 @@ export const getCirculars = (isClockwise = true) => {
     return isClockwise ? circulars : acwCirculars;
 };
 
-export const getCircular = (circularName: CircularName, isClockwise = true) => {
+export const getCircular = (
+    circularName: CircularName | string,
+    isClockwise = true
+) => {
+    const name = circularName.toLowerCase().replace(" ", "_") as CircularName;
     const allCirculars = getCirculars(isClockwise);
-    const circular = allCirculars[circularName] ?? circulars[circularName];
+    const circular = allCirculars[name] ?? circulars[name];
 
     return circular;
 };

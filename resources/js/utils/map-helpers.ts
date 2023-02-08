@@ -389,14 +389,11 @@ export const generateRouteSegments = (
 export const getCircularDetails = (name: CircularName, isClockwise = true) => {
     const allCirculars = meta.map((circular) => ({
         ...circular,
-        name: circular.name.toLowerCase().replace("-", ""),
+        name: circular.name.toLowerCase().replace("-", "_"),
     }));
 
     const circularDetails = allCirculars.find((circular) => {
-        return (
-            circular.name == name.toLowerCase() &&
-            circular.isClockwise == isClockwise
-        );
+        return circular.name == name && circular.isClockwise == isClockwise;
     });
 
     return circularDetails;
