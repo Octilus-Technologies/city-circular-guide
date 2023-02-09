@@ -253,17 +253,50 @@ const getOptimizedStops = <
     const toCircular = commonCircular ?? destinationStop.circular;
 
     const requiredCirculars = [fromCircular];
-    // -FIXME: same circular interchange is required (if reached the terminus)
+    // FIXME: same circular interchange is required (if reached the terminus)
     // Temporarily fixed the above issue by rotating the circulars array
 
+    // Add intermediate circulars
     if (
         fromCircular.name !== toCircular.name ||
         fromCircular.isClockwise !== toCircular.isClockwise
     ) {
+        const interchange = findNearestJunction(
+            getCircularCoordinates(fromCircular.name, fromCircular.isClockwise),
+            getCircularCoordinates(toCircular.name, toCircular.isClockwise),
+            fromStop.coordinates
+        );
+
+        if (!interchange) {
+            console.warn(
+                `No junction between ${fromCircular.name} and ${toCircular.name}`
+            );
+
+            const bridgeCirculars = getAllStopDetails()
+                .filter((s) =>
+                    s.circulars.some((c) => c.name === fromCircular.name)
+                )
+                .filter((s) => s.circular.name === toCircular.name)
+                .map((s) => s.circular);
+            const bridgeCircular = bridgeCirculars[0];
+
+            if (
+                bridgeCircular &&
+                bridgeCircular.name !== toCircular.name &&
+                bridgeCircular.isClockwise !== toCircular.isClockwise
+            ) {
+                requiredCirculars.push(bridgeCircular);
+            }
+
+            console.warn(
+                "bridgeCirculars",
+                bridgeCircular.name,
+                toCircular.name
+            );
+        }
+
         requiredCirculars.push(toCircular);
     }
-
-    // TODO: Add intermediate circulars if junction is not available
 
     const segments: {
         circularName: CircularName;
@@ -277,12 +310,13 @@ const getOptimizedStops = <
 
         if (!!nextCircular) {
             const junctionCoordinates = findNearestJunction(
-                getCircularCoordinates(circular.name),
-                getCircularCoordinates(nextCircular.name),
+                getCircularCoordinates(circular.name, circular.isClockwise),
+                getCircularCoordinates(
+                    nextCircular.name,
+                    nextCircular.isClockwise
+                ),
                 fromStop.coordinates
             );
-            // FIXME: unable to find a junction as the circulars are not connected
-            // ! may require more than 1 junction
 
             segments.push({
                 circularName: circular.name,
