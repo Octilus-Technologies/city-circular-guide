@@ -23,6 +23,15 @@ import Map, {
     ViewStateChangeEvent,
 } from "react-map-gl";
 
+type BusRouteMapProps = {
+    circulars: Record<CircularName, CircularGeojson>;
+    segments?: Segment[];
+    children: ReactNode;
+    onMove: (evt: ViewStateChangeEvent) => void;
+    activeCirculars?: { name: string; color: string; isClockwise: boolean }[];
+    maxBounds?: LngLatBoundsLike;
+} & Partial<PropsOf<typeof Map>>;
+
 function BusRouteMap({
     circulars,
     segments,
@@ -31,14 +40,7 @@ function BusRouteMap({
     activeCirculars,
     maxBounds,
     ...props
-}: {
-    circulars: Record<CircularName, CircularGeojson>;
-    segments?: Segment[];
-    children: ReactNode;
-    onMove: (evt: ViewStateChangeEvent) => void;
-    activeCirculars?: { name: string; color: string }[];
-    maxBounds?: LngLatBoundsLike;
-} & Partial<PropsOf<typeof Map>>) {
+}: BusRouteMapProps) {
     activeCirculars ??= circularNames
         .map((cName) => getCircularDetails(cName))
         .filter((c): c is NonNullable<typeof c> => !!c);
@@ -113,7 +115,9 @@ function BusRouteMap({
                     key={`${circular.name}-circular-data`}
                     id={`${circular.name}-circular-data`}
                     type="geojson"
-                    data={getCircular(circular.name) as any}
+                    data={
+                        getCircular(circular.name, circular.isClockwise) as any
+                    }
                     layerProps={{
                         id: `${circular.name}-point`,
                         paint: {
