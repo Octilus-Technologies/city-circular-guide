@@ -13,10 +13,13 @@ function CircularFilter({
 }: CircularFilterProps) {
     return (
         <ul className="tab tabs-boxed absolute left-0 top-0 z-10 my-3 flex h-auto flex-wrap gap-2 bg-opacity-60 font-bold opacity-90 transition-all md:left-[40vw]">
-            <li key={`circular-all`}>
+            <li
+                key={`circular-all`}
+                className={`order-last flex-1 md:order-first`}
+            >
                 <button
                     onClick={() => toggleCircularPath()}
-                    className={`tab tab-active !px-4 !py-1 text-xs capitalize transition-all ${
+                    className={`tab tab-active w-full !px-4 !py-1 text-xs capitalize transition-all ${
                         isAllActive ? "tab-active" : "opacity-50"
                     }`}
                 >
