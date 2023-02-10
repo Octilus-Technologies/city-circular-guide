@@ -28,6 +28,7 @@ export type CircularData = {
         name: string;
     }[];
     isActive: boolean;
+    isClockwise: boolean;
 };
 
 const useCirculars = (mapAccessToken: string, isClockwise: boolean = true) => {
@@ -102,6 +103,7 @@ const useCirculars = (mapAccessToken: string, isClockwise: boolean = true) => {
                     path: paths[index],
                     stops: stops[index],
                     isActive: true,
+                    isClockwise: isClockwise,
                 };
 
                 return circularData;
