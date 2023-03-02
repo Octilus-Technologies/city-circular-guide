@@ -55,8 +55,12 @@ function JourneyControls({
 
     return (
         <div className="flex flex-col items-start gap-3">
-            <div className="align-center relative flex flex-col md:flex-row gap-3 md:gap-1 w-full justify-between pt-4 pb-2 text-sm font-bold">
-                <span className="flex md:w-[25%] items-center justify-center gap-1">
+            <div
+                className={`align-center relative flex w-full justify-between gap-3 pt-4 pb-2 text-sm font-bold md:flex-row md:gap-1 ${
+                    expanded ? "flex-col" : ""
+                }`}
+            >
+                <span className="flex items-center justify-center gap-1 md:w-[25%]">
                     <FaMapMarkerAlt className="mr-1 inline-block flex-shrink-0 text-xl text-secondary" />
                     {(from?.name as string).split(",")[0]}
                 </span>
@@ -68,50 +72,54 @@ function JourneyControls({
                     </span>
                 </div>
 
-                <span className="flex md:w-[25%] items-center justify-center gap-1">
+                <span className="flex items-center justify-center gap-1 md:w-[25%]">
                     <FaFlag className="mr-1 inline-block flex-shrink-0 text-xl text-secondary" />
                     {(destination?.name as string).split(",")[0]}
                 </span>
             </div>
 
-            <hr className="mb-4 w-full bg-white opacity-50" />
+            {!!expanded && <hr className="mb-4 w-full bg-white opacity-50" />}
 
-            <div className="flex w-full flex-col gap-5">
-                {segments.map((segment, i) => {
-                    const isLastSegment = i === segments.length - 1;
+            {!!expanded && (
+                <div className="flex w-full flex-col gap-5">
+                    {segments.map((segment, i) => {
+                        const isLastSegment = i === segments.length - 1;
 
-                    return (
-                        <Fragment key={`segment-${i}`}>
-                            <div className="flex w-full flex-col items-start">
-                                {segment.path?.profile === "driving" && (
-                                    <JourneySteps
-                                        segment={segment}
-                                        expanded={false}
-                                    />
+                        return (
+                            <Fragment key={`segment-${i}`}>
+                                <div className="flex w-full flex-col items-start">
+                                    {segment.path?.profile === "driving" && (
+                                        <JourneySteps
+                                            segment={segment}
+                                            expanded={false}
+                                        />
+                                    )}
+
+                                    {segment.path?.profile === "walking" && (
+                                        <WalkSteps
+                                            segment={segment}
+                                            expanded={false}
+                                        />
+                                    )}
+                                </div>
+
+                                {!isLastSegment && !!segment.path && (
+                                    <span className="h-[3px] bg-primary" />
                                 )}
+                            </Fragment>
+                        );
+                    })}
+                </div>
+            )}
 
-                                {segment.path?.profile === "walking" && (
-                                    <WalkSteps
-                                        segment={segment}
-                                        expanded={false}
-                                    />
-                                )}
-                            </div>
-
-                            {!isLastSegment && !!segment.path && (
-                                <span className="h-[3px] bg-primary" />
-                            )}
-                        </Fragment>
-                    );
-                })}
-            </div>
-
-            <button
-                className="btn-outline btn-error btn mt-3 w-full px-5"
-                onClick={() => Inertia.visit("/")}
-            >
-                Stop Journey
-            </button>
+            {!!expanded && (
+                <button
+                    className="btn-outline btn-error btn mt-3 w-full px-5"
+                    onClick={() => Inertia.visit("/")}
+                >
+                    Stop Journey
+                </button>
+            )}
         </div>
     );
 }

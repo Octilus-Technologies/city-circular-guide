@@ -80,6 +80,8 @@ function Journey({
         ?.map((s) => s.circular)
         .filter((c): c is NonNullable<typeof c> => !!c);
 
+    const [expanded, setExpanded] = useState(true);
+
     return (
         <div className="h-full max-h-[100dvh] min-h-[100dvh] w-full flex-row-reverse">
             <section className="map-container flex flex-1">
@@ -104,11 +106,13 @@ function Journey({
                 </BusRouteMap>
             </section>
 
-            <SideBar>
+            <SideBar
+                toggleExpanded={() => setExpanded((expanded) => !expanded)}
+            >
                 <div className="alert inline-block w-full bg-opacity-10 text-primary-content backdrop-blur-sm">
                     {!!segments && (
                         <JourneyControls
-                            expanded={true}
+                            expanded={expanded}
                             segments={segments}
                             journey={journey}
                         />
