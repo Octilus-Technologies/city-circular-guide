@@ -17,6 +17,7 @@ specifiers:
   autoprefixer: ^10.4.13
   axios: ^1.2.3
   daisyui: ^2.47.0
+  fuse.js: ^6.6.2
   laravel-vite-plugin: ^0.7.3
   lodash: ^4.17.21
   mapbox-gl: ^2.12.0
@@ -37,6 +38,7 @@ specifiers:
 dependencies:
   '@formkit/auto-animate': 1.0.0-beta.5
   '@turf/turf': 6.5.0
+  fuse.js: 6.6.2
   react-hook-geolocation: 1.1.0_react@18.2.0
   react-icons: 4.7.1_react@18.2.0
 
@@ -2405,6 +2407,11 @@ packages:
 
   /functions-have-names/1.2.3:
     resolution: {integrity: sha512-xckBUXyTIqT97tq2x2AMb+g163b5JFysYk0x4qxNFwbfQkmNZoiRHb6sPzI9/QV33WeuvVYBUIiD4NzNIyqaRQ==}
+    dev: false
+
+  /fuse.js/6.6.2:
+    resolution: {integrity: sha512-cJaJkxCCxC8qIIcPBF9yGxY0W/tVZS3uEISDxhYIdtk8OL93pe+6Zj7LjCqVV4dzbqcriOZ+kQ/NE4RXZHsIGA==}
+    engines: {node: '>=10'}
     dev: false
 
   /gensync/1.0.0-beta.2:

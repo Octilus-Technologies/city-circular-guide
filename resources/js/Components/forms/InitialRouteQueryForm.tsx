@@ -1,6 +1,7 @@
 import { getAllStopDetails } from "@/utils/geoJson";
 import { geocode, reverseGeocode } from "@/utils/mapbox-api";
 import { Inertia } from "@inertiajs/inertia";
+import Fuse from "fuse.js";
 import React, { FormEventHandler, useEffect, useState } from "react";
 import useGeolocation from "react-hook-geolocation";
 import { FaFlag, FaMapMarkerAlt } from "react-icons/fa";
@@ -72,17 +73,13 @@ function InitialRouteQueryForm({
         fetchArea();
     }, [geolocation.accuracy]);
 
-    const fuzzyMatchLettersCount = (a: string, b: string) => {
-        let count = 0;
-        for (let i = 0; i < a.length; i++) {
-            if (b.includes(a[i])) count++;
-        }
-        return count;
-    };
-
     const fuzzyMatch = (a: string, b: string) => {
-        const match = fuzzyMatchLettersCount(a, b);
-        return match > Math.min(a.length, b.length) * 0.96;
+        const fuse = new Fuse([a], {
+            minMatchCharLength: 3,
+        });
+
+        const result = fuse.search(b);
+        return result.length > 0;
     };
 
     const loadOptions = (
@@ -90,26 +87,24 @@ function InitialRouteQueryForm({
         callback: (options: AreaOption[]) => void
     ) => {
         // Add bus stops to search result
-        const busStops = getAllStopDetails(true).filter((stop) =>
-            fuzzyMatch(
-                stop.name.toLocaleLowerCase(),
-                inputValue.toLocaleLowerCase()
-            )
-        );
-        const busStopOptions = busStops.map((stop) => ({
-            label: stop.name,
+        const busStops = new Fuse(getAllStopDetails(true), {
+            keys: ["name"],
+            minMatchCharLength: 3,
+            shouldSort: true,
+        }).search(inputValue);
+        const busStopOptions = busStops.map(({ item }) => ({
+            label: item.name,
             value: {
-                name: stop.name,
-                coordinates: stop.coordinates,
-                id: stop.name.replace(/\s/g, "-"),
+                name: item.name,
+                coordinates: item.coordinates,
+                id: item.name.replace(/\s/g, "-"),
             },
         }));
 
         // search
-        const adjustedInputValue =
-            fuzzyMatchLettersCount(inputValue, CITY) > 5
-                ? `${inputValue}, ${CITY}`
-                : inputValue;
+        const adjustedInputValue = !fuzzyMatch(CITY, inputValue)
+            ? `${inputValue}, ${CITY}`
+            : inputValue;
         geocode(accessToken, adjustedInputValue).then((areaList) => {
             const filteredList = areaList.features
                 .map((f) => ({

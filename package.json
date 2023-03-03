@@ -37,6 +37,7 @@
     "dependencies": {
         "@formkit/auto-animate": "1.0.0-beta.5",
         "@turf/turf": "^6.5.0",
+        "fuse.js": "^6.6.2",
         "react-hook-geolocation": "^1.1.0",
         "react-icons": "^4.7.1"
     }
