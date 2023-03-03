@@ -210,7 +210,12 @@ const bruteForceRoutes = (from: Coordinates, destination: Coordinates) => {
                 destination,
                 allStops.map((s) => s.coordinates)
             );
-            const currentRouteCost = allStops.length + walkingCost;
+            const allStopDistance = allStops.reduce(
+                (acc, curr) =>
+                    acc + distance(point(from), point(curr.coordinates)),
+                0
+            );
+            const currentRouteCost = allStopDistance + walkingCost;
             const isShorter = currentRouteCost < shortRoute.cost;
 
             if (isShorter) {
