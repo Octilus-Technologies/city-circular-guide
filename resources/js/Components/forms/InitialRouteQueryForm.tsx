@@ -6,6 +6,8 @@ import useGeolocation from "react-hook-geolocation";
 import { FaFlag, FaMapMarkerAlt } from "react-icons/fa";
 import AsyncSelect from "react-select/async";
 
+const CITY = "Thiruvananthapuram";
+
 type Area = {
     name: string;
     id?: string;
@@ -70,13 +72,29 @@ function InitialRouteQueryForm({
         fetchArea();
     }, [geolocation.accuracy]);
 
+    const fuzzyMatchLettersCount = (a: string, b: string) => {
+        let count = 0;
+        for (let i = 0; i < a.length; i++) {
+            if (b.includes(a[i])) count++;
+        }
+        return count;
+    };
+
+    const fuzzyMatch = (a: string, b: string) => {
+        const match = fuzzyMatchLettersCount(a, b);
+        return match > Math.min(a.length, b.length) * 0.96;
+    };
+
     const loadOptions = (
         inputValue: string,
         callback: (options: AreaOption[]) => void
     ) => {
         // Add bus stops to search result
         const busStops = getAllStopDetails(true).filter((stop) =>
-            stop.name.toLowerCase().includes(inputValue.toLowerCase())
+            fuzzyMatch(
+                stop.name.toLocaleLowerCase(),
+                inputValue.toLocaleLowerCase()
+            )
         );
         const busStopOptions = busStops.map((stop) => ({
             label: stop.name,
@@ -88,16 +106,18 @@ function InitialRouteQueryForm({
         }));
 
         // search
-        geocode(accessToken, inputValue).then((areaList) => {
+        const adjustedInputValue =
+            fuzzyMatchLettersCount(inputValue, CITY) > 5
+                ? `${inputValue}, ${CITY}`
+                : inputValue;
+        geocode(accessToken, adjustedInputValue).then((areaList) => {
             const filteredList = areaList.features
                 .map((f) => ({
                     name: f.place_name,
                     coordinates: f.center,
                     id: f.id,
                 }))
-                .filter((d) =>
-                    (d.name as string).includes("Thiruvananthapuram")
-                );
+                .filter((d) => (d.name as string).includes(CITY));
 
             const areaOptions = filteredList.map((d) => ({
                 label: d.name,
