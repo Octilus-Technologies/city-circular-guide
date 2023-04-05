@@ -3,6 +3,7 @@
 use Inertia\Inertia;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\FaqController;
+use App\Http\Controllers\FeedbackController;
 use App\Http\Controllers\JourneyController;
 use App\Http\Controllers\ProfileController;
 
@@ -20,10 +21,10 @@ use App\Http\Controllers\ProfileController;
 Route::get('/', [JourneyController::class, 'welcome'])->name('welcome');
 Route::get('journey/{journey}', [JourneyController::class, 'journey'])->name('journey');
 Route::post('journey', [JourneyController::class, 'startJourney'])->name('journey.start');
+
 Route::resource('faq', FaqController::class)->only(['index', 'show']);
-Route::get('contact', function () {
-    return Inertia::render('Contact');
-})->name('contact');
+Route::get('contact', [FeedbackController::class, 'create'])->name('feedback.create');
+Route::post('contact', [FeedbackController::class, 'store'])->name('feedback.store');
 
 Route::get('dashboard', function () {
     return Inertia::render('Dashboard');
