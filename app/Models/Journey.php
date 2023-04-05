@@ -52,6 +52,10 @@ class Journey extends Model
         'destination'
     ];
 
+    protected $appends = [
+        'time_ago'
+    ];
+
 
     // * Relationships
 
@@ -68,5 +72,13 @@ class Journey extends Model
     public function user()
     {
         return $this->belongsTo(User::class);
+    }
+
+
+    // * Accessors
+
+    public function getTimeAgoAttribute()
+    {
+        return $this->created_at->diffForHumans();
     }
 }

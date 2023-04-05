@@ -27,4 +27,27 @@ type JourneyDTO = {
     updated_at?: string;
     from: LocationDTO;
     destination: LocationDTO;
+    time_ago: string;
 };
+
+interface Paginated<T> {
+    current_page: number;
+    data: T[];
+    first_page_url: string;
+    from: number;
+    last_page: number;
+    last_page_url: string;
+    links: LinkDTO[];
+    next_page_url: string;
+    path: string;
+    per_page: number;
+    prev_page_url?: any;
+    to: number;
+    total: number;
+}
+
+interface LinkDTO {
+    url?: string;
+    label: string;
+    active: boolean;
+}

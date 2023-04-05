@@ -6,6 +6,9 @@ use App\Http\Controllers\FaqController;
 use App\Http\Controllers\FeedbackController;
 use App\Http\Controllers\JourneyController;
 use App\Http\Controllers\ProfileController;
+use App\Models\Feedback;
+use App\Models\Journey;
+use App\Models\User;
 
 /*
 |--------------------------------------------------------------------------
@@ -27,8 +30,13 @@ Route::get('contact', [FeedbackController::class, 'create'])->name('feedback.cre
 Route::post('contact', [FeedbackController::class, 'store'])->name('feedback.store');
 
 Route::get('dashboard', function () {
-    return Inertia::render('Dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
+    $journeyCount = Journey::count();
+    $feedbackCount = Feedback::count();
+    $userCount = User::count();
+    $journeys = Journey::latest()->paginate(100);
+
+    return Inertia::render('Dashboard', compact('journeyCount', 'feedbackCount', 'userCount', 'journeys'));
+})->middleware(['auth', 'verified', 'admin'])->name('dashboard');
 
 Route::middleware('auth')->group(function () {
     Route::get('profile', [ProfileController::class, 'edit'])->name('profile.edit');
