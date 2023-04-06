@@ -30,10 +30,15 @@ Route::get('contact', [FeedbackController::class, 'create'])->name('feedback.cre
 Route::post('contact', [FeedbackController::class, 'store'])->name('feedback.store');
 
 Route::get('dashboard', function () {
-    $journeyCount = Journey::count();
-    $feedbackCount = Feedback::count();
-    $userCount = User::count();
-    $journeys = Journey::latest()->paginate(100);
+    try {
+        $journeyCount = Journey::count();
+        $userCount = User::count();
+        $journeys = Journey::latest()->paginate(100);
+        $feedbackCount = 0; // fallback (table might not be there)
+        $feedbackCount = Feedback::count();
+    } catch (\Throwable $th) {
+        //throw $th;
+    }
 
     return Inertia::render('Dashboard', compact('journeyCount', 'feedbackCount', 'userCount', 'journeys'));
 })->middleware(['auth', 'verified', 'admin'])->name('dashboard');
