@@ -33,13 +33,13 @@ Route::get('dashboard', function () {
     try {
         $journeyCount = Journey::count();
         $userCount = User::count();
-        $journeys = Journey::latest()->paginate(100);
+        $journeys = Journey::latest()->paginate();
         $feedbackCount = 0; // fallback (table might not be there)
         $feedbackCount = Feedback::count();
     } catch (\Throwable $th) {
         //throw $th;
     }
-
+    
     return Inertia::render('Dashboard', compact('journeyCount', 'feedbackCount', 'userCount', 'journeys'));
 })->middleware(['auth', 'verified', 'admin'])->name('dashboard');
 

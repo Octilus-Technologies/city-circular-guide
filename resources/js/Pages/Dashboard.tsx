@@ -1,6 +1,7 @@
 import React from "react";
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
 import { Head } from "@inertiajs/inertia-react";
+import Pagination from "@/Components/Pagination";
 
 export default function Dashboard(props: {
     errors: Record<string, string>;
@@ -12,7 +13,8 @@ export default function Dashboard(props: {
     userCount: number;
     journeys: Paginated<JourneyDTO>;
 }) {
-    console.log(props.journeys);
+    // console.log(props.journeys);
+    
     return (
         <AuthenticatedLayout
             auth={props.auth}
@@ -100,6 +102,12 @@ export default function Dashboard(props: {
                                         ))}
                                     </tbody>
                                 </table>
+                            </div>
+
+                            <div className="pagination-container mt-5 flex w-full items-center justify-center">
+                                <Pagination
+                                    links={props.journeys.links}
+                                />
                             </div>
                         </div>
                     </div>

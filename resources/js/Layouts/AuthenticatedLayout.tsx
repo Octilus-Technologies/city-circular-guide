@@ -1,9 +1,10 @@
-import React, { useState } from "react";
 import ApplicationLogo from "@/Components/ApplicationLogo";
 import Dropdown from "@/Components/Dropdown";
+import FlashAlerts from "@/Components/FlashAlerts";
 import NavLink from "@/Components/NavLink";
 import ResponsiveNavLink from "@/Components/ResponsiveNavLink";
 import { Link } from "@inertiajs/inertia-react";
+import React, { useState } from "react";
 
 export default function Authenticated({ auth, header, children, errors }: any) {
     const [showingNavigationDropdown, setShowingNavigationDropdown] =
@@ -43,7 +44,7 @@ export default function Authenticated({ auth, header, children, errors }: any) {
                                                 {auth.user.name}
 
                                                 <svg
-                                                    className="ml-2 -mr-0.5 h-4 w-4"
+                                                    className="-mr-0.5 ml-2 h-4 w-4"
                                                     xmlns="http://www.w3.org/2000/svg"
                                                     viewBox="0 0 20 20"
                                                     fill="currentColor"
@@ -125,7 +126,7 @@ export default function Authenticated({ auth, header, children, errors }: any) {
                         " sm:hidden"
                     }
                 >
-                    <div className="space-y-1 pt-2 pb-3">
+                    <div className="space-y-1 pb-3 pt-2">
                         <ResponsiveNavLink
                             href={route("dashboard")}
                             active={route().current("dashboard")}
@@ -134,7 +135,7 @@ export default function Authenticated({ auth, header, children, errors }: any) {
                         </ResponsiveNavLink>
                     </div>
 
-                    <div className="border-t border-gray-200 pt-4 pb-1">
+                    <div className="border-t border-gray-200 pb-1 pt-4">
                         <div className="px-4">
                             <div className="text-base font-medium text-gray-800">
                                 {auth.user.name}
@@ -162,13 +163,19 @@ export default function Authenticated({ auth, header, children, errors }: any) {
 
             {header && (
                 <header className="bg-white shadow">
-                    <div className="mx-auto max-w-7xl py-6 px-4 sm:px-6 lg:px-8">
+                    <div className="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8">
                         {header}
                     </div>
                 </header>
             )}
 
-            <main>{children}</main>
+            <main>
+                <div className="mx-auto max-w-7xl pt-5 -mb-5 sm:px-6 lg:px-8">
+                    <FlashAlerts />
+                </div>
+
+                {children}
+            </main>
         </div>
     );
 }
