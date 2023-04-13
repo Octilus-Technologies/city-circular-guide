@@ -1,15 +1,22 @@
-# Bus tracker
+# CityCircular Guide - Trivandrum
 
-This application finds best routes under KSRTC
+by OIL (Octilus Innovations Lab)
+
+A map-based digital platform for the ‘Trivandrum City Circular’ bus service. It will act as a guide to commuters.
+
+## Docs
+
+-   [Concept](./docs/concept.md)
 
 ## Stack
 
-- Laravel
-- Inertia
-- React.js
-- TypeScript
-- Tailwind
-- DaisyUI
+-   Laravel
+-   Inertia
+-   React.js
+-   TypeScript
+-   Tailwind
+-   DaisyUI
+-   Mapbox
 
 ## Setup
 
