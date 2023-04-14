@@ -2,7 +2,7 @@ import { getAllStopDetails } from "@/utils/geoJson";
 import { geocode, reverseGeocode } from "@/utils/mapbox-api";
 import { Inertia } from "@inertiajs/inertia";
 import Fuse from "fuse.js";
-import React, { FormEventHandler, useEffect, useState } from "react";
+import React, { FormEventHandler, useCallback, useEffect, useState } from "react";
 import useGeolocation from "react-hook-geolocation";
 import { FaFlag, FaMapMarkerAlt } from "react-icons/fa";
 import AsyncSelect from "react-select/async";
@@ -48,8 +48,6 @@ function InitialRouteQueryForm({
 
     const [from, setFrom] = useState<AreaOption>();
     const [destination, setDestination] = useState<AreaOption>();
-
-    console.log({ from, destination });
 
     // * Setting initial location
     useEffect(() => {
@@ -130,7 +128,7 @@ function InitialRouteQueryForm({
         });
     };
 
-    const handleSubmit: FormEventHandler<HTMLFormElement> = (e) => {
+    const handleSubmit: FormEventHandler<HTMLFormElement> = useCallback((e) => {
         e.preventDefault();
         if (!from) return;
         if (!destination) return;
@@ -141,7 +139,7 @@ function InitialRouteQueryForm({
             from: from.value,
             destination: destination.value,
         } as any); // Inertia type definition bug
-    };
+    }, [from, destination])
 
     return (
         <form
