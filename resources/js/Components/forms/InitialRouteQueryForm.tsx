@@ -101,9 +101,9 @@ function InitialRouteQueryForm({
             },
         }));
 
-        // search
+        // search via map api
         const adjustedInputValue = !fuzzyMatch(CITY, inputValue)
-            ? `${inputValue}, ${CITY}`
+            ? `${inputValue}, ${CITY}` // forcing to search with city name
             : inputValue;
         geocode(accessToken, adjustedInputValue).then((areaList) => {
             const filteredList = areaList.features
