@@ -2,7 +2,7 @@ import { Link } from "@inertiajs/inertia-react";
 import React from "react";
 
 type Props = {
-    links: { url: string; label: string; active: boolean }[];
+    links: { url?: string; label: string; active?: boolean }[];
 };
 
 const Pagination = ({ links }: Props) => {
@@ -11,7 +11,7 @@ const Pagination = ({ links }: Props) => {
             {links.map((link) => (
                 <Link
                     key={link.label}
-                    href={link.url}
+                    href={link.url ?? ""}
                     disabled={!link.url || link.active}
                     className="btn"
                 >

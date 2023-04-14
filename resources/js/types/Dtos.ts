@@ -30,7 +30,7 @@ type JourneyDTO = {
     time_ago: string;
 };
 
-interface Paginated<T> {
+type Paginated<T> = {
     current_page: number;
     data: T[];
     first_page_url: string;
@@ -44,10 +44,28 @@ interface Paginated<T> {
     prev_page_url?: any;
     to: number;
     total: number;
-}
+};
 
-interface LinkDTO {
+type LinkDTO = {
     url?: string;
     label: string;
     active: boolean;
-}
+};
+
+type Errors = Record<string, string>;
+
+type Auth = {
+    user: Record<string, string>;
+};
+
+type Flash = {
+    message?: string;
+    error?: string;
+    success?: string;
+};
+
+type CommonPageProps = {
+    auth: Auth;
+    errors: Errors;
+    flash: Flash;
+};

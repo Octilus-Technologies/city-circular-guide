@@ -3,10 +3,14 @@ import Dropdown from "@/Components/Dropdown";
 import FlashAlerts from "@/Components/FlashAlerts";
 import NavLink from "@/Components/NavLink";
 import ResponsiveNavLink from "@/Components/ResponsiveNavLink";
-import { Link } from "@inertiajs/inertia-react";
+import { Page } from "@inertiajs/inertia";
+import { Link, usePage } from "@inertiajs/inertia-react";
 import React, { useState } from "react";
 
-export default function Authenticated({ auth, header, children, errors }: any) {
+export default function Authenticated({ header, children }: any) {
+    const data = usePage<Page<CommonPageProps>>();
+    const { auth } = data.props;
+
     const [showingNavigationDropdown, setShowingNavigationDropdown] =
         useState(false);
 

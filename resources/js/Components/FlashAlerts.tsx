@@ -1,8 +1,10 @@
+import { Page } from "@inertiajs/inertia";
 import { usePage } from "@inertiajs/inertia-react";
+import React from "react";
 
 const FlashAlerts = () => {
-    const { props } = usePage();
-    const flash = props.flash as any;
+    const { props } = usePage<Page<CommonPageProps>>();
+    const { flash } = props;
 
     return (
         <div className="flash-messages">

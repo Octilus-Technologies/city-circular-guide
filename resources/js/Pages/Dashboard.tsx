@@ -1,24 +1,18 @@
-import React from "react";
+import Pagination from "@/Components/Pagination";
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
 import { Head } from "@inertiajs/inertia-react";
-import Pagination from "@/Components/Pagination";
+import React from "react";
 
-export default function Dashboard(props: {
-    errors: Record<string, string>;
-    auth: {
-        user: Record<string, string>;
-    };
+type DashboardProps = {
     journeyCount: number;
     feedbackCount: number;
     userCount: number;
     journeys: Paginated<JourneyDTO>;
-}) {
-    // console.log(props.journeys);
-    
+}
+
+export default function Dashboard(props: DashboardProps) {
     return (
         <AuthenticatedLayout
-            auth={props.auth}
-            errors={props.errors}
             header={
                 <h2 className="text-xl font-semibold leading-tight text-gray-800">
                     Dashboard
