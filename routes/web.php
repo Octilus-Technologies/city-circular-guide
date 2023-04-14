@@ -1,14 +1,15 @@
 <?php
 
+use App\Models\User;
 use Inertia\Inertia;
+use App\Models\Journey;
+use App\Models\Feedback;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\FaqController;
-use App\Http\Controllers\FeedbackController;
+use App\Http\Controllers\ProxyController;
 use App\Http\Controllers\JourneyController;
 use App\Http\Controllers\ProfileController;
-use App\Models\Feedback;
-use App\Models\Journey;
-use App\Models\User;
+use App\Http\Controllers\FeedbackController;
 
 /*
 |--------------------------------------------------------------------------
@@ -25,6 +26,8 @@ Route::get('/', [JourneyController::class, 'welcome'])->name('welcome');
 Route::get('journey/{journey}', [JourneyController::class, 'journey'])->name('journey');
 Route::post('journey', [JourneyController::class, 'startJourney'])->name('journey.start');
 
+Route::get('map-api/{path}', [ProxyController::class, 'mapProxy'])->name('proxy.map-api')->where('path', '.*');
+
 Route::resource('faq', FaqController::class)->only(['index', 'show']);
 Route::get('contact', [FeedbackController::class, 'create'])->name('feedback.create');
 Route::post('contact', [FeedbackController::class, 'store'])->name('feedback.store');
@@ -39,7 +42,7 @@ Route::get('dashboard', function () {
     } catch (\Throwable $th) {
         //throw $th;
     }
-    
+
     return Inertia::render('Dashboard', compact('journeyCount', 'feedbackCount', 'userCount', 'journeys'));
 })->middleware(['auth', 'verified', 'admin'])->name('dashboard');
 

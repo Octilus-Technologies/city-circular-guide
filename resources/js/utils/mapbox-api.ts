@@ -1,7 +1,8 @@
 export type Profile = "driving-traffic" | "driving" | "walking" | "cycling";
 
-const GEOCODING_API = "https://api.mapbox.com/geocoding/v5";
-const MATCHING_API = "https://api.mapbox.com/matching/v5";
+const API_ROOT = "/map-api";
+const GEOCODING_API = API_ROOT + "/geocoding/v5";
+const MATCHING_API = API_ROOT + "/matching/v5";
 
 export async function getMatch(
     accessToken: string,
