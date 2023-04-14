@@ -1,6 +1,6 @@
 import Pagination from "@/Components/Pagination";
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
-import { Head } from "@inertiajs/inertia-react";
+import { Head, Link } from "@inertiajs/inertia-react";
 import React from "react";
 
 type DashboardProps = {
@@ -8,7 +8,7 @@ type DashboardProps = {
     feedbackCount: number;
     userCount: number;
     journeys: Paginated<JourneyDTO>;
-}
+} & CommonPageProps;
 
 export default function Dashboard(props: DashboardProps) {
     return (
@@ -46,11 +46,11 @@ export default function Dashboard(props: DashboardProps) {
                             </div>
                             <div className="stat-actions"></div>
                         </div>
-                        <div className="stat">
+                        <Link href={route('users.index')} className="stat">
                             <div className="stat-title">Users</div>
                             <div className="stat-value">{props.userCount}</div>
                             <div className="stat-actions"></div>
-                        </div>
+                        </Link>
                     </div>
 
                     <div className="card mt-3 bg-base-100 shadow">
