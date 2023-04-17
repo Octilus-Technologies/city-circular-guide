@@ -1,13 +1,15 @@
 import SmallHeader from "@/Components/SmallHeader";
 import React from "react";
 
+type SideBarProps = {
+    children: React.ReactNode;
+    toggleExpanded?: () => void;
+};
+
 function SideBar({
     children,
     toggleExpanded,
-}: {
-    children: React.ReactNode;
-    toggleExpanded: () => void;
-}) {
+}: SideBarProps) {
     return (
         <section
             className="actions fixed bottom-0 left-0 right-0 z-50 flex flex-col gap-2

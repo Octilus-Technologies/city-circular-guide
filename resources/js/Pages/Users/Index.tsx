@@ -116,7 +116,6 @@ function Index(props: UserIndexProps) {
                             </div>
 
                             <div className="pagination-container mt-5 flex w-full items-center justify-center">
-                                {/* <pre>{JSON.stringify(users, null, 2)}</pre> */}
                                 <Pagination
                                     links={users.links}
                                     meta={users.meta}

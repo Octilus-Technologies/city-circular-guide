@@ -30,38 +30,38 @@ type JourneyDTO = {
     time_ago: string;
 };
 
-type Paginated<T> =
-    | {
-          current_page: number;
-          data: T[];
-          first_page_url: string;
-          from: number;
-          last_page: number;
-          last_page_url: string;
-          links: LinkDTO[];
-          next_page_url: string;
-          path: string;
-          per_page: number;
-          prev_page_url?: any;
-          to: number;
-          total: number;
-      }
-    | {
-          current_page: number;
-          data: T[];
-          first_page_url: string;
-          from: number;
-          last_page: number;
-          last_page_url: string;
-          links: LinksSummaryDTO;
-          meta: LinkMetaDTO;
-          next_page_url: string;
-          path: string;
-          per_page: number;
-          prev_page_url?: any;
-          to: number;
-          total: number;
-      };
+type PaginatedUnsafeResource<T> = {
+    current_page: number;
+    data: T[];
+    first_page_url: string;
+    from: number;
+    last_page: number;
+    last_page_url: string;
+    links: LinkDTO[];
+    next_page_url: string;
+    path: string;
+    per_page: number;
+    prev_page_url?: any;
+    to: number;
+    total: number;
+};
+
+type Paginated<T> = {
+    current_page: number;
+    data: T[];
+    first_page_url: string;
+    from: number;
+    last_page: number;
+    last_page_url: string;
+    links: LinksSummaryDTO;
+    meta: LinkMetaDTO;
+    next_page_url: string;
+    path: string;
+    per_page: number;
+    prev_page_url?: any;
+    to: number;
+    total: number;
+};
 
 type LinkDTO = {
     url?: string;

@@ -3,12 +3,16 @@ import ApplicationLogo from "@/Components/ApplicationLogo";
 import { Link } from "@inertiajs/inertia-react";
 import AppIcon from "@/Components/AppIcon";
 
-export default function Guest({ children }) {
+export default function Guest({ children }: {
+    children: React.ReactNode;
+}) {
     return (
         <div className="flex min-h-screen flex-col items-center bg-gray-100 pt-6 sm:justify-center sm:pt-0">
             <div>
                 <Link href="/">
-                    <AppIcon />
+                    <span className="flex gap-2 justify-center items-center">
+                        <AppIcon />
+                    </span>
                 </Link>
             </div>
 
