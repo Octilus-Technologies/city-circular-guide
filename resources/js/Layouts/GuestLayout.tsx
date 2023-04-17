@@ -1,7 +1,6 @@
-import React from "react";
-import ApplicationLogo from "@/Components/ApplicationLogo";
-import { Link } from "@inertiajs/inertia-react";
 import AppIcon from "@/Components/AppIcon";
+import { Link } from "@inertiajs/inertia-react";
+import React from "react";
 
 export default function Guest({ children }: {
     children: React.ReactNode;

@@ -23,4 +23,11 @@ class FeedbackController extends Controller
 
         return to_route("welcome")->with('success', __('Thank you for your feedback!'));
     }
+
+    public function index()
+    {
+        $feedback = Feedback::latest()->paginate();
+
+        return Inertia::render('Feedback/Index', compact('feedback'));
+    }
 }

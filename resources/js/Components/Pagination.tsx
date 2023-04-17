@@ -23,7 +23,7 @@ const Pagination = ({ links, meta }: Props) => {
                 </Link>
             </div>)}
 
-            {!meta && ((links as LinkDTO[]).map((link) => (
+            {!!(links as [])?.length && ((links as LinkDTO[]).map((link) => (
                 <Link
                     key={link.label}
                     href={link.url ?? ""}
