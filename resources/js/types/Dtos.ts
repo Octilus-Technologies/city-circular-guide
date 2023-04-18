@@ -22,9 +22,9 @@ type JourneyDTO = {
     end_time?: string;
     meta?: MetaDTO;
     user_id?: string;
-    deleted_at?: string;
-    created_at?: string;
-    updated_at?: string;
+    deleted_at?: Date;
+    created_at?: Date;
+    updated_at?: Date;
     from: LocationDTO;
     destination: LocationDTO;
     time_ago: string;
@@ -87,14 +87,31 @@ type LinkMetaDTO = {
     total: number;
 };
 
-type UserDTO = {} & Record<string, string>;
+interface UserDTO {
+    id: number;
+    name: string;
+    email: string;
+    email_verified_at?: Date;
+    avatar: string;
+    created_at: Date;
+    created_at_diff: string;
+}
 
-type FeedbackDTO = {} & Record<string, string>;
+interface FeedbackDTO {
+    id: number;
+    name: string;
+    email: string;
+    message: string;
+    created_at: Date;
+    updated_at?: Date;
+    deleted_at?: Date;
+    created_at_diff: string;
+}
 
 type Errors = Record<string, string>;
 
 type Auth = {
-    user: Record<string, string>;
+    user: UserDTO;
 };
 
 type Flash = {
