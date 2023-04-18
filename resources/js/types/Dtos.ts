@@ -89,6 +89,8 @@ type LinkMetaDTO = {
 
 type UserDTO = {} & Record<string, string>;
 
+type FeedbackDTO = {} & Record<string, string>;
+
 type Errors = Record<string, string>;
 
 type Auth = {

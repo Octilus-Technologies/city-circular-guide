@@ -32,21 +32,21 @@ export default function Dashboard(props: DashboardProps) {
                     </div>
 
                     <div className="stats mt-3 w-full shadow">
-                        <div className="stat">
+                        <Link href={route('admin.journeys.index')} className="stat">
                             <div className="stat-title">Journeys</div>
                             <div className="stat-value">
                                 {props.journeyCount}
                             </div>
                             <div className="stat-actions"></div>
-                        </div>
-                        <div className="stat">
+                        </Link>
+                        <Link href={route('admin.feedbacks.index')} className="stat">
                             <div className="stat-title">Feedbacks</div>
                             <div className="stat-value">
                                 {props.feedbackCount}
                             </div>
                             <div className="stat-actions"></div>
-                        </div>
-                        <Link href={route('users.index')} className="stat">
+                        </Link>
+                        <Link href={route('admin.users.index')} className="stat">
                             <div className="stat-title">Users</div>
                             <div className="stat-value">{props.userCount}</div>
                             <div className="stat-actions"></div>
@@ -107,6 +107,6 @@ export default function Dashboard(props: DashboardProps) {
                     </div>
                 </div>
             </div>
-        </AuthenticatedLayout>
+        </AuthenticatedLayout >
     );
 }

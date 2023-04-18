@@ -2,9 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\FeedbackStoreRequest;
-use App\Models\Feedback;
 use Inertia\Inertia;
+use App\Models\Feedback;
+use App\Http\Resources\FeedbackResource;
+use App\Http\Requests\FeedbackStoreRequest;
 
 class FeedbackController extends Controller
 {
@@ -26,8 +27,9 @@ class FeedbackController extends Controller
 
     public function index()
     {
-        $feedback = Feedback::latest()->paginate();
+        $feedbacksCollection = Feedback::latest()->paginate();
+        $feedbacks = FeedbackResource::collection($feedbacksCollection);
 
-        return Inertia::render('Feedback/Index', compact('feedback'));
+        return Inertia::render('Feedback/Index', compact('feedbacks'));
     }
 }

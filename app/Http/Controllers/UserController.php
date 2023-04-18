@@ -14,13 +14,13 @@ class UserController extends Controller
         $usersCollection = User::query()->latest()->paginate();
         $users = UserResource::collection($usersCollection); // * safe to use in frontend
 
-        return Inertia::render('Users/Index', compact('users'));
+        return Inertia::render('User/Index', compact('users'));
     }
 
     public function show(User $user)
     {
         $user = new UserResource($user); // * safe to use in frontend
 
-        return Inertia::render('Users/Show', compact('user'));
+        return Inertia::render('User/Show', compact('user'));
     }
 }
