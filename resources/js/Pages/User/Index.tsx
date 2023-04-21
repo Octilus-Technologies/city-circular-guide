@@ -1,8 +1,8 @@
 import Pagination from "@/Components/Pagination";
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
-import { Head } from "@inertiajs/inertia-react";
+import { Head, Link } from "@inertiajs/inertia-react";
 import React from "react";
-
+import { HiTrash } from "react-icons/hi";
 
 type UserIndexProps = {
     users: Paginated<UserDTO>;
@@ -96,8 +96,14 @@ function Index(props: UserIndexProps) {
 
                                                         {/* TODO: Add Edit Button */}
 
-                                                        {/* <Link
-                                                            href={route("users.destroy", {
+                                                        <Link
+                                                            onClick={(e) => {
+                                                                if (!confirm(
+                                                                    "Are you sure you want to delete this user?"
+                                                                )) e.preventDefault();
+                                                            }}
+
+                                                            href={route("admin.users.destroy", {
                                                                 user,
                                                             })}
                                                             method="delete"
@@ -106,7 +112,7 @@ function Index(props: UserIndexProps) {
                                                             className="btn btn-square btn-ghost"
                                                         >
                                                             <HiTrash className="w-5" />
-                                                        </Link> */}
+                                                        </Link>
                                                     </td>
                                                 </tr>
                                             );

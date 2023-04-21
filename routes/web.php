@@ -54,7 +54,7 @@ Route::middleware('auth')->group(function () {
     Route::delete('profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
     Route::middleware(['auth', 'admin'])->prefix('admin')->name('admin.')->group(function () {
-        Route::resource('users', UserController::class)->only(['index', 'show']);
+        Route::resource('users', UserController::class)->only(['index', 'show', 'destroy']);
         Route::resource('feedbacks', FeedbackController::class)->only(['index', 'show']);
         Route::resource('journeys', JourneyAdminController::class)->only(['index', 'show']);
     });
