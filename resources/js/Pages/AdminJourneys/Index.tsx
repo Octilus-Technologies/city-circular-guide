@@ -1,8 +1,8 @@
 import Pagination from "@/Components/Pagination";
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
-import { Head } from "@inertiajs/inertia-react";
+import { Head, Link } from "@inertiajs/inertia-react";
 import React from "react";
-
+import { HiOutlineEye } from "react-icons/hi";
 
 type UserIndexProps = {
     journeys: Paginated<JourneyDTO>;
@@ -33,6 +33,7 @@ function Index(props: UserIndexProps) {
                                             <th>Time</th>
                                             <th>From</th>
                                             <th>To</th>
+                                            <th>Actions</th>
                                         </tr>
                                     </thead>
 
@@ -61,6 +62,19 @@ function Index(props: UserIndexProps) {
                                                                 .name
                                                         }
                                                     </small>
+                                                </td>
+
+                                                <td>
+                                                    <a
+                                                        href={route(
+                                                            "journey",
+                                                            journey.uuid
+                                                        )}
+                                                        target="_blank"
+                                                        className="btn-ghost btn-square btn"
+                                                    >
+                                                        <HiOutlineEye className="w-5" />
+                                                    </a>
                                                 </td>
                                             </tr>
                                         ))}
