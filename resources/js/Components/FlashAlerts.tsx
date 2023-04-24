@@ -9,7 +9,7 @@ const FlashAlerts = () => {
     return (
         <div className="flash-messages">
             {flash.message && (
-                <div className="alert alert-info text-white">
+                <div className="alert alert-info text-white shadow-md">
                     <div>
                         <svg
                             xmlns="http://www.w3.org/2000/svg"
@@ -31,7 +31,7 @@ const FlashAlerts = () => {
             )}
 
             {flash.error && (
-                <div className="alert alert-error text-white shadow-lg">
+                <div className="alert alert-error text-white shadow-md">
                     <div>
                         <svg
                             xmlns="http://www.w3.org/2000/svg"
@@ -53,7 +53,7 @@ const FlashAlerts = () => {
             )}
 
             {flash.success && (
-                <div className="alert alert-success text-white shadow-lg">
+                <div className="alert alert-success text-white shadow-md">
                     <div>
                         <svg
                             xmlns="http://www.w3.org/2000/svg"
