@@ -40,4 +40,9 @@ class User extends Authenticatable
     {
         return "https://ui-avatars.com/api/?background=random&name={$this->name}&email={$this->email}";
     }
+
+    public function getIsAdminAttribute()
+    {
+        return str_contains($this->email, '@octilus.in');
+    }
 }

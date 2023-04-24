@@ -93,6 +93,7 @@ interface UserDTO {
     email: string;
     email_verified_at?: Date;
     avatar: string;
+    is_admin?: boolean;
     created_at: Date;
     created_at_diff: string;
 }

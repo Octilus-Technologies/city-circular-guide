@@ -17,7 +17,7 @@ class IsAdmin
      */
     public function handle(Request $request, Closure $next)
     {
-        if (str_contains(Auth::user()->email, '@octilus.in')) {
+        if (Auth::user()->is_admin) {
             return $next($request);
         }
 

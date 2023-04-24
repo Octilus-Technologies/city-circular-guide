@@ -26,14 +26,16 @@ function Index(props: UserIndexProps) {
                     <div className="card mt-3 bg-base-100 shadow">
                         <div className="card-body">
                             <div className="overflow-x-auto">
-                                <table className="table table-zebra w-full">
+                                <table className="table-zebra table w-full">
                                     <thead>
                                         <tr>
                                             <th className="!relative">Name</th>
                                             <th>Email Id</th>
                                             <th>Created At</th>
                                             <th>
-                                                <span className="sr-only">Actions</span>
+                                                <span className="sr-only">
+                                                    Actions
+                                                </span>
                                             </th>
                                         </tr>
                                     </thead>
@@ -44,10 +46,10 @@ function Index(props: UserIndexProps) {
                                                     <td>
                                                         <div className="flex items-center space-x-3">
                                                             <div className="avatar">
-                                                                <div className="mask mask-squircle w-12 h-12">
+                                                                <div className="mask mask-squircle h-12 w-12">
                                                                     <img
                                                                         src={user.avatar}
-                                                                        alt="Avatar"
+                                                                        alt={`${user.name} avatar`}
                                                                     />
                                                                 </div>
                                                             </div>
@@ -55,6 +57,12 @@ function Index(props: UserIndexProps) {
                                                                 <div className="font-bold">
                                                                     {user.name}
                                                                 </div>
+
+                                                                {user.is_admin && (
+                                                                    <span className="badge-warning badge badge-sm">
+                                                                        Admin
+                                                                    </span>
+                                                                )}
                                                             </div>
                                                         </div>
                                                     </td>
@@ -66,7 +74,7 @@ function Index(props: UserIndexProps) {
                                                                 <span className="text-success">
                                                                     <svg
                                                                         xmlns="http://www.w3.org/2000/svg"
-                                                                        className="stroke-current flex-shrink-0 h-6 w-6"
+                                                                        className="h-6 w-6 flex-shrink-0 stroke-current"
                                                                         fill="none"
                                                                         viewBox="0 0 24 24"
                                                                     >
@@ -88,7 +96,9 @@ function Index(props: UserIndexProps) {
                                                                 user.created_at
                                                             ).toDateString()}
                                                         >
-                                                            {user.created_at_diff}
+                                                            {
+                                                                user.created_at_diff
+                                                            }
                                                         </span>
                                                     </td>
                                                     <td>
@@ -98,18 +108,23 @@ function Index(props: UserIndexProps) {
 
                                                         <Link
                                                             onClick={(e) => {
-                                                                if (!confirm(
-                                                                    "Are you sure you want to delete this user?"
-                                                                )) e.preventDefault();
+                                                                if (
+                                                                    !confirm(
+                                                                        "Are you sure you want to delete this user?"
+                                                                    )
+                                                                )
+                                                                    e.preventDefault();
                                                             }}
-
-                                                            href={route("admin.users.destroy", {
-                                                                user,
-                                                            })}
+                                                            href={route(
+                                                                "admin.users.destroy",
+                                                                {
+                                                                    user,
+                                                                }
+                                                            )}
                                                             method="delete"
                                                             as="button"
                                                             type="button"
-                                                            className="btn btn-square btn-ghost"
+                                                            className="btn-ghost btn-square btn"
                                                         >
                                                             <HiTrash className="w-5" />
                                                         </Link>
