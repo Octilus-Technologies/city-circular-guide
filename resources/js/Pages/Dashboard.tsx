@@ -1,4 +1,4 @@
-import Pagination from "@/Components/Pagination";
+import Chart from "@/Components/Chart";
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
 import { Head, Link } from "@inertiajs/inertia-react";
 import React from "react";
@@ -8,6 +8,7 @@ type DashboardProps = {
     feedbackCount: number;
     userCount: number;
     journeys: Paginated<JourneyDTO>;
+    monthlyUsersChart: ChartDTO;
 } & CommonPageProps;
 
 export default function Dashboard(props: DashboardProps) {
@@ -55,53 +56,8 @@ export default function Dashboard(props: DashboardProps) {
 
                     <div className="card mt-3 bg-base-100 shadow">
                         <div className="card-body">
-                            <div className="overflow-x-auto">
-                                <table className="table-zebra -table-compact table w-full">
-                                    <thead>
-                                        <tr>
-                                            <th>UUID</th>
-                                            <th>Time</th>
-                                            <th>From</th>
-                                            <th>To</th>
-                                        </tr>
-                                    </thead>
-
-                                    <tbody>
-                                        {props.journeys.data.map((journey) => (
-                                            <tr key={journey.uuid}>
-                                                <td>
-                                                    <small>
-                                                        {journey.uuid}
-                                                    </small>
-                                                </td>
-                                                <td>
-                                                    <small>
-                                                        {journey.time_ago}
-                                                    </small>
-                                                </td>
-                                                <td className="w-[300px] !whitespace-pre-wrap">
-                                                    <small>
-                                                        {journey.from.name}
-                                                    </small>
-                                                </td>
-                                                <td className="w-[300px] !whitespace-pre-wrap">
-                                                    <small>
-                                                        {
-                                                            journey.destination
-                                                                .name
-                                                        }
-                                                    </small>
-                                                </td>
-                                            </tr>
-                                        ))}
-                                    </tbody>
-                                </table>
-                            </div>
-
-                            <div className="pagination-container mt-5 flex w-full items-center justify-center">
-                                <Pagination
-                                    links={props.journeys.links}
-                                />
+                            <div className="overflow-hidden">
+                                <Chart data={props.monthlyUsersChart} />
                             </div>
                         </div>
                     </div>

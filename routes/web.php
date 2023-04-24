@@ -4,6 +4,7 @@ use App\Models\User;
 use Inertia\Inertia;
 use App\Models\Journey;
 use App\Models\Feedback;
+use App\Charts\MonthlyUsersChart;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\FaqController;
 use App\Http\Controllers\UserController;
@@ -34,18 +35,19 @@ Route::resource('faq', FaqController::class)->only(['index', 'show']);
 Route::get('contact', [FeedbackController::class, 'create'])->name('feedback.create');
 Route::post('contact', [FeedbackController::class, 'store'])->name('feedback.store');
 
-Route::get('dashboard', function () {
+Route::get('dashboard', function (MonthlyUsersChart $chart) {
     try {
         $journeyCount = Journey::count();
         $userCount = User::count();
         $journeys = Journey::latest()->paginate();
         $feedbackCount = 0; // fallback (table might not be there)
         $feedbackCount = Feedback::count();
+        $monthlyUsersChart = $chart->build()->getData();
     } catch (\Throwable $th) {
         //throw $th;
     }
 
-    return Inertia::render('Dashboard', compact('journeyCount', 'feedbackCount', 'userCount', 'journeys'));
+    return Inertia::render('Dashboard', compact('journeyCount', 'feedbackCount', 'userCount', 'journeys', 'monthlyUsersChart'));
 })->middleware(['auth', 'admin'])->name('dashboard');
 
 Route::middleware('auth')->group(function () {

@@ -126,3 +126,14 @@ type CommonPageProps = {
     errors: Errors;
     flash: Flash;
 };
+
+type ChartDTO = {
+    id: string;
+    options: Record<string, any> & {
+        chart: Record<string, any>;
+        series: {
+            name: string;
+            data: number[];
+        }[];
+    };
+};
