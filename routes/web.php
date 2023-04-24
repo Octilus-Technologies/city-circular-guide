@@ -39,7 +39,6 @@ Route::get('dashboard', function (MonthlyUsersChart $chart) {
     try {
         $journeyCount = Journey::count();
         $userCount = User::count();
-        $journeys = Journey::latest()->paginate();
         $feedbackCount = 0; // fallback (table might not be there)
         $feedbackCount = Feedback::count();
         $monthlyUsersChart = $chart->build()->getData();
@@ -47,7 +46,7 @@ Route::get('dashboard', function (MonthlyUsersChart $chart) {
         //throw $th;
     }
 
-    return Inertia::render('Dashboard', compact('journeyCount', 'feedbackCount', 'userCount', 'journeys', 'monthlyUsersChart'));
+    return Inertia::render('Dashboard', compact('journeyCount', 'feedbackCount', 'userCount', 'monthlyUsersChart'));
 })->middleware(['auth', 'admin'])->name('dashboard');
 
 Route::middleware('auth')->group(function () {

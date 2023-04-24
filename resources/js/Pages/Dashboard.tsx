@@ -1,14 +1,14 @@
 import Chart from "@/Components/Chart";
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
+import { Inertia } from "@inertiajs/inertia";
 import { Head, Link } from "@inertiajs/inertia-react";
-import React from "react";
+import React, { useEffect, useState } from "react";
 
 type DashboardProps = {
     journeyCount: number;
     feedbackCount: number;
     userCount: number;
-    journeys: Paginated<JourneyDTO>;
-    monthlyUsersChart: ChartDTO;
+    monthlyUsersChart?: ChartDTO;
 } & CommonPageProps;
 
 export default function Dashboard(props: DashboardProps) {
@@ -54,13 +54,13 @@ export default function Dashboard(props: DashboardProps) {
                         </Link>
                     </div>
 
-                    <div className="card mt-3 bg-base-100 shadow">
+                    {!!props?.monthlyUsersChart && <div className="card mt-3 bg-base-100 shadow">
                         <div className="card-body">
                             <div className="overflow-hidden">
                                 <Chart data={props.monthlyUsersChart} />
                             </div>
                         </div>
-                    </div>
+                    </div>}
                 </div>
             </div>
         </AuthenticatedLayout >
