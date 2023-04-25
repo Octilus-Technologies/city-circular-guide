@@ -1,6 +1,6 @@
 import { getAllStopDetails } from "@/utils/geoJson";
 import { geocode, reverseGeocode } from "@/utils/mapbox-api";
-import { Inertia } from "@inertiajs/inertia";
+import { router } from "@inertiajs/react";
 import Fuse from "fuse.js";
 import React, { FormEventHandler, useCallback, useEffect, useState } from "react";
 import useGeolocation from "react-hook-geolocation";
@@ -135,7 +135,7 @@ function InitialRouteQueryForm({
 
         console.log({ from, destination });
 
-        Inertia.post("/journey", {
+        router.post("/journey", {
             from: from.value,
             destination: destination.value,
         } as any); // Inertia type definition bug

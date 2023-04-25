@@ -1,8 +1,7 @@
 import "@/bootstrap";
 import "../css/app.css";
 
-import { createInertiaApp } from "@inertiajs/inertia-react";
-import { InertiaProgress } from "@inertiajs/progress";
+import { createInertiaApp } from '@inertiajs/react';
 import { resolvePageComponent } from "laravel-vite-plugin/inertia-helpers";
 import React from "react";
 import { createRoot } from "react-dom/client";
@@ -22,6 +21,10 @@ createInertiaApp({
 
         root.render(<App {...props} />);
     },
+    progress: {
+        delay: 250,
+        color: "#f88459",
+        includeCSS: true,
+        showSpinner: false,
+    },
 });
-
-InertiaProgress.init({ color: "#4B5563" });

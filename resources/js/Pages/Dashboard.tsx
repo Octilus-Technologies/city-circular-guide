@@ -1,8 +1,7 @@
 import Chart from "@/Components/Chart";
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
-import { Inertia } from "@inertiajs/inertia";
-import { Head, Link } from "@inertiajs/inertia-react";
-import React, { useEffect, useState } from "react";
+import { Head, Link } from "@inertiajs/react";
+import React from "react";
 
 type DashboardProps = {
     journeyCount: number;

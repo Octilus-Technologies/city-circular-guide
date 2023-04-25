@@ -8,7 +8,7 @@ import SideBar from "@/Components/SideBar";
 import { Coordinates } from "@/utils/geoJson";
 import useCirculars from "@/utils/hooks/useCirculars";
 import useViewState from "@/utils/hooks/useViewState";
-import { Head } from "@inertiajs/inertia-react";
+import { Head } from "@inertiajs/react";
 import "mapbox-gl/dist/mapbox-gl.css";
 import React, { useMemo, useState } from "react";
 

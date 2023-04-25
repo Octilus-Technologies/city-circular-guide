@@ -1,5 +1,5 @@
 import BasicLayout from "@/Layouts/BasicLayout";
-import { useForm } from "@inertiajs/inertia-react";
+import { useForm } from "@inertiajs/react";
 import React from "react";
 
 function Contact(props: { submissionRoute: string }) {

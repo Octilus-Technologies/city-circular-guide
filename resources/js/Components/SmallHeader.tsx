@@ -1,12 +1,12 @@
 import AppIcon from "@/Components/AppIcon";
-import { InertiaLink, Link, usePage } from "@inertiajs/inertia-react";
-import React, { ComponentProps, ReactNode } from "react";
+import { InertiaLinkProps, Link, usePage } from "@inertiajs/react";
+import React, { ReactNode } from "react";
 
 type NavLinkProps = {
     href: string;
     children: ReactNode;
     forceDark?: boolean;
-} & ComponentProps<InertiaLink>;
+} & InertiaLinkProps;
 
 const NavLink = ({
     href,
@@ -43,9 +43,8 @@ function SmallHeader({ forceDark = false }: { forceDark?: boolean }) {
             <div className="container m-auto max-w-7xl">
                 <header className="hidden min-w-[35vw] pt-2 pb-1 md:block">
                     <nav
-                        className={`mx-1 mb-2 flex items-center justify-between gap-6 ${
-                            forceDark ? "text-white" : ""
-                        }`}
+                        className={`mx-1 mb-2 flex items-center justify-between gap-6 ${forceDark ? "text-white" : ""
+                            }`}
                     >
                         <Link href="/" className="flex items-center gap-2">
                             <AppIcon forceDark={forceDark} />

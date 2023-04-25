@@ -1,5 +1,5 @@
 import AppIcon from "@/Components/AppIcon";
-import { Link } from "@inertiajs/inertia-react";
+import { Link } from "@inertiajs/react";
 import React from "react";
 
 export default function Guest({ children }: {

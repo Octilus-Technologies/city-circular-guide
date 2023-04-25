@@ -1,11 +1,11 @@
-import React, { FormEventHandler, useEffect } from 'react';
 import Checkbox from '@/Components/Checkbox';
-import GuestLayout from '@/Layouts/GuestLayout';
 import InputError from '@/Components/InputError';
 import InputLabel from '@/Components/InputLabel';
 import PrimaryButton from '@/Components/PrimaryButton';
 import TextInput from '@/Components/TextInput';
-import { Head, Link, useForm } from '@inertiajs/inertia-react';
+import GuestLayout from '@/Layouts/GuestLayout';
+import { Head, Link, useForm } from '@inertiajs/react';
+import React, { FormEventHandler, useEffect } from 'react';
 
 export default function Login({ status, canResetPassword }: {
     status?: string;

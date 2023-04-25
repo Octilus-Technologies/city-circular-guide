@@ -6,7 +6,7 @@ import SideBar from "@/Components/SideBar";
 import { Coordinates, getCirculars } from "@/utils/geoJson";
 import useJourney from "@/utils/hooks/useJourney";
 import useViewState from "@/utils/hooks/useViewState";
-import { Inertia } from "@inertiajs/inertia";
+import { router } from "@inertiajs/react";
 import React, { useEffect, useMemo, useState } from "react";
 
 const isProduction = process.env.NODE_ENV === "production";
@@ -21,7 +21,7 @@ function Journey({
 }) {
     // Return to initial page if journey details are not available
     if (!journey.from || !journey.destination) {
-        return Inertia.visit("/");
+        return router.visit("/");
     }
 
     const [from, setFrom] = useState<Coordinates>([

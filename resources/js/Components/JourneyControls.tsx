@@ -1,7 +1,7 @@
 import JourneySteps from "@/Components/JourneySteps";
 import WalkSteps from "@/Components/WalkSteps";
 import { Segment } from "@/utils/hooks/useJourney";
-import { Inertia } from "@inertiajs/inertia";
+import { router } from "@inertiajs/react";
 import { GeometryObject } from "@turf/turf";
 import React, { Fragment } from "react";
 import { FaFlag, FaMapMarkerAlt } from "react-icons/fa";
@@ -56,9 +56,8 @@ function JourneyControls({
     return (
         <div className="flex flex-col items-start gap-3">
             <div
-                className={`align-center relative flex w-full justify-between gap-3 pt-4 pb-2 text-sm font-bold md:flex-row md:gap-1 ${
-                    expanded ? "flex-col" : ""
-                }`}
+                className={`align-center relative flex w-full justify-between gap-3 pt-4 pb-2 text-sm font-bold md:flex-row md:gap-1 ${expanded ? "flex-col" : ""
+                    }`}
             >
                 <span className="flex items-center justify-center gap-1 md:w-[25%]">
                     <FaMapMarkerAlt className="mr-1 inline-block flex-shrink-0 text-xl text-secondary" />
@@ -115,7 +114,7 @@ function JourneyControls({
             {!!expanded && (
                 <button
                     className="btn-outline btn-error btn mt-3 w-full px-5"
-                    onClick={() => Inertia.visit("/")}
+                    onClick={() => router.visit("/")}
                 >
                     Stop Journey
                 </button>

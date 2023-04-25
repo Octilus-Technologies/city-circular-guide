@@ -3,9 +3,7 @@ lockfileVersion: 5.4
 specifiers:
   '@formkit/auto-animate': 1.0.0-beta.5
   '@headlessui/react': ^1.7.14
-  '@inertiajs/inertia': ^0.11.1
-  '@inertiajs/inertia-react': ^0.8.1
-  '@inertiajs/progress': ^0.2.7
+  '@inertiajs/react': ^1.0.6
   '@tailwindcss/forms': ^0.5.3
   '@tailwindcss/typography': ^0.5.9
   '@turf/turf': ^6.5.0
@@ -46,9 +44,7 @@ dependencies:
 
 devDependencies:
   '@headlessui/react': 1.7.14_biqbaboplfbrettd7655fr4n2y
-  '@inertiajs/inertia': 0.11.1
-  '@inertiajs/inertia-react': 0.8.1_rklruaqualwo6h75enkiuwrtxm
-  '@inertiajs/progress': 0.2.7_@inertiajs+inertia@0.11.1
+  '@inertiajs/react': 1.0.6_react@18.2.0
   '@tailwindcss/forms': 0.5.3_tailwindcss@3.3.1
   '@tailwindcss/typography': 0.5.9_tailwindcss@3.3.1
   '@types/lodash': 4.14.194
@@ -487,34 +483,27 @@ packages:
       react-dom: 18.2.0_react@18.2.0
     dev: true
 
-  /@inertiajs/inertia-react/0.8.1_rklruaqualwo6h75enkiuwrtxm:
-    resolution: {integrity: sha512-9Uu7t4EA9FrcREwWnOU/qW5i4hYFt+uFn5cqP6RGJo8lJS4u8t6Q9358oHuQUKbFEbaIjUu7aslCL3/Istctlg==}
-    peerDependencies:
-      '@inertiajs/inertia': ^0.11.0
-      react: ^16.9.0 || ^17.0.0 || ^18.0.0
+  /@inertiajs/core/1.0.6:
+    resolution: {integrity: sha512-l1fna4c9h2Tw8EWRGrYd8XVOsNI9rNGKLiAnTfbW+tbcpCtsoBIDmp2OZpeMsBw8tuO7qJV+V01G11nsajrJdQ==}
     dependencies:
-      '@inertiajs/inertia': 0.11.1
-      lodash.isequal: 4.5.0
-      react: 18.2.0
-    dev: true
-
-  /@inertiajs/inertia/0.11.1:
-    resolution: {integrity: sha512-btmV53c54oW4Z9XF0YyTdIUnM7ue0ONy3/KJOz6J1C5CYIwimiKfDMpz8ZbGJuxS+SPdOlNsqj2ZhlHslpJRZg==}
-    dependencies:
-      axios: 0.21.4
+      axios: 1.3.6
       deepmerge: 4.3.1
+      nprogress: 0.2.0
       qs: 6.11.1
     transitivePeerDependencies:
       - debug
     dev: true
 
-  /@inertiajs/progress/0.2.7_@inertiajs+inertia@0.11.1:
-    resolution: {integrity: sha512-zxadfLlBPIUvTE9g5k71V/Ayzo8P9kEp4hV4UKywCC2kURufxV7bycbZqU1GeMCFGDT+VRrjXNl676Pwwa1HoQ==}
+  /@inertiajs/react/1.0.6_react@18.2.0:
+    resolution: {integrity: sha512-R7pfb93VkbXoJtN4gBddQCH10BB9DNk7VqcOlEVS5pVjVPhAU5lPJteFFFq7/WYb1fiAVczuWg+HjYvLzmDGRA==}
     peerDependencies:
-      '@inertiajs/inertia': ^0.6.0 || ^0.7.0 || ^0.8.0 || ^0.9.0 || ^0.10.0 || ^0.11.0
+      react: ^16.9.0 || ^17.0.0 || ^18.0.0
     dependencies:
-      '@inertiajs/inertia': 0.11.1
-      nprogress: 0.2.0
+      '@inertiajs/core': 1.0.6
+      lodash.isequal: 4.5.0
+      react: 18.2.0
+    transitivePeerDependencies:
+      - debug
     dev: true
 
   /@jridgewell/gen-mapping/0.3.3:
@@ -1787,14 +1776,6 @@ packages:
       picocolors: 1.0.0
       postcss: 8.4.23
       postcss-value-parser: 4.2.0
-    dev: true
-
-  /axios/0.21.4:
-    resolution: {integrity: sha512-ut5vewkiu8jjGBdqpM44XxjuCjq9LAKeHVmoVfHVzy8eHgxxq8SbAVQNovDA8mVi05kP0Ea/n/UzcSHcTJQfNg==}
-    dependencies:
-      follow-redirects: 1.15.2
-    transitivePeerDependencies:
-      - debug
     dev: true
 
   /axios/1.3.6:

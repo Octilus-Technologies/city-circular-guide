@@ -1,6 +1,6 @@
 import Pagination from "@/Components/Pagination";
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
-import { Head, Link } from "@inertiajs/inertia-react";
+import { Head, Link } from "@inertiajs/react";
 import React from "react";
 import { HiTrash } from "react-icons/hi";
 
@@ -20,7 +20,7 @@ function Index(props: UserIndexProps) {
             }
         >
             <Head title="Dashboard" />
-            
+
             <div className="py-6">
                 <div className="mx-auto max-w-7xl sm:px-6 lg:px-8">
                     <div className="card mt-3 bg-base-100 shadow">

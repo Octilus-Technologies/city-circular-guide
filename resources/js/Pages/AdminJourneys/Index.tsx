@@ -1,6 +1,6 @@
 import Pagination from "@/Components/Pagination";
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
-import { Head, Link } from "@inertiajs/inertia-react";
+import { Head } from "@inertiajs/react";
 import React from "react";
 import { HiOutlineEye } from "react-icons/hi";
 
