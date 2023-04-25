@@ -10,6 +10,7 @@
     "require": {
         "php": "^8.0.2",
         "arielmejiadev/larapex-charts": "^5.2",
+        "flowframe/laravel-trend": "^0.1.5",
         "guzzlehttp/guzzle": "^7.2",
         "inertiajs/inertia-laravel": "^0.6.9",
         "laravel/framework": "^9.19",

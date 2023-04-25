@@ -2,12 +2,12 @@
 
 namespace App\Charts;
 
-use App\Models\User;
+use App\Models\Journey;
 use Flowframe\Trend\Trend;
 use Illuminate\Http\JsonResponse;
 use ArielMejiaDev\LarapexCharts\LarapexChart;
 
-class MonthlyUsersChart
+class MonthlyJourneysChart
 {
     protected $chart;
 
@@ -18,7 +18,7 @@ class MonthlyUsersChart
 
     public function build(): JsonResponse
     {
-        $trend = Trend::model(User::class)
+        $trend = Trend::model(Journey::class)
             ->between(
                 start: now()->endOfMonth()->subYear(),
                 end: now()->endOfMonth(),
@@ -27,10 +27,10 @@ class MonthlyUsersChart
             ->count();
 
         return $this->chart->lineChart()
-            ->setTitle('New Users')
-            ->addLine('New users', $trend->map(fn ($value) => $value->aggregate)->toArray())
+            ->setTitle('Journeys')
+            ->addLine('Journey', $trend->map(fn ($value) => $value->aggregate)->toArray())
             ->setXAxis($trend->map(fn ($value) => $value->date)->toArray())
-            ->setColors(['#4646b9'])
+            ->setColors(['#ffc63b'])
             ->toJson();
     }
 }

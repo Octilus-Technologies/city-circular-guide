@@ -1,13 +1,14 @@
 import Chart from "@/Components/Chart";
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
-import { Head, Link } from "@inertiajs/react";
+import { Head, Link, router } from "@inertiajs/react";
 import React from "react";
 
 type DashboardProps = {
     journeyCount: number;
     feedbackCount: number;
     userCount: number;
-    monthlyUsersChart?: ChartDTO;
+    usersChart?: ChartDTO;
+    journeysChart?: ChartDTO;
 } & CommonPageProps;
 
 export default function Dashboard(props: DashboardProps) {
@@ -23,13 +24,13 @@ export default function Dashboard(props: DashboardProps) {
 
             <div className="py-6">
                 <div className="mx-auto max-w-7xl sm:px-6 lg:px-8">
-                    <div className="card bg-base-100 shadow">
+                    {/* <div className="card bg-base-100 shadow">
                         <div className="card-body">
                             <h2 className="card-title">
                                 Welcome back {props.auth.user.name}!
                             </h2>
                         </div>
-                    </div>
+                    </div> */}
 
                     <div className="stats mt-3 w-full shadow">
                         <Link href={route('admin.journeys.index')} className="stat">
@@ -53,10 +54,18 @@ export default function Dashboard(props: DashboardProps) {
                         </Link>
                     </div>
 
-                    {!!props?.monthlyUsersChart && <div className="card mt-3 bg-base-100 shadow">
+                    {!!props?.journeysChart && <div className="card mt-3 bg-base-100 shadow">
                         <div className="card-body">
                             <div className="overflow-hidden">
-                                <Chart data={props.monthlyUsersChart} />
+                                <Chart data={props.journeysChart} />
+                            </div>
+                        </div>
+                    </div>}
+
+                    {!!props?.usersChart && <div className="card mt-3 bg-base-100 shadow">
+                        <div className="card-body">
+                            <div className="overflow-hidden">
+                                <Chart data={props.usersChart} />
                             </div>
                         </div>
                     </div>}

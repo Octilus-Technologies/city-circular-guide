@@ -1,10 +1,5 @@
 <?php
 
-use App\Models\User;
-use Inertia\Inertia;
-use App\Models\Journey;
-use App\Models\Feedback;
-use App\Charts\MonthlyUsersChart;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\FaqController;
 use App\Http\Controllers\UserController;
@@ -12,6 +7,7 @@ use App\Http\Controllers\ProxyController;
 use App\Http\Controllers\JourneyController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\FeedbackController;
+use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\JourneyAdminController;
 
 /*
@@ -35,19 +31,9 @@ Route::resource('faq', FaqController::class)->only(['index', 'show']);
 Route::get('contact', [FeedbackController::class, 'create'])->name('feedback.create');
 Route::post('contact', [FeedbackController::class, 'store'])->name('feedback.store');
 
-Route::get('dashboard', function (MonthlyUsersChart $chart) {
-    try {
-        $journeyCount = Journey::count();
-        $userCount = User::count();
-        $feedbackCount = 0; // fallback (table might not be there)
-        $feedbackCount = Feedback::count();
-        $monthlyUsersChart = $chart->build()->getData();
-    } catch (\Throwable $th) {
-        //throw $th;
-    }
-
-    return Inertia::render('Dashboard', compact('journeyCount', 'feedbackCount', 'userCount', 'monthlyUsersChart'));
-})->middleware(['auth', 'admin'])->name('dashboard');
+Route::get('dashboard', [DashboardController::class, 'dashboard'])
+    ->middleware(['auth', 'admin'])
+    ->name('dashboard');
 
 Route::middleware('auth')->group(function () {
     Route::get('profile', [ProfileController::class, 'edit'])->name('profile.edit');
