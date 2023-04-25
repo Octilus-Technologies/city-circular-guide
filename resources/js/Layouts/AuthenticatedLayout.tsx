@@ -5,6 +5,7 @@ import NavLink from "@/Components/NavLink";
 import ResponsiveNavLink from "@/Components/ResponsiveNavLink";
 import { Link, usePage } from "@inertiajs/react";
 import React, { useState } from "react";
+import route from 'ziggy-js';
 
 export default function Authenticated({ header, children }: any) {
     const data = usePage<CommonPageProps>();

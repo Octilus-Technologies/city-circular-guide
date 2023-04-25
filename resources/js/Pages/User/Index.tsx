@@ -3,6 +3,7 @@ import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
 import { Head, Link } from "@inertiajs/react";
 import React from "react";
 import { HiTrash } from "react-icons/hi";
+import route from "ziggy-js";
 
 type UserIndexProps = {
     users: Paginated<UserDTO>;

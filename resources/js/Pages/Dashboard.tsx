@@ -1,7 +1,8 @@
 import Chart from "@/Components/Chart";
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
-import { Head, Link, router } from "@inertiajs/react";
+import { Head, Link } from "@inertiajs/react";
 import React from "react";
+import route from "ziggy-js";
 
 type DashboardProps = {
     journeyCount: number;
