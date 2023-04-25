@@ -2,6 +2,9 @@ import Chart from "@/Components/Chart";
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
 import { Head, Link } from "@inertiajs/react";
 import React from "react";
+import { FaMapMarkerAlt } from "react-icons/fa";
+import { FiUsers } from "react-icons/fi";
+import { TbMessages } from "react-icons/tb";
 import route from "ziggy-js";
 
 type DashboardProps = {
@@ -35,6 +38,10 @@ export default function Dashboard(props: DashboardProps) {
 
                     <div className="stats mt-3 w-full shadow">
                         <Link href={route('admin.journeys.index')} className="stat">
+                            <div className="stat-figure text-secondary">
+                                <FaMapMarkerAlt className="inline-block text-3xl opacity-90" />
+                            </div>
+
                             <div className="stat-title">Journeys</div>
                             <div className="stat-value">
                                 {props.journeyCount}
@@ -42,6 +49,10 @@ export default function Dashboard(props: DashboardProps) {
                             <div className="stat-actions"></div>
                         </Link>
                         <Link href={route('admin.feedbacks.index')} className="stat">
+                            <div className="stat-figure text-secondary">
+                                <TbMessages className="inline-block text-3xl opacity-90" />
+                            </div>
+
                             <div className="stat-title">Feedbacks</div>
                             <div className="stat-value">
                                 {props.feedbackCount}
@@ -49,6 +60,10 @@ export default function Dashboard(props: DashboardProps) {
                             <div className="stat-actions"></div>
                         </Link>
                         <Link href={route('admin.users.index')} className="stat">
+                            <div className="stat-figure text-secondary">
+                                <FiUsers className="inline-block text-3xl opacity-90" />
+                            </div>
+
                             <div className="stat-title">Users</div>
                             <div className="stat-value">{props.userCount}</div>
                             <div className="stat-actions"></div>
