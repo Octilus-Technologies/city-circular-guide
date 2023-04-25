@@ -8,20 +8,20 @@ specifiers:
   '@tailwindcss/typography': ^0.5.9
   '@turf/turf': ^6.5.0
   '@types/lodash': ^4.14.194
-  '@types/node': ^18.15.13
-  '@types/react': ^18.0.37
-  '@types/react-dom': ^18.0.11
+  '@types/node': ^18.16.0
+  '@types/react': ^18.2.0
+  '@types/react-dom': ^18.2.0
   '@vitejs/plugin-react': ^2.2.0
   apexcharts: ^3.39.0
   autoprefixer: ^10.4.14
   axios: ^1.3.6
-  daisyui: ^2.51.5
+  daisyui: ^2.51.6
   fuse.js: ^6.6.2
   laravel-vite-plugin: ^0.7.4
   lodash: ^4.17.21
   mapbox-gl: ^2.14.1
   postcss: ^8.4.23
-  prettier: ^2.8.7
+  prettier: ^2.8.8
   prettier-plugin-tailwindcss: ^0.2.7
   react: ^18.2.0
   react-apexcharts: ^1.4.0
@@ -48,29 +48,29 @@ devDependencies:
   '@tailwindcss/forms': 0.5.3_tailwindcss@3.3.1
   '@tailwindcss/typography': 0.5.9_tailwindcss@3.3.1
   '@types/lodash': 4.14.194
-  '@types/node': 18.15.13
-  '@types/react': 18.0.37
-  '@types/react-dom': 18.0.11
+  '@types/node': 18.16.0
+  '@types/react': 18.2.0
+  '@types/react-dom': 18.2.0
   '@vitejs/plugin-react': 2.2.0_vite@3.2.6
   apexcharts: 3.39.0
   autoprefixer: 10.4.14_postcss@8.4.23
   axios: 1.3.6
-  daisyui: 2.51.5_zmwpaxxolxfsc5pnrezed2bx24
+  daisyui: 2.51.6_zmwpaxxolxfsc5pnrezed2bx24
   laravel-vite-plugin: 0.7.4_vite@3.2.6
   lodash: 4.17.21
   mapbox-gl: 2.14.1
   postcss: 8.4.23
-  prettier: 2.8.7
-  prettier-plugin-tailwindcss: 0.2.7_prettier@2.8.7
+  prettier: 2.8.8
+  prettier-plugin-tailwindcss: 0.2.7_prettier@2.8.8
   react: 18.2.0
   react-apexcharts: 1.4.0_vimzxmsr6jarszy4couak7ghra
   react-dom: 18.2.0_react@18.2.0
   react-map-gl: 7.0.23_g6r4ijc476jj4gyj3d7hpli4dy
-  react-select: 5.7.2_jf7puk66b2eiqxne3oe3xlxkou
+  react-select: 5.7.2_cis5wmpl6sllca25ejrqakjpau
   tailwind-scrollbar: 2.1.0_tailwindcss@3.3.1
   tailwindcss: 3.3.1_postcss@8.4.23
   typescript: 4.9.5
-  vite: 3.2.6_@types+node@18.15.13
+  vite: 3.2.6_@types+node@18.16.0
 
 packages:
 
@@ -384,7 +384,7 @@ packages:
     resolution: {integrity: sha512-G/YwXTkv7Den9mXDO7AhLWkE3q+I92B+VqAE+dYG4NGPaHZGvt3G8Q0p9vmE+sq7rTGphUbAvmQ9YpbfMQGGlA==}
     dev: true
 
-  /@emotion/react/11.10.6_24ukasupqqblpyncii3ycicuiu:
+  /@emotion/react/11.10.6_3mjolpizrsjgnt7s4ahgoveqvu:
     resolution: {integrity: sha512-6HT8jBmcSkfzO7mc+N1L9uwvOnlcGoix8Zn7srt+9ga0MjREo6lRpuVX0kzo6Jp6oTqDhREOFsygN6Ew4fEQbw==}
     peerDependencies:
       '@types/react': '*'
@@ -400,7 +400,7 @@ packages:
       '@emotion/use-insertion-effect-with-fallbacks': 1.0.0_react@18.2.0
       '@emotion/utils': 1.2.0
       '@emotion/weak-memoize': 0.3.0
-      '@types/react': 18.0.37
+      '@types/react': 18.2.0
       hoist-non-react-statics: 3.3.2
       react: 18.2.0
     dev: true
@@ -1670,8 +1670,8 @@ packages:
       '@types/geojson': 7946.0.10
     dev: true
 
-  /@types/node/18.15.13:
-    resolution: {integrity: sha512-N+0kuo9KgrUQ1Sn/ifDXsvg0TTleP7rIy4zOBGECxAljqvqfqpTfzx0Q1NUedOixRMBfe2Whhb056a42cWs26Q==}
+  /@types/node/18.16.0:
+    resolution: {integrity: sha512-BsAaKhB+7X+H4GnSjGhJG9Qi8Tw+inU9nJDwmD5CgOmBLEI6ArdhikpLX7DjbjDRDTbqZzU2LSQNZg8WGPiSZQ==}
     dev: true
 
   /@types/parse-json/4.0.0:
@@ -1682,20 +1682,20 @@ packages:
     resolution: {integrity: sha512-JCB8C6SnDoQf0cNycqd/35A7MjcnK+ZTqE7judS6o7utxUCg6imJg3QK2qzHKszlTjcj2cn+NwMB2i96ubpj7w==}
     dev: true
 
-  /@types/react-dom/18.0.11:
-    resolution: {integrity: sha512-O38bPbI2CWtgw/OoQoY+BRelw7uysmXbWvw3nLWO21H1HSh+GOlqPuXshJfjmpNlKiiSDG9cc1JZAaMmVdcTlw==}
+  /@types/react-dom/18.2.0:
+    resolution: {integrity: sha512-8yQrvS6sMpSwIovhPOwfyNf2Wz6v/B62LFSVYQ85+Rq3tLsBIG7rP5geMxaijTUxSkrO6RzN/IRuIAADYQsleA==}
     dependencies:
-      '@types/react': 18.0.37
+      '@types/react': 18.2.0
     dev: true
 
   /@types/react-transition-group/4.4.5:
     resolution: {integrity: sha512-juKD/eiSM3/xZYzjuzH6ZwpP+/lejltmiS3QEzV/vmb/Q8+HfDmxu+Baga8UEMGBqV88Nbg4l2hY/K2DkyaLLA==}
     dependencies:
-      '@types/react': 18.0.37
+      '@types/react': 18.2.0
     dev: true
 
-  /@types/react/18.0.37:
-    resolution: {integrity: sha512-4yaZZtkRN3ZIQD3KSEwkfcik8s0SWV+82dlJot1AbGYHCzJkWP3ENBY6wYeDRmKZ6HkrgoGAmR2HqdwYGp6OEw==}
+  /@types/react/18.2.0:
+    resolution: {integrity: sha512-0FLj93y5USLHdnhIhABk83rm8XEGA7kH3cr+YUlvxoUGp1xNt/DINUMvqPxLyOQMzLmZe8i4RTHbvb8MC7NmrA==}
     dependencies:
       '@types/prop-types': 15.7.5
       '@types/scheduler': 0.16.3
@@ -1719,7 +1719,7 @@ packages:
       '@babel/plugin-transform-react-jsx-source': 7.19.6_@babel+core@7.21.4
       magic-string: 0.26.7
       react-refresh: 0.14.0
-      vite: 3.2.6_@types+node@18.15.13
+      vite: 3.2.6_@types+node@18.16.0
     transitivePeerDependencies:
       - supports-color
     dev: true
@@ -1826,7 +1826,7 @@ packages:
     hasBin: true
     dependencies:
       caniuse-lite: 1.0.30001481
-      electron-to-chromium: 1.4.368
+      electron-to-chromium: 1.4.371
       node-releases: 2.0.10
       update-browserslist-db: 1.0.11_browserslist@4.21.5
     dev: true
@@ -1994,8 +1994,8 @@ packages:
     resolution: {integrity: sha512-RhGS1u2vavcO7ay7ZNAPo4xeDh/VYeGof3x5ZLJBQgYhLegxr3s5IykvWmJ94FTU6mcbtp4sloqZ54mP6R4Utw==}
     dev: false
 
-  /daisyui/2.51.5_zmwpaxxolxfsc5pnrezed2bx24:
-    resolution: {integrity: sha512-L05dRw0tasmz2Ha+10LhftEGLq4kaA8vRR/T0wDaXfHwqcgsf81jfXDJ6NlZ63Z7Rl1k3rj7UHs0l0p7CM3aYA==}
+  /daisyui/2.51.6_zmwpaxxolxfsc5pnrezed2bx24:
+    resolution: {integrity: sha512-JRqOKayuFCmWe4X4k6Qvx1y7V/VNao8U5eTSOhusOKIzCsYqf56+TCSe4d7zmqGE0V6JiLDYAT8JeoWUeRKFCw==}
     peerDependencies:
       autoprefixer: ^10.0.2
       postcss: ^8.1.6
@@ -2073,8 +2073,8 @@ packages:
   /earcut/2.2.4:
     resolution: {integrity: sha512-/pjZsA1b4RPHbeWZQn66SWS8nZZWLQQ23oE3Eam7aroEFGEvwKAsJfZ9ytiEMycfzXWpca4FA9QIOehf7PocBQ==}
 
-  /electron-to-chromium/1.4.368:
-    resolution: {integrity: sha512-e2aeCAixCj9M7nJxdB/wDjO6mbYX+lJJxSJCXDzlr5YPGYVofuJwGN9nKg2o6wWInjX6XmxRinn3AeJMK81ltw==}
+  /electron-to-chromium/1.4.371:
+    resolution: {integrity: sha512-jlBzY4tFcJaiUjzhRTCWAqRvTO/fWzjA3Bls0mykzGZ7zvcMP7h05W6UcgzfT9Ca1SW2xyKDOFRyI0pQeRNZGw==}
     dev: true
 
   /error-ex/1.3.2:
@@ -2615,7 +2615,7 @@ packages:
       vite: ^3.0.0 || ^4.0.0
     dependencies:
       picocolors: 1.0.0
-      vite: 3.2.6_@types+node@18.15.13
+      vite: 3.2.6_@types+node@18.16.0
       vite-plugin-full-reload: 1.0.5_vite@3.2.6
     dev: true
 
@@ -2874,7 +2874,7 @@ packages:
   /polygon-clipping/0.15.3:
     resolution: {integrity: sha512-ho0Xx5DLkgxRx/+n4O74XyJ67DcyN3Tu9bGYKsnTukGAW6ssnuak6Mwcyb1wHy9MZc9xsUWqIoiazkZB5weECg==}
     dependencies:
-      splaytree: 3.1.1
+      splaytree: 3.1.2
     dev: false
 
   /postcss-import/14.1.0_postcss@8.4.23:
@@ -2959,7 +2959,7 @@ packages:
     resolution: {integrity: sha512-Q+/tYsFU9r7xoOJ+y/ZTtdVQwTWfzjbiXBDMM/JKUux3+QPP02iUuIoeBQ+Ot6oEDlC+/PGjB/5A3K7KKb7hcw==}
     dev: true
 
-  /prettier-plugin-tailwindcss/0.2.7_prettier@2.8.7:
+  /prettier-plugin-tailwindcss/0.2.7_prettier@2.8.8:
     resolution: {integrity: sha512-jQopIOgjLpX+y8HeD56XZw7onupRTC0cw7eKKUimI7vhjkPF5/1ltW5LyqaPtSyc8HvEpvNZsvvsGFa2qpa59w==}
     engines: {node: '>=12.17.0'}
     peerDependencies:
@@ -3011,11 +3011,11 @@ packages:
       prettier-plugin-twig-melody:
         optional: true
     dependencies:
-      prettier: 2.8.7
+      prettier: 2.8.8
     dev: true
 
-  /prettier/2.8.7:
-    resolution: {integrity: sha512-yPngTo3aXUUmyuTjeTUT75txrf+aMh9FiD7q9ZE/i6r0bPb22g4FsE6Y338PQX1bmfy08i9QQCB7/rcUAVntfw==}
+  /prettier/2.8.8:
+    resolution: {integrity: sha512-tdN8qQGvNjw4CHbY+XXk0JgCXn9QiF21a55rBe5LJAU+kDyC4WQn4+awm2Xfk2lQMk5fKup9XgzTZtGkjBdP9Q==}
     engines: {node: '>=10.13.0'}
     hasBin: true
     dev: true
@@ -3128,7 +3128,7 @@ packages:
     engines: {node: '>=0.10.0'}
     dev: true
 
-  /react-select/5.7.2_jf7puk66b2eiqxne3oe3xlxkou:
+  /react-select/5.7.2_cis5wmpl6sllca25ejrqakjpau:
     resolution: {integrity: sha512-cTlJkQ8YjV6T/js8wW0owTzht0hHGABh29vjLscY4HfZGkv7hc3FFTmRp9NzY/Ib1uQ36GieAKEjxpHdpCFpcA==}
     peerDependencies:
       react: ^16.8.0 || ^17.0.0 || ^18.0.0
@@ -3136,7 +3136,7 @@ packages:
     dependencies:
       '@babel/runtime': 7.21.0
       '@emotion/cache': 11.10.7
-      '@emotion/react': 11.10.6_24ukasupqqblpyncii3ycicuiu
+      '@emotion/react': 11.10.6_3mjolpizrsjgnt7s4ahgoveqvu
       '@floating-ui/dom': 1.2.6
       '@types/react-transition-group': 4.4.5
       memoize-one: 6.0.0
@@ -3144,7 +3144,7 @@ packages:
       react: 18.2.0
       react-dom: 18.2.0_react@18.2.0
       react-transition-group: 4.4.5_biqbaboplfbrettd7655fr4n2y
-      use-isomorphic-layout-effect: 1.1.2_24ukasupqqblpyncii3ycicuiu
+      use-isomorphic-layout-effect: 1.1.2_3mjolpizrsjgnt7s4ahgoveqvu
     transitivePeerDependencies:
       - '@types/react'
     dev: true
@@ -3286,8 +3286,8 @@ packages:
     deprecated: Please use @jridgewell/sourcemap-codec instead
     dev: true
 
-  /splaytree/3.1.1:
-    resolution: {integrity: sha512-9FaQ18FF0+sZc/ieEeXHt+Jw2eSpUgUtTLDYB/HXKWvhYVyOc7h1hzkn5MMO3GPib9MmXG1go8+OsBBzs/NMww==}
+  /splaytree/3.1.2:
+    resolution: {integrity: sha512-4OM2BJgC5UzrhVnnJA4BkHKGtjXNzzUfpQjCO8I05xYPsfS/VuQDwjCGGMi8rYQilHEV4j8NBqTFbls/PZEE7A==}
     dev: false
 
   /stylis/4.1.3:
@@ -3491,7 +3491,7 @@ packages:
       picocolors: 1.0.0
     dev: true
 
-  /use-isomorphic-layout-effect/1.1.2_24ukasupqqblpyncii3ycicuiu:
+  /use-isomorphic-layout-effect/1.1.2_3mjolpizrsjgnt7s4ahgoveqvu:
     resolution: {integrity: sha512-49L8yCO3iGT/ZF9QttjwLF/ZD9Iwto5LnH5LmEdk/6cFmXddqi2ulF0edxTwjj+7mqvpVVGQWvbXZdn32wRSHA==}
     peerDependencies:
       '@types/react': '*'
@@ -3500,7 +3500,7 @@ packages:
       '@types/react':
         optional: true
     dependencies:
-      '@types/react': 18.0.37
+      '@types/react': 18.2.0
       react: 18.2.0
     dev: true
 
@@ -3515,10 +3515,10 @@ packages:
     dependencies:
       picocolors: 1.0.0
       picomatch: 2.3.1
-      vite: 3.2.6_@types+node@18.15.13
+      vite: 3.2.6_@types+node@18.16.0
     dev: true
 
-  /vite/3.2.6_@types+node@18.15.13:
+  /vite/3.2.6_@types+node@18.16.0:
     resolution: {integrity: sha512-nTXTxYVvaQNLoW5BQ8PNNQ3lPia57gzsQU/Khv+JvzKPku8kNZL6NMUR/qwXhMG6E+g1idqEPanomJ+VZgixEg==}
     engines: {node: ^14.18.0 || >=16.0.0}
     hasBin: true
@@ -3543,7 +3543,7 @@ packages:
       terser:
         optional: true
     dependencies:
-      '@types/node': 18.15.13
+      '@types/node': 18.16.0
       esbuild: 0.15.18
       postcss: 8.4.23
       resolve: 1.22.2
