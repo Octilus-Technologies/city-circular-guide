@@ -7,6 +7,25 @@ import { Link, usePage } from "@inertiajs/react";
 import React, { useState } from "react";
 import route from 'ziggy-js';
 
+const routes = [
+    {
+        name: "dashboard",
+        label: "Dashboard"
+    },
+    {
+        name: "admin.journeys.index",
+        label: "Journeys"
+    },
+    {
+        name: "admin.users.index",
+        label: "Users"
+    },
+    {
+        name: "admin.feedbacks.index",
+        label: "Feedbacks"
+    }
+];
+
 export default function Authenticated({ header, children }: any) {
     const data = usePage<CommonPageProps>();
     const { auth } = data.props;
@@ -27,33 +46,17 @@ export default function Authenticated({ header, children }: any) {
                             </div>
 
                             <div className="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
-                                <NavLink
-                                    href={route("dashboard")}
-                                    active={route().current("dashboard")}
-                                >
-                                    Dashboard
-                                </NavLink>
-
-                                <NavLink
-                                    href={route("admin.journeys.index")}
-                                    active={route().current("admin.journeys.index")}
-                                >
-                                    Journeys
-                                </NavLink>
-
-                                <NavLink
-                                    href={route("admin.users.index")}
-                                    active={route().current("admin.users.index")}
-                                >
-                                    Users
-                                </NavLink>
-
-                                <NavLink
-                                    href={route("admin.feedbacks.index")}
-                                    active={route().current("admin.feedbacks.index")}
-                                >
-                                    Feedbacks
-                                </NavLink>
+                                {
+                                    routes.map(r => (
+                                        <NavLink
+                                            key={r.name}
+                                            href={route(r.name)}
+                                            active={route().current(r.name)}
+                                        >
+                                            {r.label}
+                                        </NavLink>
+                                    ))
+                                }
                             </div>
                         </div>
 
@@ -152,12 +155,17 @@ export default function Authenticated({ header, children }: any) {
                     }
                 >
                     <div className="space-y-1 pb-3 pt-2">
-                        <ResponsiveNavLink
-                            href={route("dashboard")}
-                            active={route().current("dashboard")}
-                        >
-                            Dashboard
-                        </ResponsiveNavLink>
+                        {
+                            routes.map(r => (
+                                <ResponsiveNavLink
+                                    key={r.name}
+                                    href={route(r.name)}
+                                    active={route().current(r.name)}
+                                >
+                                    {r.label}
+                                </ResponsiveNavLink>
+                            ))
+                        }
                     </div>
 
                     <div className="border-t border-gray-200 pb-1 pt-4">

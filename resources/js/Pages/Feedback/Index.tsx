@@ -1,4 +1,5 @@
 import Pagination from "@/Components/Pagination";
+import Card from "@/Components/ui/Card";
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
 import { Head } from "@inertiajs/react";
 import React from "react";
@@ -21,64 +22,63 @@ function Index(props: FeedbackIndexProps) {
         >
             <Head title="Dashboard" />
 
-            <div className="py-6">
+            <div className="py-2 md:py-6">
                 <div className="mx-auto max-w-7xl sm:px-6 lg:px-8">
-                    <div className="card mt-3 bg-base-100 shadow">
-                        <div className="card-body">
-                            <div className="overflow-x-auto">
-                                <table className="table table-zebra w-full">
-                                    <thead>
-                                        <tr>
-                                            <th className="!relative">ID</th>
-                                            <th>Created At</th>
-                                            <th>Name</th>
-                                            <th>Email Id</th>
-                                            <th>Message</th>
-                                            <th>
-                                                <span className="sr-only">Actions</span>
-                                            </th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        {feedbacks.data.map((feedback, k) => {
-                                            return (
-                                                <tr key={k}>
-                                                    <td>
-                                                        <small>
-                                                            {feedback.id}
-                                                        </small>
-                                                    </td>
-                                                    <td>
-                                                        <small
-                                                            className="tooltip"
-                                                            data-tip={new Date(
-                                                                feedback.created_at
-                                                            ).toDateString()}
-                                                        >
-                                                            {feedback.created_at_diff}
-                                                        </small>
-                                                    </td>
-                                                    <td>
-                                                        <small>
-                                                            {feedback.name}
-                                                        </small>
-                                                    </td>
-                                                    <td>
-                                                        <small>
-                                                            {feedback.email}
-                                                        </small>
-                                                    </td>
-                                                    <td>
-                                                        <small className="!whitespace-pre-wrap">
-                                                            {feedback.message}
-                                                        </small>
-                                                    </td>
-                                                    <td>
-                                                        {/* TODO: Add View Button */}
+                    <Card>
+                        <div className="overflow-x-auto">
+                            <table className="table table-zebra w-full">
+                                <thead>
+                                    <tr>
+                                        <th className="!relative">ID</th>
+                                        <th>Created At</th>
+                                        <th>Name</th>
+                                        <th>Email Id</th>
+                                        <th>Message</th>
+                                        <th>
+                                            <span className="sr-only">Actions</span>
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {feedbacks.data.map((feedback, k) => {
+                                        return (
+                                            <tr key={k}>
+                                                <td>
+                                                    <small>
+                                                        {feedback.id}
+                                                    </small>
+                                                </td>
+                                                <td>
+                                                    <small
+                                                        className="tooltip"
+                                                        data-tip={new Date(
+                                                            feedback.created_at
+                                                        ).toDateString()}
+                                                    >
+                                                        {feedback.created_at_diff}
+                                                    </small>
+                                                </td>
+                                                <td>
+                                                    <small>
+                                                        {feedback.name}
+                                                    </small>
+                                                </td>
+                                                <td>
+                                                    <small>
+                                                        {feedback.email}
+                                                    </small>
+                                                </td>
+                                                <td>
+                                                    <small className="!whitespace-pre-wrap">
+                                                        {feedback.message}
+                                                    </small>
+                                                </td>
+                                                <td>
+                                                    {/* TODO: Add View Button */}
 
-                                                        {/* TODO: Add Edit Button */}
+                                                    {/* TODO: Add Edit Button */}
 
-                                                        {/* <Link
+                                                    {/* <Link
                                                             href={route("feedbacks.destroy", {
                                                                 feedback,
                                                             })}
@@ -89,22 +89,21 @@ function Index(props: FeedbackIndexProps) {
                                                         >
                                                             <HiTrash className="w-5" />
                                                         </Link> */}
-                                                    </td>
-                                                </tr>
-                                            );
-                                        })}
-                                    </tbody>
-                                </table>
-                            </div>
-
-                            <div className="pagination-container mt-5 flex w-full items-center justify-center">
-                                <Pagination
-                                    links={feedbacks.links}
-                                    meta={feedbacks.meta}
-                                />
-                            </div>
+                                                </td>
+                                            </tr>
+                                        );
+                                    })}
+                                </tbody>
+                            </table>
                         </div>
-                    </div>
+
+                        <div className="pagination-container mt-5 flex w-full items-center justify-center">
+                            <Pagination
+                                links={feedbacks.links}
+                                meta={feedbacks.meta}
+                            />
+                        </div>
+                    </Card>
                 </div>
             </div>
         </AuthenticatedLayout>

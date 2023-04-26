@@ -1,10 +1,11 @@
 import Chart from "@/Components/Chart";
+import Card from "@/Components/ui/Card";
+import Stat from "@/Components/ui/Stat";
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
-import { Head, Link } from "@inertiajs/react";
+import { Head } from "@inertiajs/react";
 import React from "react";
 import { FaMapMarkerAlt } from "react-icons/fa";
 import { FiUsers } from "react-icons/fi";
-import { TbMessages } from "react-icons/tb";
 import route from "ziggy-js";
 
 type DashboardProps = {
@@ -26,67 +27,51 @@ export default function Dashboard(props: DashboardProps) {
         >
             <Head title="Dashboard" />
 
-            <div className="py-6">
+            <div className="py-2 sm:py-6">
                 <div className="mx-auto max-w-7xl sm:px-6 lg:px-8">
-                    {/* <div className="card bg-base-100 shadow">
-                        <div className="card-body">
-                            <h2 className="card-title">
-                                Welcome back {props.auth.user.name}!
-                            </h2>
-                        </div>
-                    </div> */}
+                    <div className="stats mt-3 w-full rounded-none shadow sm:rounded-2xl">
+                        <Stat
+                            link={route("admin.journeys.index")}
+                            icon={<FaMapMarkerAlt className="inline-block text-3xl opacity-90" />}
+                            title={"Journeys"}
+                        >
+                            {props.journeyCount}
+                        </Stat>
 
-                    <div className="stats mt-3 w-full shadow">
-                        <Link href={route('admin.journeys.index')} className="stat">
-                            <div className="stat-figure text-secondary">
-                                <FaMapMarkerAlt className="inline-block text-3xl opacity-90" />
-                            </div>
+                        <Stat
+                            link={route("admin.users.index")}
+                            icon={<FiUsers className="inline-block text-3xl opacity-90" />}
+                            title={"Users"}
+                        >
+                            {props.userCount}
+                        </Stat>
 
-                            <div className="stat-title">Journeys</div>
-                            <div className="stat-value">
-                                {props.journeyCount}
-                            </div>
-                            <div className="stat-actions"></div>
-                        </Link>
-                        <Link href={route('admin.feedbacks.index')} className="stat">
-                            <div className="stat-figure text-secondary">
-                                <TbMessages className="inline-block text-3xl opacity-90" />
-                            </div>
-
-                            <div className="stat-title">Feedbacks</div>
-                            <div className="stat-value">
-                                {props.feedbackCount}
-                            </div>
-                            <div className="stat-actions"></div>
-                        </Link>
-                        <Link href={route('admin.users.index')} className="stat">
-                            <div className="stat-figure text-secondary">
-                                <FiUsers className="inline-block text-3xl opacity-90" />
-                            </div>
-
-                            <div className="stat-title">Users</div>
-                            <div className="stat-value">{props.userCount}</div>
-                            <div className="stat-actions"></div>
-                        </Link>
+                        <Stat
+                            link={route("admin.users.index")}
+                            icon={<FiUsers className="inline-block text-3xl opacity-90" />}
+                            title={"Users"}
+                        >
+                            {props.userCount}
+                        </Stat>
                     </div>
 
-                    {!!props?.journeysChart && <div className="card mt-3 bg-base-100 shadow">
-                        <div className="card-body">
+                    {!!props?.journeysChart && (
+                        <Card>
                             <div className="overflow-hidden">
                                 <Chart data={props.journeysChart} />
                             </div>
-                        </div>
-                    </div>}
+                        </Card>
+                    )}
 
-                    {!!props?.usersChart && <div className="card mt-3 bg-base-100 shadow">
-                        <div className="card-body">
+                    {!!props?.usersChart && (
+                        <Card>
                             <div className="overflow-hidden">
                                 <Chart data={props.usersChart} />
                             </div>
-                        </div>
-                    </div>}
+                        </Card>
+                    )}
                 </div>
             </div>
-        </AuthenticatedLayout >
+        </AuthenticatedLayout>
     );
 }
