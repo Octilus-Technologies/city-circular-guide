@@ -6,6 +6,7 @@ import { Head } from "@inertiajs/react";
 import React from "react";
 import { FaMapMarkerAlt } from "react-icons/fa";
 import { FiUsers } from "react-icons/fi";
+import { TbMessages } from "react-icons/tb";
 import route from "ziggy-js";
 
 type DashboardProps = {
@@ -39,11 +40,11 @@ export default function Dashboard(props: DashboardProps) {
                         </Stat>
 
                         <Stat
-                            link={route("admin.users.index")}
-                            icon={<FiUsers className="inline-block text-3xl opacity-90" />}
-                            title={"Users"}
+                            link={route("admin.feedbacks.index")}
+                            icon={<TbMessages className="inline-block text-3xl opacity-90" />}
+                            title={"Feedbacks"}
                         >
-                            {props.userCount}
+                            {props.feedbackCount}
                         </Stat>
 
                         <Stat
