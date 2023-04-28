@@ -32,4 +32,11 @@ class FeedbackController extends Controller
 
         return Inertia::render('Feedback/Index', compact('feedbacks'));
     }
+
+    public function show(Feedback $feedback)
+    {
+        $feedback = FeedbackResource::make($feedback);
+
+        return Inertia::render('Feedback/Show', compact('feedback'));
+    }
 }

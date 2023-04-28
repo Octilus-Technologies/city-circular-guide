@@ -3,7 +3,7 @@ import Card from "@/Components/ui/Card";
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
 import { Head, Link } from "@inertiajs/react";
 import React from "react";
-import { HiTrash } from "react-icons/hi";
+import { HiOutlineEye, HiTrash } from "react-icons/hi";
 import route from "ziggy-js";
 
 type UserIndexProps = {
@@ -103,7 +103,15 @@ function Index(props: UserIndexProps) {
                                                     </span>
                                                 </td>
                                                 <td>
-                                                    {/* TODO: Add View Button */}
+                                                    <Link
+                                                        href={route(
+                                                            "admin.users.show",
+                                                            user
+                                                        )}
+                                                        className="btn-ghost btn-square btn"
+                                                    >
+                                                        <HiOutlineEye className="w-5" />
+                                                    </Link>
 
                                                     {/* TODO: Add Edit Button */}
 

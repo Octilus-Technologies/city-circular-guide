@@ -1,8 +1,10 @@
 import Pagination from "@/Components/Pagination";
 import Card from "@/Components/ui/Card";
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
-import { Head } from "@inertiajs/react";
+import { Head, Link } from "@inertiajs/react";
 import React from "react";
+import { HiOutlineEye } from "react-icons/hi";
+import route from "ziggy-js";
 
 
 type FeedbackIndexProps = {
@@ -20,7 +22,7 @@ function Index(props: FeedbackIndexProps) {
                 </h2>
             }
         >
-            <Head title="Dashboard" />
+            <Head title="Feedbacks" />
 
             <div className="py-2 md:py-6">
                 <div className="mx-auto max-w-7xl sm:px-6 lg:px-8">
@@ -74,7 +76,15 @@ function Index(props: FeedbackIndexProps) {
                                                     </small>
                                                 </td>
                                                 <td>
-                                                    {/* TODO: Add View Button */}
+                                                    <Link
+                                                        href={route(
+                                                            "admin.feedbacks.show",
+                                                            feedback
+                                                        )}
+                                                        className="btn-ghost btn-square btn"
+                                                    >
+                                                        <HiOutlineEye className="w-5" />
+                                                    </Link>
 
                                                     {/* TODO: Add Edit Button */}
 

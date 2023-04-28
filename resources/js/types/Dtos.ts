@@ -22,9 +22,9 @@ type JourneyDTO = {
     end_time?: string;
     meta?: MetaDTO;
     user_id?: string;
-    deleted_at?: Date;
-    created_at?: Date;
-    updated_at?: Date;
+    deleted_at?: string;
+    created_at?: string;
+    updated_at?: string;
     from: LocationDTO;
     destination: LocationDTO;
     time_ago: string;
@@ -91,10 +91,10 @@ interface UserDTO {
     id: number;
     name: string;
     email: string;
-    email_verified_at?: Date;
+    email_verified_at?: string;
     avatar: string;
     is_admin?: boolean;
-    created_at: Date;
+    created_at: string;
     created_at_diff: string;
 }
 
@@ -103,9 +103,9 @@ interface FeedbackDTO {
     name: string;
     email: string;
     message: string;
-    created_at: Date;
-    updated_at?: Date;
-    deleted_at?: Date;
+    created_at: string;
+    updated_at?: string;
+    deleted_at?: string;
     created_at_diff: string;
 }
 
