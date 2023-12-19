@@ -1,8 +1,7 @@
 # City Circular Guide - Trivandrum
 
-by OIL ([Octilus Innovations Lab](https://octilus.in/))
-
 ![Logo](https://github.com/Octilus-Technologies/city-circular-guide/blob/main/docs/ccg_logo.png?raw=true)
+by OIL ([Octilus Innovations Lab](https://octilus.in/))
 
 City Circular Service is an innovative transportation network, introduced by KSRTC for the first time in the state of Kerala. The city to have the first launch will be Thiruvananthapuram. After this, it will be introduced in other major cities like Kozhikode, Kochi, etc. This is the first public transportation system in Kerala with Hope on Hope Off model.
 
