@@ -1,4 +1,4 @@
-# CityCircular Guide - Trivandrum
+# City Circular Guide - Trivandrum
 
 by OIL (Octilus Innovations Lab)
 
